@@ -7,6 +7,6 @@
 - Depois de realizar alterações
   ```shell
   git add .
-  git commit -m "mensagem"
+  git commit -m "mensagemDeAlteracao"
   git push
   ```
