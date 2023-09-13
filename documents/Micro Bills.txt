@@ -1,0 +1,15 @@
+Resumo:
+O objetivo do aplicativo seria os usuários anotarem seus gastos no aplicativo. O aplicativo apresentaria funções de calcular todos os gastos, marcar os dias/datas para quando determinada conta teria que ser paga. O app iria guardar em um banco de dados todos as contas pagas dos meses anteriores, e poderia fazer um cálculo envolvendo gráficos de setores (conhecido como pizza) ou gráfico de coluna sobre quais meses o usuário mais gastou e quais meses o usuário menos gastou. Pode ter também análises anuais para o usuário, o quanto ele/ela gastou o ano todo, um filtro de listagem dos meses mais gastos para os meses menos gastos, ou o inverso (primeiro os meses menos gastos para os meses mais gastos). 
+Em certas telas de carregamentos ou em algum lugar do aplicativo, ele daria dicas sobre economia, para o usuário poder ler e pensar um pouco sobre.
+
+Se por acaso criarmos um sistema web para este projeto, poderíamos implementar funções como exportar arquivos .pdf ou .xls sobre o que o usuário estaria gastando, para ele poder compartilhar os arquivos ou salvar em alguma pasta de Downloads ou Documentos local no computador ou celular.
+
+Alguma funções que poderia existir no app seriam:
+
+	- Cadastro e login para usuários: Esta função é fundamental para ter uma organização fácil das organizações de cada usuário. Essa técnica irá facilitar a identificação de cada usuário para adicionar, excluir, alterar e ler informações dos mesmos;
+	
+	- Uso do sistema de data e hora: Como nosso projeto irá envolver gastos de acordo com datas, será de uso obrigatório o aplicativo ter as permissões do sistema de data hora do aparelho. Isso fará com que as outras funções como comparação entre datas, listagem e filtros possam ser utilizadas com êxito. Caso o usuário bloqueie ao app as permissões necessárias, o aplicativo não irá funcionar;
+
+	- Construção de gráficos: Iremos estudar e analisar todas as condições disponíveis, mas se for possível, pretendemos fazer gráficos para o usuário ter um conteúdo mais visual para a fácil vizualização de gastos. Como por exemplo: gráfico de colunas ou de setores (pizza)
+
+	- Cálculo de média dos gastos: Em uma página do aplicativo, o usuário poderia ver as médias de gastos que o aplicativo calcularia. Estas médias seriam feitas em períodos mensais como padrão, mas se for possível poderia ser colocado para períodos semestrais ou anuais.
