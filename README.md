@@ -18,3 +18,8 @@
 - <u>Login e cadastro de contas: </u>
 - <u>CRUD de gastos, contas e recebimentos: </u>
 - <u>Integração com backend e banco de dados: </u>
+
+## Link do Figma
+```
+https://www.figma.com/file/6MudchddKZetkVHfQNTgXu/App-Controle?type=design&node-id=0%3A1&mode=design&t=GBk9xeM3aqukigMP-1
+```
