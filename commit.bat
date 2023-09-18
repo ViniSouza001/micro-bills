@@ -1,5 +1,5 @@
 git pull
 
 git add .
-git commit -m "Tela de login"
+git commit -m "Form Login"
 git push

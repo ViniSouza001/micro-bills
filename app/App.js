@@ -1,9 +1,9 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import TesteScreen from './components/Screens/TesteScreen';
-import HomeScreen from './components/Screens/HomeScreen';
+import HomeScreen from './components/screens/HomeScreen'
 
-export default function App() {
+export default function App () {
   return (
     <View>
       <HomeScreen />
@@ -11,3 +11,12 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  }
+})
