@@ -1,7 +1,7 @@
 import React from "react"
 import { Text, TouchableOpacity, View } from "react-native"
-import styles from './stylesheets/homeScreen.styles'
-function ButtonForm ({ text, handleOnPress }) {
+import styles from '../../stylesheets/homeScreen.styles'
+function ButtonForm({ text, handleOnPress }) {
    return (
       <TouchableOpacity
          style={styles.button}

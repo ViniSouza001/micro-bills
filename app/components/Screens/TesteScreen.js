@@ -17,6 +17,7 @@ function TesteScreen() {
 
     return (
         <View>
+            <Text>Esta é a página teste</Text>
             {/* <Text>{dados}</Text> */}
         </View>
     )

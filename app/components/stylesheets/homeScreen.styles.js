@@ -27,32 +27,21 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         width: '100%',
-        paddingLeft: '35px',
-        paddingRight: '35px',
         margin: 10,
-        backgroundColor: 'green',
         padding: 20,
-        alignItems: 'flex-start'
+        alignItems: 'center',
+        gap: 20,
+        justifyContent: 'center',
     },
     input: {
-        borderRadius: 5,
-        borderBottomColor: '#000',
-        borderBottomWidth: 2,
-        borderTopColor: '#000',
-        borderTopWidth: 2,
-        borderRightColor: '#000',
-        borderRightWidth: 2,
-        borderLeftColor: '#000',
-        borderLeftWidth: 2,
-        width: '90%',
+        width: '85%',
         height: 50,
         textAlign: 'center',
         fontSize: 14,
         shadowColor: "rgba(0, 0, 0, 0.5)",
         shadowOpacity: 1,
         shadowOffset: { width: 4, height: 4 },
-        shadowRadius: 3
-
+        shadowRadius: 3,
     },
     azul: {
         color: "rgba(13, 123, 218, 0.45)",
@@ -75,6 +64,31 @@ const styles = StyleSheet.create({
     txtButton: {
         color: "#FFFFFF",
         fontSize: 17
+    },
+    divInput: {
+        alignSelf: 'center',
+        width: '75%',
+    },
+    row: {
+        width: '100%',
+        alignSelf: 'center',
+        margin: "auto",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        gap: 10,
+        borderRadius: 5,
+        borderBottomColor: '#000',
+        borderBottomWidth: 2,
+        borderTopColor: '#000',
+        borderTopWidth: 2,
+        borderRightColor: '#000',
+        borderRightWidth: 2,
+        borderLeftColor: '#000',
+        borderLeftWidth: 2,
+    },
+    icon: {
+        width: '15%',
     }
 })
 
