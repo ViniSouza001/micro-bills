@@ -2,13 +2,18 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     form: {
         backgroundColor: "#FFFFFF",
-        width: '70vw',
-        height: '60vh',
+        width: '100%',
+        height: '50%',
         alignSelf: 'center',
         margin: 'auto',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 30,
+    },
+    bodyContainer: {
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     label: {
         fontSize: 25,
@@ -24,7 +29,10 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: '35px',
         paddingRight: '35px',
-        margin: 10
+        margin: 10,
+        backgroundColor: 'green',
+        padding: 20,
+        alignItems: 'flex-start'
     },
     input: {
         borderRadius: 5,
@@ -36,7 +44,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 2,
         borderLeftColor: '#000',
         borderLeftWidth: 2,
-        width: '100%',
+        width: '90%',
         height: 50,
         textAlign: 'center',
         fontSize: 14,

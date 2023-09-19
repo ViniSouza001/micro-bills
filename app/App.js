@@ -2,21 +2,12 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native'
 import HomeScreen from './components/screens/HomeScreen'
+import global from './components/stylesheets/global.styles';
 
 export default function App() {
   return (
-    <View>
+    <View style={global.container}>
       <HomeScreen />
-      <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'
-  }
-})

@@ -15,37 +15,16 @@ function HomeScreen({ navigation }) {
     }
 
     return (
-        <View style={[global.container, global.escuro]}>
+        <View style={[global.escuro, styles.bodyContainer]}>
             <Image source={require('../../assets/images/logo.png')} style={global.logo} />
             <View style={styles.form}>
                 <View style={styles.formContainer}>
-                    <Text style={styles.label}>Usuario</Text>
-                    <TextInput style={styles.input} placeholder="Digite seu e-mail" />
+                    <Text style={styles.label}>E-mail</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Digite seu e-mail"
+                    />
                 </View>
-                <View style={styles.formContainer}>
-                    <Text style={styles.label}>Senha</Text>
-                    <View style={styles.inputArea}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Insira sua senha"
-                            value={input}
-                            onChangeText={(texto) => setInput(texto)}
-                            secureTextEntry={revelar ? false : true}
-                        />
-                        <TouchableOpacity>
-                            <Ionicons
-                                name={revelar ? "eye-off" : "eye"}
-                                color="#000000"
-                                size={25}
-                                onPress={() => setRevelar((state) => !state)}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <TouchableOpacity style={styles.mt15}>
-                    <Text style={styles.azul}>Criar conta</Text>
-                </TouchableOpacity>
-                <ButtonForm text="Entrar" handleOnPress={login} />
             </View>
         </View>
     )
