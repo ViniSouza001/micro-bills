@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         margin: 10,
         backgroundColor: 'green',
         padding: 20,
-        alignItems: 'flex-start'
     },
     input: {
         borderRadius: 5,
