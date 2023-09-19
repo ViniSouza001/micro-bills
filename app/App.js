@@ -7,7 +7,6 @@ export default function App() {
   return (
     <View>
       <HomeScreen />
-      <StatusBar style="auto" />
     </View>
   );
 }
