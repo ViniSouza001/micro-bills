@@ -3,11 +3,12 @@ const styles = StyleSheet.create({
     form: {
         backgroundColor: "#FFFFFF",
         width: '70vw',
-        height: '70vh',
+        height: '60vh',
         alignSelf: 'center',
         margin: 'auto',
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius: 30,
     },
     label: {
         fontSize: 25,
@@ -47,7 +48,25 @@ const styles = StyleSheet.create({
     },
     azul: {
         color: "rgba(13, 123, 218, 0.45)",
-        fontSize: 14
+        fontSize: 14,
+        fontWeight: 'bold'
+    },
+    mt15: {
+        marginTop: 15
+    },
+    button: {
+        width: 100,
+        padding: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: "#000000",
+        alignItems: "center",
+        borderRadius: 1000,
+        margin: 10
+    },
+    txtButton: {
+        color: "#FFFFFF",
+        fontSize: 17
     }
 })
 
