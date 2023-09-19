@@ -1,0 +1,12 @@
+{
+  "name": "micro-bills",
+  "version": "1.0.0",
+  "description": "- Antes de realizar qualquer alteração:\r   ```shell\r   git pull\r   ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "git add . && git fetch && git commit -m 'Commit automatico' && git push origin master"
+  },
+  "author": "",
+  "license": "ISC"
+}

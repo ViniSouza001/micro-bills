@@ -22,7 +22,7 @@ function HomeScreen({ navigation }) {
                     <Text style={styles.label}>E-mail</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Digite seu e-mail"
+                        placeholder="Digite seu usuario"
                     />
                 </View>
             </View>
