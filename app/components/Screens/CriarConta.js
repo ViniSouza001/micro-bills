@@ -5,6 +5,7 @@ import styles from "../stylesheets/homeScreen.styles"
 import Input from "./login/Input";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome5 } from '@expo/vector-icons';
+import ButtonForm from './login/ButtonForm'
 
 function CriarConta({ navigation }) {
 
@@ -24,6 +25,12 @@ function CriarConta({ navigation }) {
             setShowDatePicker(false);
         }
     };
+
+    const criarConta = () => {
+
+        fetch('http://localhost:8081/cadastro')
+        console.log('conta criada')
+    }
 
     const openDatePicker = () => {
         setShowDatePicker(true);
@@ -77,6 +84,10 @@ function CriarConta({ navigation }) {
                         isPassword={true}
                     />
                 </View>
+                <ButtonForm
+                    text={"Criar conta"}
+                    handleOnPress={criarConta}
+                />
             </View>
         </View>
     );

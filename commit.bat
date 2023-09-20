@@ -1,3 +1,4 @@
+git pull
 set filedatetime=%date%
 
 git add .

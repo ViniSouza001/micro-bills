@@ -48,18 +48,17 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     button: {
-        width: 100,
-        padding: 10,
-        paddingLeft: 15,
-        paddingRight: 15,
+        padding: 15,
+        paddingLeft: 20,
+        paddingRight: 20,
         backgroundColor: "#000000",
         alignItems: "center",
         borderRadius: 1000,
-        margin: 10
+        margin: 10,
     },
     txtButton: {
         color: "#FFFFFF",
-        fontSize: 17
+        fontSize: 19
     },
     divInput: {
         alignSelf: 'center',
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
         borderLeftColor: '#000',
         borderLeftWidth: 2,
         shadowColor: "rgba(0, 0, 0, 0.5)",
-        padding: 5
+        padding: 5,
     }
 })
 
