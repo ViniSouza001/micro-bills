@@ -27,9 +27,22 @@ function CriarConta({ navigation }) {
     };
 
     const criarConta = () => {
+        const data = {
+            nome: nome,
+            nascimento: selectedDate,
+            email: email,
+            senha: senha,
+            confirmarsenha: confirmarSenha,
+        }
 
-        fetch('http://localhost:8081/cadastro')
-        console.log('conta criada')
+        fetch('http://localhost:8081/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then((response) => response.json())
+            .then((data) => console.log(data))
     }
 
     const openDatePicker = () => {
