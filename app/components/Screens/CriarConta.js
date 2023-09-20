@@ -20,6 +20,7 @@ function CriarConta({ navigation }) {
     const handleDateChange = (event, date) => {
         if (date) {
             setSelectedDate(date);
+            console.log(selectedDate)
             setShowDatePicker(false);
         }
     };
