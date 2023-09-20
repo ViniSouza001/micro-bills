@@ -3,9 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native"
 import global from "../stylesheets/global.styles";
 import styles from "../stylesheets/homeScreen.styles"
 import Input from "./login/Input";
-import DatePicker from 'react-native-datepicker';
-
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 function CriarConta({ navigation }) {
 
@@ -15,6 +13,15 @@ function CriarConta({ navigation }) {
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+
+    const handleDateChange = (event, date) => {
+        if (date) {
+            setSelectedDate(date);
+            setShowDatePicker(false);
+        }
+    };
     return (
         <View style={[global.escuro, styles.bodyContainer]}>
             <Image
@@ -23,11 +30,12 @@ function CriarConta({ navigation }) {
             />
             <View style={styles.form}>
                 <View style={styles.formContainer}>
-                    <Input
-                        label={"Nome Completo"}
-                        value={nome}
-                        handleChangeText={setNome}
-                        secureTextEntry={false}
+                    <DateTimePicker
+                        value={selectedDate}
+                        mode="date"
+                        display="default"
+                        onChange={handleDateChange}
+                        style={styles.input}
                     />
 
                 </View>
