@@ -13,9 +13,21 @@ function CriarConta({ navigation }) {
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
 
-    // const [selectedDate, setSelectedDate] = useState(new Date());
-    // const [showDatePicker, setShowDatePicker] = useState(false);
+    // ...
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showDatePicker, setShowDatePicker] = useState(false);
+
+    const handleDateChange = (event, date) => {
+        if (date) {
+            setSelectedDate(date);
+            setShowDatePicker(false);
+        }
+    };
+
+    const openDatePicker = () => {
+        setShowDatePicker(true);
+    };
 
     return (
         <View style={[global.escuro, styles.bodyContainer]}>
@@ -31,6 +43,17 @@ function CriarConta({ navigation }) {
                         value={nome}
                         secureTextEntry={false}
                     />
+                    <TouchableOpacity onPress={openDatePicker}>
+                        <Text>Selecionar Data</Text>
+                    </TouchableOpacity>
+                    {showDatePicker && (
+                        <DateTimePicker
+                            value={selectedDate}
+                            mode="date"
+                            display="default"
+                            onChange={handleDateChange}
+                        />
+                    )}
                     <Input
                         label="E-mail"
                         handleChangeText={setEmail}
@@ -52,7 +75,8 @@ function CriarConta({ navigation }) {
                 </View>
             </View>
         </View>
-    )
+    );
+
 }
 
 
