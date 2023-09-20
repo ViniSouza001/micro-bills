@@ -4,6 +4,7 @@ import global from "../stylesheets/global.styles";
 import styles from "../stylesheets/homeScreen.styles"
 import Input from "./login/Input";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 function CriarConta({ navigation }) {
 
@@ -12,8 +13,6 @@ function CriarConta({ navigation }) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
-
-    // ...
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
@@ -43,17 +42,21 @@ function CriarConta({ navigation }) {
                         value={nome}
                         secureTextEntry={false}
                     />
-                    <TouchableOpacity onPress={openDatePicker}>
-                        <Text>Selecionar Data</Text>
-                    </TouchableOpacity>
-                    {showDatePicker && (
-                        <DateTimePicker
-                            value={selectedDate}
-                            mode="date"
-                            display="default"
-                            onChange={handleDateChange}
-                        />
-                    )}
+                    <View style={styles.nascimentoArea}>
+                        <Text>Dt. Nascimento</Text>
+                        <TouchableOpacity onPress={openDatePicker} style={styles.btnNasc}>
+                            <Text>dd/mm/aaaa</Text>
+                            <FontAwesome5 name="calendar-alt" size={20} color="black" />
+                        </TouchableOpacity>
+                        {showDatePicker && (
+                            <DateTimePicker
+                                value={selectedDate}
+                                mode="date"
+                                display="default"
+                                onChange={handleDateChange}
+                            />
+                        )}
+                    </View>
                     <Input
                         label="E-mail"
                         handleChangeText={setEmail}
@@ -76,7 +79,6 @@ function CriarConta({ navigation }) {
             </View>
         </View>
     );
-
 }
 
 

@@ -89,6 +89,22 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: '15%',
+    },
+    btnNasc: {
+        flexDirection: 'row',
+        gap: 12,
+        alignItems: 'center',
+        borderRadius: 5,
+        borderBottomColor: '#000',
+        borderBottomWidth: 2,
+        borderTopColor: '#000',
+        borderTopWidth: 2,
+        borderRightColor: '#000',
+        borderRightWidth: 2,
+        borderLeftColor: '#000',
+        borderLeftWidth: 2,
+        shadowColor: "rgba(0, 0, 0, 0.5)",
+        padding: 5
     }
 })
 
