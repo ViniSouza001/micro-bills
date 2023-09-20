@@ -3,7 +3,6 @@ const styles = StyleSheet.create({
     form: {
         backgroundColor: "#FFFFFF",
         width: '100%',
-        height: '50%',
         alignSelf: 'center',
         margin: 'auto',
         alignItems: 'center',
