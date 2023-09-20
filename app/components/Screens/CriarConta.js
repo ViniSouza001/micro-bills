@@ -13,15 +13,10 @@ function CriarConta({ navigation }) {
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
+    // const [selectedDate, setSelectedDate] = useState(new Date());
+    // const [showDatePicker, setShowDatePicker] = useState(false);
 
-    const handleDateChange = (event, date) => {
-        if (date) {
-            setSelectedDate(date);
-            setShowDatePicker(false);
-        }
-    };
+
     return (
         <View style={[global.escuro, styles.bodyContainer]}>
             <Image
@@ -30,14 +25,30 @@ function CriarConta({ navigation }) {
             />
             <View style={styles.form}>
                 <View style={styles.formContainer}>
-                    <DateTimePicker
-                        value={selectedDate}
-                        mode="date"
-                        display="default"
-                        onChange={handleDateChange}
-                        style={styles.input}
+                    <Input
+                        label="Nome Completo"
+                        handleChangeText={setNome}
+                        value={nome}
+                        secureTextEntry={false}
                     />
-
+                    <Input
+                        label="E-mail"
+                        handleChangeText={setEmail}
+                        value={email}
+                        secureTextEntry={false}
+                    />
+                    <Input
+                        label="Senha"
+                        handleChangeText={setSenha}
+                        value={senha}
+                        isPassword={true}
+                    />
+                    <Input
+                        label="Repetir Senha"
+                        handleChangeText={setConfirmarSenha}
+                        value={confirmarSenha}
+                        isPassword={true}
+                    />
                 </View>
             </View>
         </View>

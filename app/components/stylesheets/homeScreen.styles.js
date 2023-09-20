@@ -37,10 +37,7 @@ const styles = StyleSheet.create({
         height: 50,
         textAlign: 'center',
         fontSize: 14,
-        shadowColor: "rgba(0, 0, 0, 0.5)",
-        shadowOpacity: 1,
-        shadowOffset: { width: 4, height: 4 },
-        shadowRadius: 3,
+
     },
     azul: {
         color: "rgba(13, 123, 218, 0.45)",
@@ -85,6 +82,10 @@ const styles = StyleSheet.create({
         borderRightWidth: 2,
         borderLeftColor: '#000',
         borderLeftWidth: 2,
+        shadowColor: "rgba(0, 0, 0, 0.5)",
+        shadowOpacity: 1,
+        shadowOffset: { width: 4, height: 4 },
+        shadowRadius: 3,
     },
     icon: {
         width: '15%',
