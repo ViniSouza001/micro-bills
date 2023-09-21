@@ -9,5 +9,5 @@
 - Para rodar app na web:
 
 ```shell
-npx expo install react-native-web@~0.19.6 react-dom@18.2.0 @expo/webpack-config@^19.0.0
+npx expo install react-native-web@~0.19.6 react-dom@18.2.0 @expo/webpack-config@^19.0.0 @react-navigation/native react-native-screens react-native-screens
 ```
