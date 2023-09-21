@@ -10,20 +10,16 @@ import ButtonForm from './login/ButtonForm'
 function CriarConta({ navigation }) {
 
     const [nome, setNome] = useState('')
-    const [nascimento, setNascimento] = useState(0)
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
-
-    const [selectedDate, setSelectedDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     const handleDateChange = (event, date) => {
-        if (date) {
-            setSelectedDate(date);
-            console.log(selectedDate)
-            setShowDatePicker(false);
-        }
+        setSelectedDate(date);
+        console.log(selectedDate)
+        setShowDatePicker(false);
     };
 
     const criarConta = () => {
@@ -66,7 +62,13 @@ function CriarConta({ navigation }) {
                     <View style={styles.nascimentoArea}>
                         <Text>Dt. Nascimento</Text>
                         <TouchableOpacity onPress={openDatePicker} style={styles.btnNasc}>
-                            <Text>dd/mm/aaaa</Text>
+                            <Text>
+                                {showDatePicker ? (
+                                    selectedDate.toLocaleDateString()
+                                ) : (
+                                    'dd/mm/aaaa'
+                                )}
+                            </Text>
                             <FontAwesome5 name="calendar-alt" size={20} color="black" />
                         </TouchableOpacity>
                         {showDatePicker && (
