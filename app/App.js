@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native'
-import HomeScreen from './components/screens/HomeScreen'
+import LoginScreen from './components/screens/LoginScreen'
 import CriarConta from './components/screens/CriarConta';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native"
@@ -15,7 +15,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name='Pagina login'
-          component={HomeScreen}
+          component={LoginScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
