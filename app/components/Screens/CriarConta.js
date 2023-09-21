@@ -28,7 +28,7 @@ function CriarConta({ navigation }) {
             nascimento: selectedDate,
             email: email,
             senha: senha,
-            confirmarsenha: confirmarSenha,
+            confirmarSenha: confirmarSenha,
         }
 
         fetch('http://localhost:8081/cadastro', {
@@ -38,7 +38,11 @@ function CriarConta({ navigation }) {
             },
             body: JSON.stringify(data)
         }).then((response) => response.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+                if (data.success == "true") {
+                    navigation.navigate("Pagina login", { message: "Conta criada com sucesso", typeMessage: "success" })
+                }
+            })
     }
 
     const openDatePicker = () => {

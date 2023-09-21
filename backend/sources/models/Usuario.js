@@ -7,7 +7,7 @@ const usuario = new Schema({
         required: true
     },
     nascimento: {
-        type: String,
+        type: Date,
         required: true
     },
     email: {

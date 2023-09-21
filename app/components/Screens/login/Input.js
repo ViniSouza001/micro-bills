@@ -13,7 +13,7 @@ function Input({ label, value, handleChangeText, secureTextEntry, isPassword, re
                     <TextInput
                         style={styles.input}
                         value={value}
-                        onChangeText={(value) => handleChangeText(value)}
+                        onChangeText={(value) => { handleChangeText(value) }}
                         placeholderTextColor="#000"
                         secureTextEntry={secureTextEntry}
                     />

@@ -20,6 +20,8 @@ const criarConta = (req, res) => {
     const { nome, nascimento, email, senha, confirmarSenha } = req.body
     var erros = []
 
+    console.log({ nome, nascimento, email, senha, confirmarSenha })
+
 
     if (!nome || typeof nome === undefined || nome === null) {
         erros.push({ texto: "Nome inválido" })
