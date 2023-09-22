@@ -1,4 +1,4 @@
-import React, { StrictMode, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native"
 import global from "../stylesheets/global.styles";
 import styles from "../stylesheets/LoginScreen.styles"
