@@ -7,7 +7,7 @@ import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
 
 function LoginScreen({ navigation }) {
-
+ 
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const [revelar, setRevelar] = useState(false)
@@ -36,7 +36,7 @@ function LoginScreen({ navigation }) {
     }, []);
 
     const login = () => {
-        console.log("login")
+        navigation.navigate('Home')
     }
 
     const criarConta = () => {
