@@ -1,9 +1,9 @@
 import React from "react";
-import Header from '../Screens/Header/Header.js';
-import Footer from '../Screens/Footer/FooterHome.js'
-import {View,Text,Image} from "react-native"
+import Header from '../screens/Header/Header.js';
+import Footer from '../screens/Footer/FooterHome.js'
+import { View, Text, Image } from "react-native"
 import global from "../stylesheets/global.styles.js"
-import styles from "../stylesheets/HomeScreen.styles"
+import styles from "../stylesheets/homeScreen.styles.js"
 
 export default function HomeScreen() {
     return (
