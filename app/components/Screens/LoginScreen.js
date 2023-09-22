@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { View, TouchableOpacity, Text, Image } from "react-native"
 import { Keyboard } from 'react-native';
-import styles from '../stylesheets/homeScreen.styles'
+import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-
-function LoginScreen({ navigation }) {
+import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
  
+function LoginScreen({ navigation, message, typeMessage }) {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const [revelar, setRevelar] = useState(false)
-    const [mostrarImagem, setMostrarImagem] = useState(true)
     const [isKeyboardVisible, setKeyboardVisible] = useState(false)
 
     useEffect(() => {
@@ -36,7 +35,11 @@ function LoginScreen({ navigation }) {
     }, []);
 
     const login = () => {
+
         navigation.navigate('Home')
+
+        navigation.navigate('Home');
+        console.log("login")
     }
 
     const criarConta = () => {
@@ -46,6 +49,7 @@ function LoginScreen({ navigation }) {
 
     return (
         <View style={[global.escuro, styles.bodyContainer]}>
+
             {!isKeyboardVisible && <Image source={require('../../assets/images/logo.png')} style={global.logo} />}
             <View style={styles.form}>
                 <View style={styles.formContainer}>
@@ -74,6 +78,27 @@ function LoginScreen({ navigation }) {
                     handleOnPress={login}
                 />
             </View>
+            {/* <FlashMessage
+                position={"top"}
+
+                message="Alo testandoo"
+                color="#FFF"
+            /> */}
+            {message && (
+                showMessage({
+                    message: message,
+                    type: typeMessage
+                })
+            )}
+            {/* <TouchableOpacity onPress={() => {
+                showMessage({
+                    message: "Simple message",
+                    type: "success",
+                })
+            }}
+            >
+                <Text style={styles.azul}>Clique aqui</Text>
+            </TouchableOpacity> */}
         </View>
     )
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import styles from "../../stylesheets/homeScreen.styles";
+import styles from "../../stylesheets/LoginScreen.styles";
 import { Ionicons } from '@expo/vector-icons'
 
 function Input({ label, value, handleChangeText, secureTextEntry, isPassword, revelar, setRevelar }) {
@@ -13,7 +13,7 @@ function Input({ label, value, handleChangeText, secureTextEntry, isPassword, re
                     <TextInput
                         style={styles.input}
                         value={value}
-                        onChangeText={(value) => handleChangeText(value)}
+                        onChangeText={(value) => { handleChangeText(value) }}
                         placeholderTextColor="#000"
                         secureTextEntry={secureTextEntry}
                     />

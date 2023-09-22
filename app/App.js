@@ -5,7 +5,7 @@ import LoginScreen from './components/screens/LoginScreen'
 import HomeScreen from './components/screens/HomeScreen'
 import CriarConta from './components/screens/CriarConta';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -24,9 +24,9 @@ export default function App() {
           component={CriarConta}
           options={{ headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name='Home'
-          component={HomeScreen}
+          component={Home}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
