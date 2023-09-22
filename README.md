@@ -33,5 +33,5 @@ https://www.figma.com/file/6MudchddKZetkVHfQNTgXu/App-Controle?type=design&node-
 ## Live share
 
 ```
-https://prod.liveshare.vsengsaas.visualstudio.com/join?04EFC452EAA2CDF4179BE9D4F0F7F3E911DF
+https://prod.liveshare.vsengsaas.visualstudio.com/join?2BD7599B6DC5ACBAACF50EC058B62721D6E6
 ```
