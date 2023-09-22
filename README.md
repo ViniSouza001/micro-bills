@@ -29,9 +29,3 @@
 ```
 https://www.figma.com/file/6MudchddKZetkVHfQNTgXu/App-Controle?type=design&node-id=0%3A1&mode=design&t=GBk9xeM3aqukigMP-1
 ```
-
-## Live share
-
-```
-https://prod.liveshare.vsengsaas.visualstudio.com/join?2BD7599B6DC5ACBAACF50EC058B62721D6E6
-```
