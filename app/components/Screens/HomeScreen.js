@@ -1,18 +1,22 @@
 import React from "react";
-// import styles from '../stylesheets/HomeScreen.styles'
-import Header from '../Screens/Header/Header.js';
-import Footer from '../Screens/Footer/FooterHome.js'
-import {View,Text,Image} from "react-native"
+import styles from '../stylesheets/homeScreen.styles'
+import Header from '../screens/Header/Header'
+import Footer from '../screens/Footer/FooterHome.js'
+import { View, Text, Image } from "react-native"
+import global from '../stylesheets/global.styles'
 
-export default function HomeScreen (){
+export default function HomeScreen() {
     return (
-    <View>
-        <Header></Header>
-        <View>
-            <Image source={require('../../assets/images/seta_esquerda.png')} />
-            <Text>...</Text>
-            <Image source={require('../../assets/images/seta_direita.png')} />
+        <View style={global.escuro}>
+            <Header></Header>
+            <View style={styles.diario}>
+                <View style={styles.hoje}>
+                    <Image source={require('../../assets/images/seta_esquerda.png')} />
+                    <Text>Hoje</Text>
+                    <Image source={require('../../assets/images/seta_direita.png')} />
+                </View>
+            </View>
+            <Footer></Footer>
         </View>
-        <Footer></Footer>
-    </View> 
-)}
+    )
+}

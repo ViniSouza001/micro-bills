@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-const Header = () => {
+function Header() {
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -22,11 +22,11 @@ const Header = () => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor }}>
       <TouchableOpacity onPress={goToPreviousMonth}>
         <Text>{'<'}</Text>
       </TouchableOpacity>
-      <Text>{` ${months[currentMonthIndex]} `}</Text>
+      <Text>{` ${ months[currentMonthIndex] } `}</Text>
       <TouchableOpacity onPress={goToNextMonth}>
         <Text>{'>'}</Text>
       </TouchableOpacity>
