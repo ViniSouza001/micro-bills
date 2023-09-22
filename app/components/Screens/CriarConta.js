@@ -1,7 +1,7 @@
 import React, { StrictMode, useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native"
 import global from "../stylesheets/global.styles";
-import styles from "../stylesheets/homeScreen.styles"
+import styles from "../stylesheets/LoginScreen.styles"
 import Input from "./login/Input";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -15,6 +15,8 @@ function CriarConta({ navigation }) {
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const [revelar, setRevelar] = useState(false)
+    const [revelarC, setRevelarC] = useState(false)
 
     const handleDateChange = (event, date) => {
         setSelectedDate(date);
@@ -95,12 +97,18 @@ function CriarConta({ navigation }) {
                         handleChangeText={setSenha}
                         value={senha}
                         isPassword={true}
+                        secureTextEntry={revelar ? false : true}
+                        revelar={revelar}
+                        setRevelar={setRevelar}
                     />
                     <Input
                         label="Repetir Senha"
                         handleChangeText={setConfirmarSenha}
                         value={confirmarSenha}
                         isPassword={true}
+                        secureTextEntry={revelarC ? false : true}
+                        revelar={revelarC}
+                        setRevelar={setRevelarC}
                     />
                 </View>
                 <ButtonForm

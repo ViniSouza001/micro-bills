@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { View, TouchableOpacity, Text, Image } from "react-native"
 import { Keyboard } from 'react-native';
-import styles from '../stylesheets/homeScreen.styles'
+import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
@@ -36,6 +36,7 @@ function LoginScreen({ navigation, message, typeMessage }) {
     }, []);
 
     const login = () => {
+        navigation.navigate('Home');
         console.log("login")
     }
 
@@ -75,12 +76,12 @@ function LoginScreen({ navigation, message, typeMessage }) {
                     handleOnPress={login}
                 />
             </View>
-            <FlashMessage
+            {/* <FlashMessage
                 position={"top"}
 
                 message="Alo testandoo"
                 color="#FFF"
-            />
+            /> */}
             {message && (
                 showMessage({
                     message: message,

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import styles from "../../stylesheets/homeScreen.styles";
+import styles from "../../stylesheets/LoginScreen.styles";
 import { Ionicons } from '@expo/vector-icons'
 
 function Input({ label, value, handleChangeText, secureTextEntry, isPassword, revelar, setRevelar }) {
