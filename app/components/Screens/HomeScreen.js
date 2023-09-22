@@ -4,9 +4,6 @@ import Header from '../Screens/Header/Header.js';
 import Footer from '../Screens/Footer/FooterHome.js'
 import {View,Text,Image} from "react-native"
 
-import React, { useState, useEffect } from "react"
-import { View, TouchableOpacity, Text, Image } from "react-native"
-
 export default function HomeScreen (){
     return (
     <View>
@@ -15,5 +12,7 @@ export default function HomeScreen (){
             <Image source={require('../../assets/images/seta_esquerda.png')} />
             <Text>...</Text>
             <Image source={require('../../assets/images/seta_direita.png')} />
-        )}
-    export default HomeScreen
+        </View>
+        <Footer></Footer>
+    </View> 
+)}
