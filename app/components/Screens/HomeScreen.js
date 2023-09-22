@@ -8,7 +8,7 @@ import global from '../stylesheets/global.styles'
 export default function HomeScreen() {
     return (
         <View style={global.escuro}>
-            <Header></Header>
+            <Header />
             <View style={styles.diario}>
                 <View style={styles.hoje}>
                     <Image source={require('../../assets/images/seta_esquerda.png')} />
@@ -16,7 +16,7 @@ export default function HomeScreen() {
                     <Image source={require('../../assets/images/seta_direita.png')} />
                 </View>
             </View>
-            <Footer></Footer>
+            <Footer />
         </View>
     )
 }

@@ -22,7 +22,7 @@ function Header() {
   };
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: "#fff" }}>
       <TouchableOpacity onPress={goToPreviousMonth}>
         <Text>{'<'}</Text>
       </TouchableOpacity>
