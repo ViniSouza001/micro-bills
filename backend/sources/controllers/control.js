@@ -80,9 +80,26 @@ const criarConta = (req, res) => {
     // return res.status(200).json({ success: true, message: "Conta criada com sucesso!" }).end()
 }
 
+const login = (req, res, next) => {
+    passport.authenticate("local", {
+        successRedirect: "/sucesso",
+        failureRedirect: "/erro",
+        failureFlash: true
+    })(req, res, next)
+}
+
+const logout = (req, res, next) => {
+    req.logout(function (err) {
+        if (err) { return next(err) }
+        res.json({ "message": "Deslogado com sucesso" })
+    })
+}
+
 
 module.exports = {
     teste,
     criarConta,
-    listarUsuarios
+    listarUsuarios,
+    login,
+    logout
 }
