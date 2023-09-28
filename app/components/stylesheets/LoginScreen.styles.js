@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
         width: '100%',
         alignSelf: 'center',
         margin: 'auto',
-        alignItems: 'center',
-        justifyContent: 'center',
         borderRadius: 30,
+        marginTop: 20,
+        overflow: 'scroll',
     },
     bodyContainer: {
         padding: 20,
@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
     formContainer: {
         width: '100%',
         margin: 10,
-        padding: 20,
+        padding: 10,
         alignItems: 'center',
-        gap: 20,
+        gap: 10,
         justifyContent: 'center',
     },
     input: {
         width: '85%',
-        height: 50,
+        height: 35,
         textAlign: 'center',
         fontSize: 14,
 
@@ -42,15 +42,16 @@ const styles = StyleSheet.create({
     azul: {
         color: "rgba(13, 123, 218, 0.45)",
         fontSize: 14,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
     mt15: {
         marginTop: 15
     },
     button: {
         padding: 15,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 15,
+        paddingRight: 15,
         backgroundColor: "#000000",
         alignItems: "center",
         borderRadius: 1000,
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     },
     row: {
         width: '100%',
+        paddingRight: 15,
         alignSelf: 'center',
         margin: "auto",
         flexDirection: 'row',
