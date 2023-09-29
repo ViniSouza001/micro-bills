@@ -7,7 +7,7 @@ import CriarConta from './components/Screens/CriarConta';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
+export default function App () {
   const Stack = createNativeStackNavigator()
 
 
@@ -30,6 +30,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
+      <StatusBar hidden />
     </NavigationContainer>
   );
 }

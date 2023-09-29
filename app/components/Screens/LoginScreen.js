@@ -8,7 +8,7 @@ import Input from './login/Input'
 import fetchLogin from "../lib/login";
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 
-function LoginScreen({ navigation, message, typeMessage }) {
+function LoginScreen ({ navigation }) {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const [mensagem, setMensagem] = useState('')
@@ -36,12 +36,13 @@ function LoginScreen({ navigation, message, typeMessage }) {
         };
     }, []);
 
-    const showFlashMessage = () => {
-        setMensagem("Uma mensagem teste")
-        showMessage({
-            message: mensagem,
-            type: "success",
-        })
+    const showFlashMessage = (message, typeMessage) => {
+        return (
+            showMessage({
+                message: message || "A mensagem está vazia",
+                type: typeMessage || "default",
+            })
+        )
     }
 
     const login = async () => {
@@ -50,7 +51,7 @@ function LoginScreen({ navigation, message, typeMessage }) {
         console.log(senha)
         const body = { email, senha }
         try {
-            const response = await fetch("http://10.87.207.10:8081/login", {
+            const response = await fetch("http://192.168.0.107:8081/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -61,7 +62,12 @@ function LoginScreen({ navigation, message, typeMessage }) {
             const data = await response.json()
             console.log(data)
             if (data.success) {
-                navigation.navigate("Home")
+                showFlashMessage("Login realizado com sucesso", "success")
+                setTimeout(() => {
+                    navigation.navigate("Home")
+                }, 1000);
+            } else {
+                showFlashMessage("Credenciais incorretas", "danger")
             }
         } catch (error) {
             console.log("Erro durante o login: " + error)
@@ -107,7 +113,7 @@ function LoginScreen({ navigation, message, typeMessage }) {
                 position={"top"}
                 color="#FFF"
             />
-            <TouchableOpacity onPress={showFlashMessage}>
+            <TouchableOpacity onPress={() => { showFlashMessage("Uma mensagem de teste", "danger") }}>
                 <Text style={styles.azul}>Clique aqui</Text>
             </TouchableOpacity>
         </View>

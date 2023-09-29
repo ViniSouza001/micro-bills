@@ -71,7 +71,7 @@ function CriarConta ({ navigation }) {
                             <Text>Dt. Nascimento</Text>
                             <TouchableOpacity onPress={openDatePicker} style={styles.btnNasc}>
                                 <Text>
-                                    {showDatePicker ? (
+                                    {selectedDate ? (
                                         selectedDate.toLocaleDateString()
                                     ) : (
                                         'dd/mm/aaaa'
