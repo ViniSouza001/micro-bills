@@ -5,12 +5,13 @@ import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-import fetch from "../lib/fetch";
+import fetchLogin from "../lib/login";
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 
 function LoginScreen({ navigation, message, typeMessage }) {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
+    const [mensagem, setMensagem] = useState('')
     const [revelar, setRevelar] = useState(false)
     const [isKeyboardVisible, setKeyboardVisible] = useState(false)
 
@@ -35,14 +36,40 @@ function LoginScreen({ navigation, message, typeMessage }) {
         };
     }, []);
 
+    const showFlashMessage = () => {
+        setMensagem("Uma mensagem teste")
+        showMessage({
+            message: mensagem,
+            type: "success",
+        })
+    }
+
     const login = async () => {
-        const data = await fetch()
-        console.log({ data })
+        var usuario
+        console.log(email)
+        console.log(senha)
+        const body = { email, senha }
+        try {
+            const response = await fetch("http://10.87.207.10:8081/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            })
+
+            const data = await response.json()
+            console.log(data)
+            if (data.success) {
+                navigation.navigate("Home")
+            }
+        } catch (error) {
+            console.log("Erro durante o login: " + error)
+        }
     }
 
     const criarConta = () => {
         navigation.navigate('Criar conta')
-        console.log('criar conta')
     }
 
     return (
@@ -76,27 +103,13 @@ function LoginScreen({ navigation, message, typeMessage }) {
                     handleOnPress={login}
                 />
             </View>
-            {/* <FlashMessage
+            <FlashMessage
                 position={"top"}
-
-                message="Alo testandoo"
                 color="#FFF"
-            /> */}
-            {message && (
-                showMessage({
-                    message: message,
-                    type: typeMessage
-                })
-            )}
-            {/* <TouchableOpacity onPress={() => {
-                showMessage({
-                    message: "Simple message",
-                    type: "success",
-                })
-            }}
-            >
+            />
+            <TouchableOpacity onPress={showFlashMessage}>
                 <Text style={styles.azul}>Clique aqui</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
         </View>
     )
 }

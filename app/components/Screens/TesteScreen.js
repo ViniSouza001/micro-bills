@@ -7,13 +7,13 @@ function TesteScreen() {
 
     const [dados, setDados] = useState('')
 
-    // useEffect(() => {
-    //     const getFetch = async () => {
-    //         const response = await fetch()
-    //         setDados(response)
-    //     }
-    //     getFetch()
-    // })
+    useEffect(() => {
+        const getFetch = async () => {
+            const response = await fetch()
+            setDados(response)
+        }
+        getFetch()
+    })
 
     return (
         <View>

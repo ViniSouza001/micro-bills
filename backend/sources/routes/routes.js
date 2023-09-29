@@ -12,12 +12,12 @@ router.get("/logout", control.logout)
 
 
 // apenas para teste
-router.get("/erro", (req, res) => {
-    res.send("Houve um erro")
-})
+// router.get("/erro", (req, res) => {
+//     res.send("Houve um erro")
+// })
 
-router.get("/sucesso", (req, res) => {
-    res.status(200).json({ "message": "Sucesso!!" }).end()
-})
+// router.get("/sucesso", (req, res) => {
+//     res.status(200).json({ "message": "Sucesso!!" }).end()
+// })
 
 module.exports = router

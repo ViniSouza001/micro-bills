@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
 const teste = (req, res) => {
-    res.send("Uma mensagem para teste")
+    res.json({ "message": "Uma mensagem para teste" })
 }
 
 const listarUsuarios = (req, res) => {
@@ -77,14 +77,20 @@ const criarConta = (req, res) => {
         console.log("There was an internal error: " + error)
     })
 
-    // return res.status(200).json({ success: true, message: "Conta criada com sucesso!" }).end()
+    return res.status(200).json({ success: true, message: "Conta criada com sucesso!" }).end()
 }
 
 const login = (req, res, next) => {
-    passport.authenticate("local", {
-        successRedirect: "/sucesso",
-        failureRedirect: "/erro",
-        failureFlash: true
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Erro durante a autenticação: " + err })
+        }
+
+        if (!user) {
+            return res.status(401).json({ success: false, message: "Credenciais inválidas" })
+        }
+
+        return res.status(200).json({ success: true, user: user })
     })(req, res, next)
 }
 
