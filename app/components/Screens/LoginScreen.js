@@ -5,7 +5,7 @@ import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-import fetchLogin from "../lib/fetch";
+import fetch from "../lib/fetch";
 import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
 
 function LoginScreen({ navigation, message, typeMessage }) {
@@ -36,8 +36,8 @@ function LoginScreen({ navigation, message, typeMessage }) {
     }, []);
 
     const login = async () => {
-        const data = await fetchLogin()
-        console.log(data)
+        const data = await fetch()
+        console.log({ data })
     }
 
     const criarConta = () => {
