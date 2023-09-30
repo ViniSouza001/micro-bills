@@ -6,6 +6,8 @@ import Input from "./login/Input";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome5 } from '@expo/vector-icons';
 import ButtonForm from './login/ButtonForm'
+import { showMessage } from 'react-native-flash-message'
+
 
 function CriarConta ({ navigation }) {
 
@@ -24,6 +26,15 @@ function CriarConta ({ navigation }) {
         setShowDatePicker(false);
     };
 
+    const showFlashMessage = (message, typeMessage) => {
+        return (
+            showMessage({
+                message: message || "A mensagem está vazia",
+                type: typeMessage || "default",
+            })
+        )
+    }
+
     const criarConta = () => {
         const data = {
             nome: nome,
@@ -33,16 +44,23 @@ function CriarConta ({ navigation }) {
             confirmarSenha: confirmarSenha,
         }
 
-        fetch('http://localhost:8081/cadastro', {
+        fetch('http://192.168.0.107:8081/cadastro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         }).then((response) => response.json())
-            .then((data) => {
-                if (data.success == "true") {
-                    navigation.navigate("Pagina login", { message: "Conta criada com sucesso", typeMessage: "success" })
+            .then((dados) => {
+                if (dados.success == "true") {
+                    showFlashMessage("Conta criada com sucesso", "success")
+
+                    setTimeout(() => {
+                        navigation.navigate("Pagina login")
+                    }, 1000);
+                } else {
+                    console.log(dados)
+                    showFlashMessage("Confira todos os seus dados", "danger")
                 }
             })
     }
@@ -119,7 +137,6 @@ function CriarConta ({ navigation }) {
                     />
                 </ScrollView>
             </ScrollView>
-
         </View >);
 }
 

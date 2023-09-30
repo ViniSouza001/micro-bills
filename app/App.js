@@ -1,11 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native'
+import TesteScreen from './components/Screens/TesteScreen'
 import LoginScreen from './components/Screens/LoginScreen'
 import Home from './components/Screens/HomeScreen'
 import CriarConta from './components/Screens/CriarConta';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
+import FlashMessage from 'react-native-flash-message';
 
 export default function App () {
   const Stack = createNativeStackNavigator()
@@ -14,6 +16,11 @@ export default function App () {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name='Teste login'
+          component={TesteScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name='Pagina login'
           component={LoginScreen}
@@ -31,6 +38,10 @@ export default function App () {
         />
       </Stack.Navigator>
       <StatusBar hidden />
+      <FlashMessage
+        position={"top"}
+        color="#FFF"
+      />
     </NavigationContainer>
   );
 }

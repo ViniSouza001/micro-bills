@@ -6,12 +6,11 @@ import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
 import fetchLogin from "../lib/login";
-import FlashMessage, { showMessage, hideMessage } from "react-native-flash-message"
+import { showMessage } from 'react-native-flash-message'
 
 function LoginScreen ({ navigation }) {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
-    const [mensagem, setMensagem] = useState('')
     const [revelar, setRevelar] = useState(false)
     const [isKeyboardVisible, setKeyboardVisible] = useState(false)
 
@@ -74,13 +73,13 @@ function LoginScreen ({ navigation }) {
         }
     }
 
+
     const criarConta = () => {
         navigation.navigate('Criar conta')
     }
 
     return (
         <View style={[global.escuro, styles.bodyContainer]}>
-
             {!isKeyboardVisible && <Image source={require('../../assets/images/logo.png')} style={global.logo} />}
             <View style={styles.form}>
                 <View style={styles.formContainer}>
@@ -109,13 +108,9 @@ function LoginScreen ({ navigation }) {
                     handleOnPress={login}
                 />
             </View>
-            <FlashMessage
-                position={"top"}
-                color="#FFF"
-            />
-            <TouchableOpacity onPress={() => { showFlashMessage("Uma mensagem de teste", "danger") }}>
+            {/* <TouchableOpacity onPress={() => { showFlashMessage("Apenas um show", "success") }}>
                 <Text style={styles.azul}>Clique aqui</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }
