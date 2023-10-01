@@ -52,15 +52,22 @@ function CriarConta ({ navigation }) {
             body: JSON.stringify(data)
         }).then((response) => response.json())
             .then((dados) => {
-                if (dados.success == "true") {
-                    showFlashMessage("Conta criada com sucesso", "success")
+                if (dados.success) {
+                    console.log(dados)
+                    showFlashMessage(dados.message, "success")
 
                     setTimeout(() => {
                         navigation.navigate("Pagina login")
                     }, 1000);
                 } else {
                     console.log(dados)
-                    showFlashMessage("Confira todos os seus dados", "danger")
+                    if (dados.erros) {
+                        dados.erros.forEach((erro) => {
+                            showFlashMessage(erro.texto, "danger")
+                        })
+                    } else {
+                        showFlashMessage(dados.erro, "danger")
+                    }
                 }
             })
     }
@@ -86,7 +93,7 @@ function CriarConta ({ navigation }) {
                             secureTextEntry={false}
                         />
                         <View style={styles.nascimentoArea}>
-                            <Text>Dt. Nascimento</Text>
+                            <Text>Data de nascimento</Text>
                             <TouchableOpacity onPress={openDatePicker} style={styles.btnNasc}>
                                 <Text>
                                     {selectedDate ? (
