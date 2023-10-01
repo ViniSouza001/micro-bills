@@ -79,7 +79,7 @@ const login = (req, res, next) => {
         }
 
         if (!user) {
-            return res.status(401).json({ success: false, message: "Credenciais inválidas" })
+            return res.status(401).json({ success: false, message: info })
         }
 
         return res.status(200).json({ success: true, user: user })

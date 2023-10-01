@@ -33,11 +33,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     input: {
+        width: '100%',
+        height: 35,
+        textAlign: 'center',
+        fontSize: 14,
+    },
+    inputSenha: {
         width: '85%',
         height: 35,
         textAlign: 'center',
         fontSize: 14,
-
     },
     azul: {
         color: "rgba(13, 123, 218, 0.45)",
@@ -67,8 +72,8 @@ const styles = StyleSheet.create({
     },
     row: {
         width: '100%',
-        paddingRight: 15,
         alignSelf: 'center',
+        paddingRight: 15,
         margin: "auto",
         flexDirection: 'row',
         alignItems: 'center',

@@ -59,14 +59,14 @@ function LoginScreen ({ navigation }) {
             })
 
             const data = await response.json()
-            console.log(data)
+            console.log()
             if (data.success) {
                 showFlashMessage("Login realizado com sucesso", "success")
                 setTimeout(() => {
                     navigation.navigate("Home")
-                }, 1000);
+                }, 500);
             } else {
-                showFlashMessage("Credenciais incorretas", "danger")
+                showFlashMessage(data.message.message, "danger")
             }
         } catch (error) {
             console.log("Erro durante o login: " + error)

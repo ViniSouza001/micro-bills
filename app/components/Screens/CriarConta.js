@@ -13,6 +13,7 @@ function CriarConta ({ navigation }) {
 
     const [nome, setNome] = useState('')
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [dataEscolhida, setDataEscolhida] = useState()
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [confirmarSenha, setConfirmarSenha] = useState('')
@@ -24,6 +25,7 @@ function CriarConta ({ navigation }) {
         setSelectedDate(date);
         console.log(selectedDate)
         setShowDatePicker(false);
+        setDataEscolhida(selectedDate)
     };
 
     const showFlashMessage = (message, typeMessage) => {
@@ -53,12 +55,13 @@ function CriarConta ({ navigation }) {
         }).then((response) => response.json())
             .then((dados) => {
                 if (dados.success) {
-                    console.log(dados)
-                    showFlashMessage(dados.message, "success")
 
+                    showFlashMessage(dados.message, "success")
                     setTimeout(() => {
                         navigation.navigate("Pagina login")
-                    }, 1000);
+
+                    }, 500)
+
                 } else {
                     console.log(dados)
                     if (dados.erros) {
@@ -96,8 +99,8 @@ function CriarConta ({ navigation }) {
                             <Text>Data de nascimento</Text>
                             <TouchableOpacity onPress={openDatePicker} style={styles.btnNasc}>
                                 <Text>
-                                    {selectedDate ? (
-                                        selectedDate.toLocaleDateString()
+                                    {dataEscolhida ? (
+                                        dataEscolhida.toLocaleDateString()
                                     ) : (
                                         'dd/mm/aaaa'
                                     )}
