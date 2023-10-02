@@ -12,23 +12,30 @@ const styles = StyleSheet.create({
         height: '80%',
     },
     hoje: {
-
         color: "white",
         backgroundColor: "#000000", opacity: 0.8,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '90%'
+        width: '90%',
+        borderRadius: 30,
+        padding: 10
     },
     text: {
         color: "white",
         fontWeight: 'bold',
-        fontSize: 20
+        fontSize: 20,
+        borderRadius: 20
     },
-    seta: {
+    setaE: {
         width: 18,
         height: 30,
-        margin: 5
+        marginLeft: 10,
+    },
+    setaD: {
+        width: 18,
+        height: 30,
+        marginRight: 10,
     },
     cards: {
         flexDirection: 'row',
@@ -78,6 +85,28 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 30,
     },
+    grafico:{
+        alignItems: 'center',
+        
+    },
+    faturaTotal: {
+        color: '#fff',
+        fontSize: 30,
+        marginTop: 10,
+    },
+    resumo: {
+        fontSize: 12,
+        color: '#fff',
+        backgroundColor: '#000',
+        padding:6,
+        borderRadius: 10,
+        marginTop:10
+    },
+    total:{
+            color: '#fff',
+            fontSize: 28,
+    }
+
 })
 
 export default styles

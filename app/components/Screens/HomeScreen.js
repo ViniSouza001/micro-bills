@@ -11,12 +11,15 @@ export default function HomeScreen() {
             <Header />
             <View style={[styles.diario, global.main]}>
                 <View style={styles.hoje}>
-                    <Image style={styles.seta} source={require('../../assets/images/seta_esquerda.png')} />
+                    <Image style={styles.setaE} source={require('../../assets/images/seta_esquerda.png')} />
                     <Text style={styles.text}>Hoje</Text>
-                    <Image style={styles.seta} source={require('../../assets/images/seta_direita.png')} />
+                    <Image style={styles.setaD} source={require('../../assets/images/seta_direita.png')} />
                 </View>
                 <View style={styles.grafico}>
-                    {/* VIEW -> reservada para o gráfico */}
+                   <Text style={styles.faturaTotal}>Faturamento</Text>
+                   <Text style={styles.total}>Total</Text>
+                   <Text style={styles.faturaTotal}>R$ 20,00</Text>
+                   <Text style={styles.resumo}>Ver Resumo</Text>
                 </View>
                 <View style={styles.cards}>
                     <View style={[styles.card, styles.divPix]}>
