@@ -22,13 +22,13 @@ function Header() {
   };
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: "#fff", width: '100%', height: '10%' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#021422',width: '100%', height: '10%' }}>
       <TouchableOpacity onPress={goToPreviousMonth}>
-        <Text>{'<'}</Text>
+        <Text style={{color:'#fff'}}>{'<'}</Text>
       </TouchableOpacity>
-      <Text>{` ${ months[currentMonthIndex] } `}</Text>
+      <Text style={{color:'#fff'}}>{` ${ months[currentMonthIndex] } `}</Text>
       <TouchableOpacity onPress={goToNextMonth}>
-        <Text>{'>'}</Text>
+        <Text style={{color:'#fff'}}>{'>'}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -6,10 +6,24 @@ const Footer = () => {
     <View style={styles.footer}>
       <View style={styles.item}>
         <Image
+          source={require('../../../assets/images/perfil.png')}
+          style={styles.image}
+        />
+        <Text style={styles.text}>Perfil</Text>
+      </View>
+      <View style={styles.item}>
+        <Image
+          source={require('../../../assets/images/calculadora.png')}
+          style={styles.image}
+        />
+        <Text style={styles.text}>Calculadora</Text>
+      </View>
+      <View style={styles.item}>
+        <Image
           source={require('../../../assets/images/grafico.png')}
           style={styles.image}
         />
-        <Text style={styles.text}>Home</Text>
+        <Text style={styles.text}>Resumo</Text>
       </View>
       <View style={styles.item}>
         <Image
@@ -27,7 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'lightgray',
+    backgroundColor: '#021422',
     width: '100%',
     height: '10%'
   },
@@ -39,6 +53,7 @@ const styles = StyleSheet.create({
     height: 24,
   },
   text: {
+    color: 'white',
     marginTop: 4,
   },
 });
