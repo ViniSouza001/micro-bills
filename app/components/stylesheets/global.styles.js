@@ -24,6 +24,10 @@ const global = StyleSheet.create({
         width: 120,
         height: 120,
         marginTop: 20
+    },
+    main: {
+        width: '100%',
+        height: '80%'
     }
 })
 

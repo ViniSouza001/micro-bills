@@ -9,18 +9,18 @@ export default function HomeScreen() {
     return (
         <View style={global.escuro}>
             <Header />
-           <View>
+            <View style={global.main}>
                 <View>
-                    <Image source={require('../../assets/images/Faturamento (Tema claro).png')} />
+                    <Image source={require('../../assets/images/faturamento_tema_escuro.png')} />
                     <Text style={styles.txtFaturamento}>Faturamento</Text>
                 </View>
                 <View>
-                    <Image source={require('../../assets/images/Lucro (Tema claro).png')} />
+                    <Image source={require('../../assets/images/lucro_tema_escuro.png')} />
                     <Text style={styles.txtLucro}>Lucro</Text>
                 </View>
-           </View>
+            </View>
 
-           <Footer />
+            <Footer />
         </View>
     )
 }

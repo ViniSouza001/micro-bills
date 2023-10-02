@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 const Footer = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.footer}>
       <View style={styles.item}>
         <Image
           source={require('../../../assets/images/grafico.png')}
@@ -13,7 +13,7 @@ const Footer = () => {
       </View>
       <View style={styles.item}>
         <Image
-          source={require('../../../assets/images/transacoes.png')} 
+          source={require('../../../assets/images/transacoes.png')}
           style={styles.image}
         />
         <Text style={styles.text}>Transações</Text>
@@ -23,12 +23,13 @@ const Footer = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'lightgray',
-    height: 60,
+    width: '100%',
+    height: '10%'
   },
   item: {
     alignItems: 'center',

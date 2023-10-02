@@ -57,5 +57,5 @@ mongoose.connect(db, {
 // rotas 
 app.use(router)
 
-const PORT = 8081
+const PORT = 3000
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${ PORT }`))

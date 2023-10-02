@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native'
-import TesteScreen from './components/Screens/TesteScreen'
+import TransacoesScreen from './components/Screens/TransacoesScreen'
 import LoginScreen from './components/Screens/LoginScreen'
 import Home from './components/Screens/HomeScreen'
 import CriarConta from './components/Screens/CriarConta';
@@ -9,26 +9,31 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import FlashMessage from 'react-native-flash-message';
 
-export default function App () {
+export default function App() {
   const Stack = createNativeStackNavigator()
 
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name='Pagina login'
           component={LoginScreen}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name='Criar conta'
           component={CriarConta}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name='Home'
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Transacoes'
+          component={TransacoesScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
