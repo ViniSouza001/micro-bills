@@ -9,7 +9,7 @@ import ButtonForm from './login/ButtonForm'
 import { showMessage } from 'react-native-flash-message'
 
 
-function CriarConta ({ navigation }) {
+function CriarConta({ navigation }) {
 
     const [nome, setNome] = useState('')
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -46,7 +46,7 @@ function CriarConta ({ navigation }) {
             confirmarSenha: confirmarSenha,
         }
 
-        fetch('http://192.168.0.107:8081/cadastro', {
+        fetch('http://10.87.207.10:3000/cadastro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
