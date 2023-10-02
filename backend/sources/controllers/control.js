@@ -97,12 +97,12 @@ const logout = (req, res, next) => {
 
 const listarTransacao = async (req, res) => {
     try {
-        const { usuarioId } = req.params
-        const transacoes = await Transacao.find({ usuarioId: usuarioId }).lean()
+        const { usuarioId } = req.body
+        const transacoes = await Transacao.find({ clienteId: usuarioId }).lean()
         if (!transacoes) {
             return res.status(404).json({ success: false, message: "Não há transações para serem listadas: " + transacoes }).end()
         }
-
+        console.log(transacoes)
         return res.status(200).json({ success: true, transacoes }).end()
     } catch (error) {
         return res.status(500).json({ success: false, message: "Houve um erro interno: " + error })
