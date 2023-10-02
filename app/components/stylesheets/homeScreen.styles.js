@@ -12,72 +12,101 @@ const styles = StyleSheet.create({
         height: '80%',
     },
     hoje: {
-
         color: "white",
         backgroundColor: "#000000", opacity: 0.8,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '90%'
+        width: '90%',
+        borderRadius: 30,
+        padding: 10
     },
     text: {
         color: "white",
         fontWeight: 'bold',
-        fontSize: 20
+        fontSize: 20,
+        borderRadius: 20
     },
-    seta: {
+    setaE: {
         width: 18,
         height: 30,
-        margin: 5
+        marginLeft: 10,
+    },
+    setaD: {
+        width: 18,
+        height: 30,
+        marginRight: 10,
     },
     cards: {
         flexDirection: 'row',
-        justifyContent:'space-around',
+        justifyContent: 'space-around',
         width: '90%',
     },
 
     card: {
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding:10,
-        borderRadius:15,
+        padding: 10,
+        borderRadius: 15,
         gap: 10,
     },
     divPix: {
         backgroundColor: "#00BDAE33"
     },
     cartao: {
-        backgroundColor:'#0D7BDA4D'
+        backgroundColor: '#0D7BDA4D'
     },
     dinheiro: {
-        backgroundColor:'#23C8004D'
+        backgroundColor: '#23C8004D'
     },
-    txtPix:{
-        color:'#00BDAE',
+    txtPix: {
+        color: '#00BDAE',
         fontSize: 15
     },
-    txtCartao:{
-        color:'#0D7BDA'
+    txtCartao: {
+        color: '#0D7BDA'
     },
-    txtDinheiro:{
-        color:'#23C800'
+    txtDinheiro: {
+        color: '#23C800'
     },
-    txtNumberVendas:{
-        color:'#000',
-        fontSize:17
+    txtNumberVendas: {
+        color: '#000',
+        fontSize: 17
     },
-    txtVendas:{
-        color:'#000',
-        fontSize:16
+    txtVendas: {
+        color: '#000',
+        fontSize: 16
     },
-    totalDeVendas:{
-        width:'80%',
-        height:'10%',
-        backgroundColor:'#D9D9D9',
+    totalDeVendas: {
+        width: '80%',
+        height: '10%',
+        backgroundColor: '#D9D9D9',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 30
     },
+    grafico:{
+        alignItems: 'center',
+        
+    },
+    faturaTotal: {
+        color: '#fff',
+        fontSize: 30,
+        marginTop: 10,
+    },
+    resumo: {
+        fontSize: 12,
+        color: '#fff',
+        backgroundColor: '#000',
+        padding:6,
+        borderRadius: 10,
+        marginTop:10
+    },
+    total:{
+            color: '#fff',
+            fontSize: 28,
+    }
+
 })
 
 export default styles
