@@ -32,51 +32,51 @@ const styles = StyleSheet.create({
     },
     cards: {
         flexDirection: 'row',
-        justifyContent:'space-around',
+        justifyContent: 'space-around',
         width: '90%',
     },
 
     card: {
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding:10,
-        borderRadius:15,
+        padding: 10,
+        borderRadius: 15,
         gap: 10,
     },
     divPix: {
         backgroundColor: "#00BDAE33"
     },
     cartao: {
-        backgroundColor:'#0D7BDA4D'
+        backgroundColor: '#0D7BDA4D'
     },
     dinheiro: {
-        backgroundColor:'#23C8004D'
+        backgroundColor: '#23C8004D'
     },
-    txtPix:{
-        color:'#00BDAE',
+    txtPix: {
+        color: '#00BDAE',
         fontSize: 15
     },
-    txtCartao:{
-        color:'#0D7BDA'
+    txtCartao: {
+        color: '#0D7BDA'
     },
-    txtDinheiro:{
-        color:'#23C800'
+    txtDinheiro: {
+        color: '#23C800'
     },
-    txtNumberVendas:{
-        color:'#000',
-        fontSize:17
+    txtNumberVendas: {
+        color: '#000',
+        fontSize: 17
     },
-    txtVendas:{
-        color:'#000',
-        fontSize:16
+    txtVendas: {
+        color: '#000',
+        fontSize: 16
     },
-    totalDeVendas:{
-        width:'80%',
-        height:'10%',
-        backgroundColor:'#D9D9D9',
+    totalDeVendas: {
+        width: '80%',
+        height: '10%',
+        backgroundColor: '#D9D9D9',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30
+        borderRadius: 30,
     },
 })
 

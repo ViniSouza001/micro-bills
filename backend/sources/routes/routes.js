@@ -10,6 +10,9 @@ router.get("/usuarios", control.listarUsuarios)
 router.post("/login", control.login)
 router.get("/logout", control.logout)
 
+router.post('/listarTransacao/:usuarioId', control.listarTransacao)
+router.post('/cadastrarTransacao', control.cadastrarTrasacao)
+
 
 // apenas para teste
 // router.get("/erro", (req, res) => {
