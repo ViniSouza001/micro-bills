@@ -95,65 +95,10 @@ const logout = (req, res, next) => {
     })
 }
 
-const listarTransacao = async (req, res) => {
-    try {
-        const { usuarioId } = req.body
-        const transacoes = await Transacao.find({ clienteId: usuarioId }).lean()
-        if (!transacoes) {
-            return res.status(404).json({ success: false, message: "Não há transações para serem listadas: " + transacoes }).end()
-        }
-        console.log(transacoes)
-        return res.status(200).json({ success: true, transacoes }).end()
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Houve um erro interno: " + error })
-    }
-}
-
-const cadastrarTrasacao = async (req, res) => {
-    try {
-        const { clienteId, valor, formaPagto, tipo } = req.body
-        var erros = []
-
-        if (!valor || typeof valor === undefined || valor === null) {
-            erros.push({ texto: "Preço inválido" })
-        }
-
-        if (!formaPagto || typeof formaPagto === undefined || formaPagto === null) {
-            erros.push({ texto: "Preço inválido" })
-        }
-
-        if (!tipo || typeof tipo === undefined || tipo === null) {
-            erros.push({ texto: "Preço inválido" })
-        }
-
-        if (erros.length !== 0) {
-            return res.status(400).json({ success: false, erros: erros }).end()
-        }
-
-        const novaTransacao = new Transacao({
-            "clienteId": clienteId,
-            "valor": valor,
-            "formaPagto": formaPagto,
-            "tipo": tipo,
-            "dia": new Date().getDate(),
-            "mes": new Date().getMonth(),
-            "ano": new Date().getFullYear()
-        })
-        await novaTransacao.save()
-
-        return res.status(200).json({ success: true, message: "Transação criada com sucesso" }).end()
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Houve um erro interno ao criar a transação" }).end()
-    }
-}
-
-
 module.exports = {
     teste,
     criarConta,
     listarUsuarios,
     login,
-    logout,
-    cadastrarTrasacao,
-    listarTransacao
+    logout
 }

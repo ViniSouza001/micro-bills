@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const transacaoControl = require('../controllers/transacoes')
 const control = require("../controllers/control")
 
 router.get("/teste", control.teste)
@@ -10,8 +11,9 @@ router.get("/usuarios", control.listarUsuarios)
 router.post("/login", control.login)
 router.get("/logout", control.logout)
 
-router.post('/listarTransacao/', control.listarTransacao)
-router.post('/cadastrarTransacao', control.cadastrarTrasacao)
+router.post('/listarTransacao/', transacaoControl.listarTransacao)
+router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
+router.post("/infoVendas", transacaoControl.infoVendas)
 
 
 // apenas para teste
