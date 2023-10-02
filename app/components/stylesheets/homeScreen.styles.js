@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding:10,
         borderRadius:15,
-        gap: 20
+        gap: 10,
     },
     divPix: {
         backgroundColor: "#00BDAE33"
@@ -55,6 +55,12 @@ const styles = StyleSheet.create({
     txtPix:{
         color:'#00BDAE',
         fontSize: 15
+    },
+    txtCartao:{
+        color:'#0D7BDA'
+    },
+    txtDinheiro:{
+        color:'#23C800'
     },
     txtNumberVendas:{
         color:'#000',
