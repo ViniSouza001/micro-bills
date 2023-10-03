@@ -8,7 +8,7 @@ import Input from './login/Input'
 import fetchLogin from "../lib/login";
 import { showMessage } from 'react-native-flash-message'
 
-function LoginScreen({ navigation }) {
+function LoginScreen ({ navigation }) {
     const [senha, setSenha] = useState('')
     const [email, setEmail] = useState('')
     const [revelar, setRevelar] = useState(false)
@@ -50,7 +50,7 @@ function LoginScreen({ navigation }) {
         console.log(senha)
         const body = { email, senha }
         try {
-            const response = await fetch("http://10.87.207.10:3000/login", {
+            const response = await fetch("http://192.168.0.107:3000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

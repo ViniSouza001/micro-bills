@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-
     diario: {
         width: '80%',
         borderRadius: 50,
@@ -85,9 +84,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 30,
     },
-    grafico:{
+    grafico: {
         alignItems: 'center',
-        
+
     },
     faturaTotal: {
         color: '#fff',
@@ -98,13 +97,13 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#fff',
         backgroundColor: '#000',
-        padding:6,
+        padding: 6,
         borderRadius: 10,
-        marginTop:10
+        marginTop: 10
     },
-    total:{
-            color: '#fff',
-            fontSize: 28,
+    total: {
+        color: '#fff',
+        fontSize: 28,
     }
 
 })

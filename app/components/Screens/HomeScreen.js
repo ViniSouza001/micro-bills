@@ -4,9 +4,11 @@ import Footer from '../Screens/Footer/FooterHome.js'
 import { View, Text, Image } from "react-native"
 import global from "../stylesheets/global.styles.js"
 import styles from "../stylesheets/homeScreen.styles.js"
+import Routes from "../routes/Routes.js";
 
-export default function HomeScreen() {
+export default function HomeScreen () {
     return (
+
         <View style={global.escuro}>
             <Header />
             <View style={[styles.diario, global.main]}>
@@ -16,10 +18,10 @@ export default function HomeScreen() {
                     <Image style={styles.setaD} source={require('../../assets/images/seta_direita.png')} />
                 </View>
                 <View style={styles.grafico}>
-                   <Text style={styles.faturaTotal}>Faturamento</Text>
-                   <Text style={styles.total}>Total</Text>
-                   <Text style={styles.faturaTotal}>R$ 20,00</Text>
-                   <Text style={styles.resumo}>Ver Resumo</Text>
+                    <Text style={styles.faturaTotal}>Faturamento</Text>
+                    <Text style={styles.total}>Total</Text>
+                    <Text style={styles.faturaTotal}>R$ 20,00</Text>
+                    <Text style={styles.resumo}>Ver Resumo</Text>
                 </View>
                 <View style={styles.cards}>
                     <View style={[styles.card, styles.divPix]}>
@@ -40,7 +42,9 @@ export default function HomeScreen() {
                     <Text style={styles.txtNumberVendas}>1</Text>
                 </View>
             </View>
-            <Footer />
+            {/* <Footer /> */}
+            <Routes />
         </View>
+
     )
 }

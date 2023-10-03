@@ -8,13 +8,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import FlashMessage from 'react-native-flash-message';
 
-export default function App() {
+export default function App () {
   const Stack = createNativeStackNavigator()
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name='Pagina login'
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -28,7 +28,7 @@ export default function App() {
           name='Home'
           component={Home}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name='Transacoes'
           component={TransacoesScreen}
