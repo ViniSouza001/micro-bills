@@ -1,14 +1,19 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import TransacoesScreen from './components/Screens/TransacoesScreen'
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import LoginScreen from './components/Screens/LoginScreen'
 import Home from './components/Screens/HomeScreen'
+import Perfil from './components/Screens/Perfil';
 import CriarConta from './components/Screens/CriarConta';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from "@react-navigation/native";
+import Calculadora from './components/Screens/Calculadora';
+import Resumo from './components/Screens/Resumo';
+import Transacoes from './components/Screens/Transacoes'
+
 import FlashMessage from 'react-native-flash-message';
 
-export default function App () {
+export default function App() {
   const Stack = createNativeStackNavigator()
 
   return (
@@ -30,8 +35,23 @@ export default function App () {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name='Perfil'
+          component={Perfil}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Calculadora'
+          component={Calculadora}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Resumo'
+          component={Resumo}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name='Transacoes'
-          component={TransacoesScreen}
+          component={Transacoes}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

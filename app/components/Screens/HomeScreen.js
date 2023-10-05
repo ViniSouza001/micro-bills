@@ -1,12 +1,11 @@
 import React from "react";
 import Header from '../Screens/Header/Header.js';
-import Footer from '../Screens/Footer/FooterHome.js'
+import Footer from '../Screens/Footer/Footer.js'
 import { View, Text, Image } from "react-native"
 import global from "../stylesheets/global.styles.js"
-import styles from "../stylesheets/homeScreen.styles.js"
-import Routes from "../routes/Routes.js";
+import styles from '../stylesheets/homeScreen.styles.js'
 
-export default function HomeScreen () {
+export default function HomeScreen() {
     return (
 
         <View style={global.escuro}>
@@ -42,8 +41,7 @@ export default function HomeScreen () {
                     <Text style={styles.txtNumberVendas}>1</Text>
                 </View>
             </View>
-            {/* <Footer /> */}
-            <Routes />
+            <Footer />
         </View>
 
     )

@@ -1,11 +1,17 @@
-import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from '@react-navigation/native'
-import TransacoesScreen from '../Screens/TransacoesScreen'
+import React, { useState } from 'react';
+import { Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Transacoes from '../Transacoes'
+import Calculadora from '../Calculadora'
+import Perfil from '../Perfil'
+import Resumo from '../Resumo'
 
 const Tab = createBottomTabNavigator()
 
-function Footer () {
+function Footer({ semPerfil, semCalculadora, semTransacoes, semResumo }) {
 
    const navigation = useNavigation()
 
@@ -16,38 +22,87 @@ function Footer () {
             tabBarShowLabel: false,
             tabBarStyle: styles.tabBar
          }}>
-         <Tab.Screen
-            name="Transacoes"
-            component={TransacoesScreen}
-            options={{
-               headerShown: false,
-               tabBarIcon: () => (
-                  <View style={styles.footer}>
+
+         {
+            !semPerfil &&
+            <Tab.Screen
+               name='Perfil'
+               component={Perfil}
+               options={{
+                  tabBarIcon: ({ color, size }) => (
                      <TouchableOpacity
-                        style={styles.icon}
-                        onPress={() => { navigation.navigate('Transacoes') }}
+                        onPress={() => { navigation.navigate("Perfil") }}
+                        style={{ alignItems: 'center', gap: 3 }}>
+                        <Image source={require('../../../assets/images/perfil.png')}
+                           style={{ width: 24, height: 24 }} />
+                        <Text style={{ color: "#FFF" }}>Perfil</Text>
+                     </TouchableOpacity>
+                  )
+               }}
+            />
+         }
+
+         {
+            !semCalculadora &&
+            <Tab.Screen
+               name='Calculadora'
+               component={Calculadora}
+               options={{
+                  tabBarIcon: ({ color, size }) => (
+                     <TouchableOpacity
+                        style={{ alignItems: 'center', gap: 3 }}
+                        onPress={() => { navigation.navigate("Calculadora") }}
                      >
-                        <Image
-                           source={require('../../assets/images/perfil.png')}
-                           style={styles.img} />
-                        <Text style={styles.txtLabel}>Perfil</Text>
+                        <Image source={require('../../../assets/images/calculadora.png')}
+                           style={{ width: 24, height: 24 }} />
+                        <Text style={{ color: "#FFF" }}>Calculadora</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={styles.icon} onPress={() => { navigation.navigate('Transacoes') }}>
-                        <Image source={require('../../assets/images/calculadora.png')} style={styles.img} />
-                        <Text style={styles.txtLabel}>Calculadora</Text>
+                  )
+               }}
+            />
+         }
+
+         {
+            !semResumo &&
+            <Tab.Screen
+               name='Resumo'
+               component={Resumo}
+               options={{
+                  tabBarIcon: ({ color, size }) => (
+                     <TouchableOpacity
+                        onPress={() => { navigation.navigate("Resumo") }}
+                        style={{ alignItems: 'center', gap: 3 }}
+                     >
+                        <Image source={require('../../../assets/images/grafico.png')}
+                           style={{ width: 24, height: 24 }} />
+                        <Text style={{ color: "#FFF" }}>Resumo</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={styles.icon} onPress={() => { navigation.navigate('Transacoes') }}>
-                        <Image source={require('../../assets/images/grafico.png')} style={styles.img} />
-                        <Text style={styles.txtLabel}>Resumo</Text>
+                  )
+               }}
+            />
+         }
+
+         {
+            !semTransacoes &&
+            <Tab.Screen
+               name='Transacoes'
+               component={Transacoes}
+               options={{
+                  tabBarIcon: ({ color, size }) => (
+                     <TouchableOpacity
+                        onPress={() => { navigation.navigate("Transacoes") }}
+                        style={{ alignItems: 'center', gap: 3 }}
+                     >
+                        <Image source={require('../../../assets/images/transacoes.png')}
+                           style={{ width: 24, height: 24 }} />
+                        <Text style={{ color: "#FFF" }}>Transações</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={styles.icon} onPress={() => { navigation.navigate('Transacoes') }}>
-                        <Image source={require('../../assets/images/transacoes.png')} style={styles.img} />
-                        <Text style={styles.txtLabel}>Transacoes</Text>
-                     </TouchableOpacity>
-                  </View>
-               )
-            }}
-         />
+
+                  )
+               }}
+            />
+         }
+
       </Tab.Navigator>
    )
 }

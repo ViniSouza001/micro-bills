@@ -1,11 +1,11 @@
 import React from "react";
 import Header from './Header/Header.js';
-import Footer from './Footer/FooterHome.js'
+// import Footer from './Footer/Footer.js'
 import { View, Text, Image } from "react-native"
 import global from "../stylesheets/global.styles.js"
 import styles from "../stylesheets/transacoesScreen.styles.js"
 
-export default function HomeScreen () {
+export default function HomeScreen() {
     return (
         <View style={global.escuro}>
             <Header />
@@ -22,7 +22,7 @@ export default function HomeScreen () {
                     </View>
                 </View>
             </View>
-            <Footer />
+            {/* <Footer /> */}
         </View>
     )
 }
