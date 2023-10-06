@@ -11,18 +11,19 @@ router.get("/usuarios", control.listarUsuarios)
 router.post("/login", control.login)
 router.get("/logout", control.logout)
 
-router.post('/listarTransacao/', transacaoControl.listarTransacao)
+router.post('/listarTransacao', transacaoControl.listarTransacao)
 router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
 router.post("/infoVendas", transacaoControl.infoVendas)
 
 
 // apenas para teste
+
 // router.get("/erro", (req, res) => {
-//     res.send("Houve um erro")
+//     res.status(400).json({ "message": "Usuário ou senha incorreta" }).end()
 // })
 
 // router.get("/sucesso", (req, res) => {
-//     res.status(200).json({ "message": "Sucesso!!" }).end()
+//     res.status(200).end()
 // })
 
 module.exports = router

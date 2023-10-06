@@ -6,7 +6,7 @@ const listarTransacao = async (req, res) => {
    try {
       const { usuarioId } = req.body
       const transacoes = await Transacao.find({ usuarioId: usuarioId }).lean()
-      if (!transacoes) {
+      if (!transacoes || transacoes.length == 0) {
          return res.status(404).json({ success: false, message: "Não há transações para serem listadas: " + transacoes }).end()
       }
       console.log(transacoes)
@@ -68,7 +68,7 @@ const cadastrarTransacao = async (req, res) => {
    }
 }
 
-function separaMetodos () {
+function separaMetodos() {
 
    return null
 }

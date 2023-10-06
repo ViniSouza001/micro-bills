@@ -71,7 +71,6 @@ const criarConta = async (req, res) => {
         console.log("Erro interno: " + error)
         return res.status(500).json({ success: false, error: "Ocorreu um erro interno" }).end()
     }
-
 }
 
 const login = (req, res, next) => {

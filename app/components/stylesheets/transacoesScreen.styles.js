@@ -1,16 +1,20 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    txt:{
+    txt: {
         color: 'white',
     },
-    img:{
+    img: {
         width: 15,
     },
-    imgL:{
+    imgL: {
         width: 30,
+    },
+    verde: {
+        color: "#35912E",
+        fontSize: 25,
     }
-    
+
 })
 
 export default styles

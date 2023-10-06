@@ -5,16 +5,18 @@ import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-import fetchLogin from "../lib/login";
 import { showMessage } from 'react-native-flash-message'
 
-function LoginScreen({ navigation }) {
-    const [senha, setSenha] = useState('')
-    const [email, setEmail] = useState('')
-    const [revelar, setRevelar] = useState(false)
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false)
+function LoginScreen({ navigation, route }) {
+    const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState('');
+    const [revelar, setRevelar] = useState(false);
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [usuarioId, setUsuarioId] = useState('')
+
 
     useEffect(() => {
+
         const keyboardDidShowListener = Keyboard.addListener(
             'keyboardDidShow',
             () => {
@@ -45,9 +47,6 @@ function LoginScreen({ navigation }) {
     }
 
     const login = async () => {
-        var usuario
-        console.log(email)
-        console.log(senha)
         const body = { email, senha }
         try {
             const response = await fetch("http://10.87.207.10:3000/login", {
@@ -59,11 +58,11 @@ function LoginScreen({ navigation }) {
             })
 
             const data = await response.json()
-            console.log()
             if (data.success) {
-                showFlashMessage("Login realizado com sucesso", "success")
+                setUsuarioId(data.user._id);
+                showFlashMessage("Login realizado com sucesso", "success");
                 setTimeout(() => {
-                    navigation.navigate("Home")
+                    navigation.navigate("Home", { usuarioId });
                 }, 500);
             } else {
                 showFlashMessage(data.message.message, "danger")
@@ -108,7 +107,7 @@ function LoginScreen({ navigation }) {
                 />
             </View>
             {/* <TouchableOpacity onPress={() => { showFlashMessage("Apenas um show", "success") }}>
-                <Text style={styles.azul}>Clique aqui</Text>
+                <Text style={styles.azul}>{usuarioId}</Text>
             </TouchableOpacity> */}
         </View>
     )

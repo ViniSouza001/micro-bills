@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -15,6 +15,11 @@ import FlashMessage from 'react-native-flash-message';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
+  const [usuarioId, setUsuarioId] = useState('usuarioId')
+
+  useEffect(() => {
+    setUsuarioId("awdsa")
+  }, [])
 
   return (
     <NavigationContainer>
@@ -22,6 +27,7 @@ export default function App() {
         <Stack.Screen
           name='Pagina login'
           component={LoginScreen}
+          initialParams={{ "usuarioId": usuarioId, "setUsuarioId": setUsuarioId }}
           options={{ headerShown: false }}
         />
         <Stack.Screen

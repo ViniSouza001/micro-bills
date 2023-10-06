@@ -20,6 +20,10 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
+
 app.use((req, res, next) => {
     if (!req.session) {
         return next(new Error("Houve um erro interno"))
@@ -27,15 +31,14 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
+
 
 // middlewares
 
 app.use((req, res, next) => {
     // esse middleware irá criar duas variáveis globais: uma para mensagem de sucesso e outra para erro
     res.locals.error = req.flash("error") // variável global só para o passport
+    res.locals.user = req.user || null
     next()
 })
 

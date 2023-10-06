@@ -1,13 +1,17 @@
-import React from "react";
-import Header from '../Screens/Header/Header.js';
+import React, { useEffect, useState } from "react"
+import Header from '../Screens/Header/Header.js'
 import Footer from '../Screens/Footer/Footer.js'
 import { View, Text, Image } from "react-native"
 import global from "../stylesheets/global.styles.js"
 import styles from '../stylesheets/homeScreen.styles.js'
 
-export default function HomeScreen() {
-    return (
 
+function HomeScreen({ route }) {
+    const { usuarioId } = route.params
+    useEffect(() => {
+        console.log(usuarioId)
+    }, [])
+    return (
         <View style={global.escuro}>
             <Header />
             <View style={[styles.diario, global.main]}>
@@ -41,8 +45,10 @@ export default function HomeScreen() {
                     <Text style={styles.txtNumberVendas}>1</Text>
                 </View>
             </View>
-            <Footer />
+            <Footer usuarioId={usuarioId} />
         </View>
 
     )
 }
+
+export default HomeScreen
