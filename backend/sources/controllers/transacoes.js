@@ -7,9 +7,8 @@ const listarTransacao = async (req, res) => {
       const { usuarioId } = req.body
       const transacoes = await Transacao.find({ usuarioId: usuarioId }).lean()
       if (!transacoes || transacoes.length == 0) {
-         return res.status(404).json({ success: false, message: "Não há transações para serem listadas: " + transacoes }).end()
+         return res.status(404).json({ success: false, message: "Não há transações para serem listadas" }).end()
       }
-      console.log(transacoes)
       return res.status(200).json({ success: true, transacoes }).end()
    } catch (error) {
       return res.status(500).json({ success: false, message: "Houve um erro interno: " + error })
@@ -68,9 +67,18 @@ const cadastrarTransacao = async (req, res) => {
    }
 }
 
-function separaMetodos() {
+function separaMetodos (transacoes) {
+   var valorTotalPix = 0
+   var valorTotalCartao = 0
+   var valorTotalDinheiro = 0
 
-   return null
+   transacoes.forEach((transacao) => {
+      if (transacao.formaPagto == 'Pix') valorTotalPix += transacao.valor
+      else if (transacao.formaPagto == 'Cartao') valorTotalCartao += transacao.valor
+      else valorTotalDinheiro += transacao.valor
+   })
+
+   return { valorTotalPix, valorTotalCartao, valorTotalDinheiro }
 }
 
 const infoVendas = async (req, res) => {
@@ -85,8 +93,10 @@ const infoVendas = async (req, res) => {
       if (transacoes.length == 0) {
          return res.status(404).json({ success: false, message: "Não há transações para serem listadas" }).end()
       }
+      const { valorTotalPix, valorTotalCartao, valorTotalDinheiro } = separaMetodos(transacoes)
+      const valores = { valorTotalPix, valorTotalCartao, valorTotalDinheiro }
 
-      return res.status(200).json({ success: true, transacoes }).end()
+      return res.status(200).json({ success: true, transacoes, valores }).end()
 
    } catch (error) {
       return res.status(500).json({ success: false, message: "Houve um erro interno: " + error }).end()
