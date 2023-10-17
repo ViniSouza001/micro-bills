@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {useState, useEffect} from 'react';
+import {Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import Transacoes from '../Transacoes'
 import Calculadora from '../Calculadora'
@@ -11,14 +11,10 @@ import Resumo from '../Resumo'
 
 const Tab = createBottomTabNavigator()
 
-function Footer({ usuarioId }) {
+function Footer ({usuarioId}) {
 
 
    const navigation = useNavigation()
-
-   useEffect(() => {
-      console.log(`Footer: ${ usuarioId }`)
-   }, [])
 
    return (
       <Tab.Navigator
@@ -32,13 +28,13 @@ function Footer({ usuarioId }) {
             name='Perfil'
             component={Perfil}
             options={{
-               tabBarIcon: ({ color, size }) => (
+               tabBarIcon: ({color, size}) => (
                   <TouchableOpacity
-                     onPress={() => { navigation.navigate("Perfil") }}
-                     style={{ alignItems: 'center', gap: 3 }}>
+                     onPress={() => {navigation.navigate("Perfil")}}
+                     style={{alignItems: 'center', gap: 3}}>
                      <Image source={require('../../../assets/images/perfil.png')}
-                        style={{ width: 24, height: 24 }} />
-                     <Text style={{ color: "#FFF" }}>Perfil</Text>
+                        style={{width: 24, height: 24}} />
+                     <Text style={{color: "#FFF"}}>Perfil</Text>
                   </TouchableOpacity>
                )
             }}
@@ -48,14 +44,14 @@ function Footer({ usuarioId }) {
             name='Calculadora'
             component={Calculadora}
             options={{
-               tabBarIcon: ({ color, size }) => (
+               tabBarIcon: ({color, size}) => (
                   <TouchableOpacity
-                     style={{ alignItems: 'center', gap: 3 }}
-                     onPress={() => { navigation.navigate("Calculadora") }}
+                     style={{alignItems: 'center', gap: 3}}
+                     onPress={() => {navigation.navigate("Calculadora")}}
                   >
                      <Image source={require('../../../assets/images/calculadora.png')}
-                        style={{ width: 24, height: 24 }} />
-                     <Text style={{ color: "#FFF" }}>Calculadora</Text>
+                        style={{width: 24, height: 24}} />
+                     <Text style={{color: "#FFF"}}>Calculadora</Text>
                   </TouchableOpacity>
                )
             }}
@@ -65,14 +61,14 @@ function Footer({ usuarioId }) {
             name='Resumo'
             component={Resumo}
             options={{
-               tabBarIcon: ({ color, size }) => (
+               tabBarIcon: ({color, size}) => (
                   <TouchableOpacity
-                     onPress={() => { navigation.navigate("Resumo") }}
-                     style={{ alignItems: 'center', gap: 3 }}
+                     onPress={() => {navigation.navigate("Resumo")}}
+                     style={{alignItems: 'center', gap: 3}}
                   >
                      <Image source={require('../../../assets/images/grafico.png')}
-                        style={{ width: 24, height: 24 }} />
-                     <Text style={{ color: "#FFF" }}>Resumo</Text>
+                        style={{width: 24, height: 24}} />
+                     <Text style={{color: "#FFF"}}>Resumo</Text>
                   </TouchableOpacity>
                )
             }}
@@ -82,14 +78,14 @@ function Footer({ usuarioId }) {
             name='Transacoes'
             component={Transacoes}
             options={{
-               tabBarIcon: ({ color, size }) => (
+               tabBarIcon: ({color, size}) => (
                   <TouchableOpacity
-                     onPress={() => { navigation.navigate("Transacoes", { usuarioId }) }}
-                     style={{ alignItems: 'center', gap: 3 }}
+                     onPress={() => {navigation.navigate("Transacoes", {usuarioId})}}
+                     style={{alignItems: 'center', gap: 3}}
                   >
                      <Image source={require('../../../assets/images/transacoes.png')}
-                        style={{ width: 24, height: 24 }} />
-                     <Text style={{ color: "#FFF" }}>Transações</Text>
+                        style={{width: 24, height: 24}} />
+                     <Text style={{color: "#FFF"}}>Transações</Text>
                   </TouchableOpacity>
 
                )

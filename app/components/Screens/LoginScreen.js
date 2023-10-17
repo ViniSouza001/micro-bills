@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react"
-import { View, TouchableOpacity, Text, Image } from "react-native"
-import { Keyboard } from 'react-native';
+import React, {useState, useEffect} from "react"
+import {View, TouchableOpacity, Text, Image} from "react-native"
+import {Keyboard} from 'react-native';
 import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-import { showMessage } from 'react-native-flash-message'
+import {showMessage} from 'react-native-flash-message'
 
-function LoginScreen({ navigation, route }) {
-    const [senha, setSenha] = useState('');
-    const [email, setEmail] = useState('');
-    const [revelar, setRevelar] = useState(false);
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-    const [usuarioId, setUsuarioId] = useState('')
+function LoginScreen ({navigation, route}) {
+    const [ senha, setSenha ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ revelar, setRevelar ] = useState(false);
+    const [ isKeyboardVisible, setKeyboardVisible ] = useState(false);
+    const [ usuarioId, setUsuarioId ] = useState(null)
 
 
     useEffect(() => {
@@ -47,7 +47,7 @@ function LoginScreen({ navigation, route }) {
     }
 
     const login = async () => {
-        const body = { email, senha }
+        const body = {email, senha}
         try {
             const response = await fetch("http://10.87.207.10:3000/login", {
                 method: "POST",
@@ -58,16 +58,17 @@ function LoginScreen({ navigation, route }) {
             })
 
             const data = await response.json()
-            if (data.success) {
-                setUsuarioId(data.user._id);
+            if(data.success) {
+                console.log(data.user._id)
                 showFlashMessage("Login realizado com sucesso", "success");
+                setUsuarioId(data.user._id);
                 setTimeout(() => {
-                    navigation.navigate("Home", { usuarioId });
+                    navigation.navigate("Home", {usuarioId});
                 }, 500);
             } else {
                 showFlashMessage(data.message.message, "danger")
             }
-        } catch (error) {
+        } catch(error) {
             console.log("Erro durante o login: " + error)
         }
     }
@@ -77,7 +78,7 @@ function LoginScreen({ navigation, route }) {
     }
 
     return (
-        <View style={[global.escuro, styles.bodyContainer]}>
+        <View style={[ global.escuro, styles.bodyContainer ]}>
             {!isKeyboardVisible && <Image source={require('../../assets/images/logo.png')} style={global.logo} />}
             <View style={styles.form}>
                 <View style={styles.formContainer}>
@@ -106,9 +107,6 @@ function LoginScreen({ navigation, route }) {
                     handleOnPress={login}
                 />
             </View>
-            {/* <TouchableOpacity onPress={() => { showFlashMessage("Apenas um show", "success") }}>
-                <Text style={styles.azul}>{usuarioId}</Text>
-            </TouchableOpacity> */}
         </View>
     )
 }

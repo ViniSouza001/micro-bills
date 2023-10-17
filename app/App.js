@@ -15,11 +15,7 @@ import FlashMessage from 'react-native-flash-message';
 
 export default function App() {
   const Stack = createNativeStackNavigator()
-  const [usuarioId, setUsuarioId] = useState('usuarioId')
-
-  useEffect(() => {
-    setUsuarioId("awdsa")
-  }, [])
+  // const [usuarioId, setUsuarioId] = useState('usuarioId')
 
   return (
     <NavigationContainer>
@@ -27,7 +23,7 @@ export default function App() {
         <Stack.Screen
           name='Pagina login'
           component={LoginScreen}
-          initialParams={{ "usuarioId": usuarioId, "setUsuarioId": setUsuarioId }}
+          // initialParams={{ "usuarioId": usuarioId, "setUsuarioId": setUsuarioId }}
           options={{ headerShown: false }}
         />
         <Stack.Screen

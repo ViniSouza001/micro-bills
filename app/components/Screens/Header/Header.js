@@ -9,16 +9,17 @@ function Header() {
   ];
 
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
 
   const goToPreviousMonth = () => {
-    if (currentMonthIndex > 0) {
-      setCurrentMonthIndex(currentMonthIndex - 1);
+    if (currentMonth > 0) {
+      setCurrentMonth(currentMonth - 1);
     }
   };
 
   const goToNextMonth = () => {
-    if (currentMonthIndex < months.length - 1) {
-      setCurrentMonthIndex(currentMonthIndex + 1);
+    if (currentMonth < months.length - 1) {
+      setCurrentMonth(currentMonth + 1);
     }
   };
 
@@ -27,7 +28,7 @@ function Header() {
       <TouchableOpacity onPress={goToPreviousMonth}>
         <Image source={require('../../../assets/images/seta_esquerda.png')} />
       </TouchableOpacity>
-      <Text style={{ color: '#fff', fontSize: 25 }}>{` ${ months[currentMonthIndex] } `}</Text>
+      <Text style={{ color: '#fff', fontSize: 25 }}>{` ${ months[currentMonth] } `}</Text>
       <TouchableOpacity onPress={goToNextMonth}>
         <Image source={require('../../../assets/images/seta_direita.png')} />
       </TouchableOpacity>
