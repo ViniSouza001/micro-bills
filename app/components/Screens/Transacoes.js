@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useFocusEffect} from '@react-navigation/native'
 import Header from './Header/Header.js';
 import {View, Text, Image, FlatList} from "react-native"
 import global from "../stylesheets/global.styles.js"
@@ -10,11 +11,35 @@ export default function HomeScreen ({route}) {
     const {usuarioId} = route.params
     const [ errorReturned, setErrorReturned ] = useState('')
     const [ transacoes, setTransacoes ] = useState([])
+    const [ valorTotal, setValorTotal ] = useState(0)
+    const [ lucro, setLucro ] = useState(0)
 
     useEffect(() => {
-        console.log(`Transacoes: ${ usuarioId }`)
+        const body = {"usuarioId": usuarioId}
+
+        const fetchValores = async () => {
+            const responseLucro = await fetch('http://10.87.207.10:3000/lucroVendas', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            });
+            const dataLucro = await responseLucro.json()
+            console.log(dataLucro)
+
+            const response = await fetch('http://10.87.207.10:3000/lucroVendas', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            });
+            const data = await response.json()
+            console.log(data)
+
+            // valores
+            setLucro(dataLucro.lucro.valorTotal)
+        }
+        fetchValores()
+
         const fetchTransacoes = async () => {
-            const body = {"usuarioId": usuarioId}
             const response = await fetch('http://10.87.207.10:3000/listarTransacao', {
                 "method": "POST",
                 "body": JSON.stringify(body),
@@ -23,14 +48,11 @@ export default function HomeScreen ({route}) {
                 }
             })
             const data = await response.json()
-            console.log(data)
-            console.log(data.message)
             if(!data.success) {
                 setErrorReturned(data.message)
             } else {
                 setTransacoes(data.transacoes)
             }
-
         }
         fetchTransacoes()
     }, [])
@@ -44,7 +66,7 @@ export default function HomeScreen ({route}) {
                             <Image style={styles.img} source={require('../../assets/images/faturamento_tema_escuro.png')} />
                             <Text style={styles.txt}>Faturamento</Text>
                         </View>
-                        <Text style={styles.verde}>R$5.045,60</Text>
+                        <Text style={styles.verde}>R${(lucro).toFixed(2)}</Text>
                     </View>
                     <View style={{height: '100%', width: '2%', borderLeftColor: '#fff', borderLeftWidth: 2, justifyContent: 'center'}}></View>
 
@@ -53,7 +75,7 @@ export default function HomeScreen ({route}) {
                             <Image style={styles.imgL} source={require('../../assets/images/lucro_tema_escuro.png')} />
                             <Text style={styles.txt}>Lucro</Text>
                         </View>
-                        <Text style={styles.verde}>R$3.045,60</Text>
+                        <Text style={styles.verde}>R${(lucro).toFixed(2)}</Text>
                     </View>
                 </View>
                 {errorReturned

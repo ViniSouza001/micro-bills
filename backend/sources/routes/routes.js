@@ -14,6 +14,7 @@ router.get("/logout", control.logout)
 router.post('/listarTransacao', transacaoControl.listarTransacao)
 router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
 router.post("/infoVendas", transacaoControl.infoVendas)
+router.post('/lucroVendas', transacaoControl.lucroVendas)
 
 
 // apenas para teste

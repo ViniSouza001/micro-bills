@@ -47,7 +47,8 @@ function LoginScreen ({navigation, route}) {
     }
 
     const login = async () => {
-        const body = {email, senha}
+        const body = {email, senha};
+        setUsuarioId(null)
         try {
             const response = await fetch("http://10.87.207.10:3000/login", {
                 method: "POST",
@@ -55,23 +56,25 @@ function LoginScreen ({navigation, route}) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(body)
-            })
+            });
 
-            const data = await response.json()
+            const data = await response.json();
             if(data.success) {
-                console.log(data.user._id)
                 showFlashMessage("Login realizado com sucesso", "success");
                 setUsuarioId(data.user._id);
-                setTimeout(() => {
-                    navigation.navigate("Home", {usuarioId});
-                }, 500);
             } else {
-                showFlashMessage(data.message.message, "danger")
+                showFlashMessage(data.message.message, "danger");
             }
         } catch(error) {
-            console.log("Erro durante o login: " + error)
+            console.log("Erro durante o login: " + error);
         }
-    }
+    };
+
+    useEffect(() => {
+        if(usuarioId !== null) {
+            navigation.navigate("Home", {usuarioId});
+        }
+    }, [ usuarioId ]);
 
     const criarConta = () => {
         navigation.navigate('Criar conta')

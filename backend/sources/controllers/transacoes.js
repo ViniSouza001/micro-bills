@@ -4,48 +4,48 @@ const Transacao = mongoose.model('transacoes')
 
 const listarTransacao = async (req, res) => {
    try {
-      const { usuarioId } = req.body
-      const transacoes = await Transacao.find({ usuarioId: usuarioId }).lean()
-      if (!transacoes || transacoes.length == 0) {
-         return res.status(404).json({ success: false, message: "Não há transações para serem listadas" }).end()
+      const {usuarioId} = req.body
+      const transacoes = await Transacao.find({usuarioId: usuarioId}).lean()
+      if(!transacoes || transacoes.length == 0) {
+         return res.status(404).json({success: false, message: "Não há transações para serem listadas"}).end()
       }
-      return res.status(200).json({ success: true, transacoes }).end()
-   } catch (error) {
-      return res.status(500).json({ success: false, message: "Houve um erro interno: " + error })
+      return res.status(200).json({success: true, transacoes}).end()
+   } catch(error) {
+      return res.status(500).json({success: false, message: "Houve um erro interno: " + error})
    }
 }
 
 const cadastrarTransacao = async (req, res) => {
    try {
-      const { usuarioId, valor, item, quantidade, formaPagto, tipo } = req.body
+      const {usuarioId, valor, item, quantidade, formaPagto, tipo} = req.body
       var erros = []
 
-      if (!valor || typeof valor === undefined || valor === null) {
-         erros.push({ texto: "Preço inválido" })
+      if(!valor || typeof valor === undefined || valor === null) {
+         erros.push({texto: "Preço inválido"})
       }
 
-      if (!item || typeof item === undefined || item === null) {
-         erros.push({ texto: "Você deve informar um nome ao item" })
+      if(!item || typeof item === undefined || item === null) {
+         erros.push({texto: "Você deve informar um nome ao item"})
       }
 
-      if (item.length <= 3) {
-         erros.push({ texto: "Nome do item muito curto" })
+      if(item.length <= 3) {
+         erros.push({texto: "Nome do item muito curto"})
       }
 
-      if (!quantidade || typeof quantidade === undefined || quantidade === null || quantidade == 0) {
-         erros.push({ texto: "A quantidade deve ser no mínimo 1" })
+      if(!quantidade || typeof quantidade === undefined || quantidade === null || quantidade == 0) {
+         erros.push({texto: "A quantidade deve ser no mínimo 1"})
       }
 
-      if (!formaPagto || typeof formaPagto === undefined || formaPagto === null) {
-         erros.push({ texto: "Você deve informar uma forma de pagamento" })
+      if(!formaPagto || typeof formaPagto === undefined || formaPagto === null) {
+         erros.push({texto: "Você deve informar uma forma de pagamento"})
       }
 
-      if (!tipo || typeof tipo === undefined || tipo === null) {
-         erros.push({ texto: "Você deve informar o tipo da transação" })
+      if(!tipo || typeof tipo === undefined || tipo === null) {
+         erros.push({texto: "Você deve informar o tipo da transação"})
       }
 
-      if (erros.length !== 0) {
-         return res.status(400).json({ success: false, erros: erros }).end()
+      if(erros.length !== 0) {
+         return res.status(400).json({success: false, erros: erros}).end()
       }
 
       const novaTransacao = new Transacao({
@@ -61,50 +61,74 @@ const cadastrarTransacao = async (req, res) => {
       })
       await novaTransacao.save()
 
-      return res.status(200).json({ success: true, message: "Transação criada com sucesso" }).end()
-   } catch (error) {
-      return res.status(500).json({ success: false, message: "Houve um erro interno ao criar a transação: " + error }).end()
+      return res.status(200).json({success: true, message: "Transação criada com sucesso"}).end()
+   } catch(error) {
+      return res.status(500).json({success: false, message: "Houve um erro interno ao criar a transação: " + error}).end()
    }
 }
 
-function separaMetodos (transacoes) {
-   var valorTotalPix = 0
-   var valorTotalCartao = 0
-   var valorTotalDinheiro = 0
+function separaMetodos (transacoes, isLucro) {
+   if(isLucro) {
+      var valorTotalPix = 0
+      var valorTotalCartao = 0
+      var valorTotalDinheiro = 0
+   }
+   var valorTotal = 0
 
    transacoes.forEach((transacao) => {
-      if (transacao.formaPagto == 'Pix') valorTotalPix += transacao.valor
-      else if (transacao.formaPagto == 'Cartao') valorTotalCartao += transacao.valor
-      else valorTotalDinheiro += transacao.valor
+      console.log(transacao)
+      if(transacao.tipo == "Venda") valorTotal += transacao.valor
+      else valorTotal -= transacao.valor
+
+      if(isLucro) {
+         if(transacao.formaPagto == 'Pix') valorTotalPix += transacao.valor
+         else if(transacao.formaPagto == 'Cartao') valorTotalCartao += transacao.valor
+         else valorTotalDinheiro += transacao.valor
+      }
    })
 
-   return { valorTotalPix, valorTotalCartao, valorTotalDinheiro }
+   return {valorTotalPix, valorTotalCartao, valorTotalDinheiro, valorTotal}
+}
+
+const lucroVendas = async (req, res) => {
+   try {
+      const {usuarioId} = req.body;
+
+      const transacoes = await Transacao.find({usuarioId: usuarioId}).lean()
+      const lucro = separaMetodos(transacoes, false)
+
+      return res.status(200).json({success: true, lucro}).end()
+
+   } catch(error) {
+      console.log("Houve um erro ao consultar os lucros ganhos")
+      return res.status(400).json({success: false, message: error}).end()
+   }
 }
 
 const infoVendas = async (req, res) => {
    try {
-      const { usuarioId } = req.body
+      const {usuarioId} = req.body
       const transacoes = await Transacao.find({
          "usuarioId": usuarioId,
          "tipo": "Venda",
          "dia": new Date().getDate()
       })
 
-      if (transacoes.length == 0) {
-         return res.status(404).json({ success: false, message: "Não há transações para serem listadas" }).end()
+      if(transacoes.length == 0) {
+         return res.status(404).json({success: false, message: "Não há transações para serem listadas"}).end()
       }
-      const { valorTotalPix, valorTotalCartao, valorTotalDinheiro } = separaMetodos(transacoes)
-      const valores = { valorTotalPix, valorTotalCartao, valorTotalDinheiro }
+      const valores = separaMetodos(transacoes, true)
 
-      return res.status(200).json({ success: true, transacoes, valores }).end()
+      return res.status(200).json({success: true, transacoes, valores}).end()
 
-   } catch (error) {
-      return res.status(500).json({ success: false, message: "Houve um erro interno: " + error }).end()
+   } catch(error) {
+      return res.status(500).json({success: false, message: "Houve um erro interno: " + error}).end()
    }
 }
 
 module.exports = {
    cadastrarTransacao,
    listarTransacao,
-   infoVendas
+   infoVendas,
+   lucroVendas
 }

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     diario: {
@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
         width: '90%',
         borderRadius: 30,
         padding: 10
+    },
+    loadingDiv: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%'
+    },
+    img: {
+        width: 150,
+        height: 120,
     },
     text: {
         color: "white",
@@ -45,6 +55,7 @@ const styles = StyleSheet.create({
     card: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: 80,
         padding: 10,
         borderRadius: 15,
         gap: 10,
@@ -86,12 +97,11 @@ const styles = StyleSheet.create({
     },
     grafico: {
         alignItems: 'center',
-
     },
     faturaTotal: {
         color: '#fff',
-        fontSize: 30,
-        marginTop: 10,
+        fontSize: 23,
+        // marginTop: 15,
     },
     resumo: {
         fontSize: 12,
@@ -103,7 +113,7 @@ const styles = StyleSheet.create({
     },
     total: {
         color: '#fff',
-        fontSize: 28,
+        fontSize: 23,
     }
 
 })
