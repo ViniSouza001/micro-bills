@@ -15,33 +15,48 @@ function HomeScreen ({route}) {
     const [ totalVendas, setTotalVendas ] = useState(0)
     const [ totalValoresVendas, setTotalValoresVendas ] = useState(0)
     const [ dataGrafico, setDataGrafico ] = useState([])
+    const [ fetchFeito, setFetchFeito ] = useState(false)
 
     // grafico
     const widthAndHeight = 250
     const sliceColor = [ '#00BDAE', '#0D7BDA', '#23C800' ]
 
+    // grafico vazio
+    const sliceGrayColor = [ "#5F5F5F" ]
+    const infoVazio = [ 1 ]
+
     const {usuarioId} = route.params
 
     useFocusEffect(
         React.useCallback(() => {
+            setFetchFeito(false)
             const fetchValores = async () => {
                 const body = {usuarioId};
-                const response = await fetch('http://10.87.207.10:3000/infoVendas', {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(body)
-                });
+                try {
+                    const response = await fetch('http://10.87.207.10:3000/infoVendas', {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(body)
+                    });
 
-                const data = await response.json();
-                const {valorTotalCartao, valorTotalDinheiro, valorTotalPix, valorTotal} = data.valores;
-                const valores = [ valorTotalPix, valorTotalCartao, valorTotalDinheiro ];
+                    const data = await response.json();
+                    const {valorTotalCartao, valorTotalDinheiro, valorTotalPix, valorTotal} = data.valores;
+                    const valores = [ valorTotalPix, valorTotalCartao, valorTotalDinheiro ];
 
-                setTotalCartao(valorTotalCartao);
-                setTotalDinheiro(valorTotalDinheiro);
-                setTotalPix(valorTotalPix);
-                setTotalVendas(data.transacoes.length);
-                setTotalValoresVendas(valorTotal.toFixed(2));
-                setDataGrafico(valores);
+                    // inserção valores
+                    setTotalCartao(valorTotalCartao);
+                    setTotalDinheiro(valorTotalDinheiro);
+                    setTotalPix(valorTotalPix);
+                    setTotalVendas(data.transacoes.length);
+                    setTotalValoresVendas(valorTotal);
+                    setDataGrafico(valores);
+                } catch(error) {
+                    return 0
+                } finally {
+                    setFetchFeito(true)
+                }
+
+
             };
 
             fetchValores();
@@ -51,7 +66,7 @@ function HomeScreen ({route}) {
 
     return (
         <View style={global.escuro}>
-            {dataGrafico.length === 0 ? (
+            {!fetchFeito ? (
                 <View style={styles.loadingDiv}>
                     <Image style={styles.img} source={require('../../assets/images/loading.gif')} />
                 </View>
@@ -65,7 +80,7 @@ function HomeScreen ({route}) {
                             <Image style={styles.setaD} source={require('../../assets/images/seta_direita.png')} />
                         </View>
                         <View style={styles.grafico}>
-                            {dataGrafico.length !== 0 &&
+                            {dataGrafico.length !== 0 ?
                                 <PieChart
                                     style={{zIndex: 0}}
                                     widthAndHeight={widthAndHeight}
@@ -73,11 +88,20 @@ function HomeScreen ({route}) {
                                     sliceColor={sliceColor}
                                     coverRadius={0.75}
                                     coverFill={'transparent'}
-                                />}
+                                /> :
+                                <PieChart
+                                    style={{zIndex: 0}}
+                                    widthAndHeight={widthAndHeight}
+                                    series={infoVazio}
+                                    sliceColor={sliceGrayColor}
+                                    coverRadius={0.75}
+                                    coverFill={'transparent'}
+                                />
+                            }
                             <View style={{zIndex: 1, alignItems: 'center', position: 'absolute', marginTop: 65}}>
                                 <Text style={styles.faturaTotal}>Faturamento</Text>
                                 <Text style={styles.total}>Total</Text>
-                                <Text style={styles.faturaTotal}>R$ {totalValoresVendas}</Text>
+                                <Text style={styles.faturaTotal}>R$ {(totalValoresVendas).toFixed(2)}</Text>
                                 <Text style={styles.resumo}>Ver Resumo</Text>
                             </View>
                         </View>
