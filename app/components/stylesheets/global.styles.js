@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const global = StyleSheet.create({
     container: {
@@ -28,6 +28,16 @@ const global = StyleSheet.create({
     main: {
         width: '100%',
         height: '80%'
+    },
+    loading: {
+        width: 150,
+        height: 120,
+    },
+    loadingView: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%'
     }
 })
 

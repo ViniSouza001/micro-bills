@@ -1,34 +1,45 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet} from 'react-native';
 
-function Header() {
+function Header ({enviarMes, mesAtual, setMesAtual}) {
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-
-  const goToPreviousMonth = () => {
-    if (currentMonth > 0) {
-      setCurrentMonth(currentMonth - 1);
+  const goToPreviousMonth = async () => {
+    if(mesAtual > 0) {
+      const novoMes = mesAtual - 1;
+      await alterarMes(novoMes);
+      atualizarMes(novoMes);
     }
   };
 
-  const goToNextMonth = () => {
-    if (currentMonth < months.length - 1) {
-      setCurrentMonth(currentMonth + 1);
+  const goToNextMonth = async () => {
+    if(mesAtual < months.length - 1) {
+      const novoMes = mesAtual + 1;
+      await alterarMes(novoMes);
+      atualizarMes(novoMes);
     }
   };
+
+  const alterarMes = (novoMes) => {
+    return new Promise(() => {
+      setMesAtual(novoMes);
+    });
+  }
+
+  const atualizarMes = (novoMes) => {
+    enviarMes(novoMes)
+  }
 
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={goToPreviousMonth}>
         <Image source={require('../../../assets/images/seta_esquerda.png')} />
       </TouchableOpacity>
-      <Text style={{ color: '#fff', fontSize: 25 }}>{` ${ months[currentMonth] } `}</Text>
+      <Text style={{color: '#fff', fontSize: 25}}>{` ${ months[ mesAtual ] } `}</Text>
       <TouchableOpacity onPress={goToNextMonth}>
         <Image source={require('../../../assets/images/seta_direita.png')} />
       </TouchableOpacity>

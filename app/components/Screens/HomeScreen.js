@@ -67,8 +67,8 @@ function HomeScreen ({route}) {
     return (
         <View style={global.escuro}>
             {!fetchFeito ? (
-                <View style={styles.loadingDiv}>
-                    <Image style={styles.img} source={require('../../assets/images/loading.gif')} />
+                <View style={global.loadingView}>
+                    <Image style={global.loading} source={require('../../assets/images/loading.gif')} />
                 </View>
             ) : (
                 <>

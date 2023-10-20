@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const express = require('express')
 require('../models/Transacoes')
 const Transacao = mongoose.model('transacoes')
 
 const listarTransacao = async (req, res) => {
    try {
-      const {usuarioId} = req.body
-      const transacoes = await Transacao.find({usuarioId: usuarioId}).lean()
+      const {usuarioId, mes} = req.body
+      const transacoes = await Transacao.find({usuarioId: usuarioId, "mes": mes}).lean()
       if(!transacoes || transacoes.length == 0) {
          return res.status(404).json({success: false, message: "Não há transações para serem listadas"}).end()
       }
@@ -92,9 +93,9 @@ function separaMetodos (transacoes, isLucro) {
 
 const lucroVendas = async (req, res) => {
    try {
-      const {usuarioId} = req.body;
+      const {usuarioId, mes} = req.body;
 
-      const transacoes = await Transacao.find({usuarioId: usuarioId}).lean()
+      const transacoes = await Transacao.find({usuarioId: usuarioId, "mes": mes}).lean()
       const lucro = separaMetodos(transacoes, false)
 
       return res.status(200).json({success: true, lucro}).end()
@@ -126,9 +127,29 @@ const infoVendas = async (req, res) => {
    }
 }
 
+const faturamentoMensal = async (req, res) => {
+   try {
+      var faturamento = 0
+      const {usuarioId, mes} = req.body
+      const vendas = await Transacao.find({"usuarioId": usuarioId, "tipo": "Venda", "mes": mes}).lean()
+      if(!vendas) {
+         return res.status(404).json({success: false, message: "Erro ao pesquisar faturamento"}).end()
+      }
+      vendas.forEach((venda) => {
+         faturamento += venda.valor
+      })
+
+      faturamento = faturamento.toFixed(2)
+      return res.status(200).json({success: true, faturamento}).end()
+   } catch(error) {
+      return res.status(500).json({success: false, message: `Não foi possível pesquisar o faturamento: ${ error }`}).end()
+   }
+}
+
 module.exports = {
    cadastrarTransacao,
    listarTransacao,
    infoVendas,
-   lucroVendas
+   lucroVendas,
+   faturamentoMensal
 }

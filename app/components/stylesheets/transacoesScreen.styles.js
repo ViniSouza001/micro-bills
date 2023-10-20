@@ -53,6 +53,14 @@ const styles = StyleSheet.create({
     txtVenda: {
         color: "#35912E",
         fontSize: 18
+    },
+    footer: {
+        bottom: '0%',
+        position: 'absolute',
+        height: '10%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
     }
 
 })

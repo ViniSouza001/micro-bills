@@ -20,16 +20,6 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         padding: 10
     },
-    loadingDiv: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%'
-    },
-    img: {
-        width: 150,
-        height: 120,
-    },
     text: {
         color: "white",
         fontWeight: 'bold',
