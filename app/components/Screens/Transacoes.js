@@ -5,6 +5,7 @@ import global from "../stylesheets/global.styles.js"
 import styles from "../stylesheets/transacoesScreen.styles.js"
 import setaDebito from '../../assets/images/seta_debito.png'
 import setaLucro from '../../assets/images/seta_lucro.png'
+import Modal from "../ModalTransacoes.js";
 
 export default function HomeScreen ({route}) {
     const {usuarioId} = route.params
@@ -126,6 +127,7 @@ export default function HomeScreen ({route}) {
             <View style={styles.footer}>
                 <Image source={require('../../assets/images/add.png')} />
             </View>
+            <Modal />
         </View>
     )
 }
