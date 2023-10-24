@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from "react"
-import {View, TouchableOpacity, Text, Image} from "react-native"
-import {Keyboard} from 'react-native';
+import React, { useState, useEffect } from "react"
+import { View, TouchableOpacity, Text, Image } from "react-native"
+import { Keyboard } from 'react-native';
 import styles from '../stylesheets/LoginScreen.styles'
 import global from '../stylesheets/global.styles'
 import ButtonForm from "./login/ButtonForm"
 import Input from './login/Input'
-import {showMessage} from 'react-native-flash-message'
+import { showMessage } from 'react-native-flash-message'
 
-function LoginScreen ({navigation, route}) {
-    const [ senha, setSenha ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ revelar, setRevelar ] = useState(false);
-    const [ isKeyboardVisible, setKeyboardVisible ] = useState(false);
-    const [ usuarioId, setUsuarioId ] = useState(null)
+function LoginScreen ({ navigation, route }) {
+    const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState('');
+    const [revelar, setRevelar] = useState(false);
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [usuarioId, setUsuarioId] = useState(null)
 
 
     useEffect(() => {
@@ -47,10 +47,10 @@ function LoginScreen ({navigation, route}) {
     }
 
     const login = async () => {
-        const body = {email, senha};
+        const body = { email, senha };
         setUsuarioId(null)
         try {
-            const response = await fetch("http://10.87.207.11:3000/login", {
+            const response = await fetch("http://192.168.0.106:3000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -59,29 +59,29 @@ function LoginScreen ({navigation, route}) {
             });
 
             const data = await response.json();
-            if(data.success) {
+            if (data.success) {
                 showFlashMessage("Login realizado com sucesso", "success");
                 setUsuarioId(data.user._id);
             } else {
                 showFlashMessage(data.message.message, "danger");
             }
-        } catch(error) {
+        } catch (error) {
             console.log("Erro durante o login: " + error);
         }
     };
 
     useEffect(() => {
-        if(usuarioId !== null) {
-            navigation.navigate("Home", {usuarioId});
+        if (usuarioId !== null) {
+            navigation.navigate("Home", { usuarioId });
         }
-    }, [ usuarioId ]);
+    }, [usuarioId]);
 
     const criarConta = () => {
         navigation.navigate('Criar conta')
     }
 
     return (
-        <View style={[ global.escuro, styles.bodyContainer ]}>
+        <View style={[global.escuro, styles.bodyContainer]}>
             {!isKeyboardVisible && <Image source={require('../../assets/images/logo.png')} style={global.logo} />}
             <View style={styles.form}>
                 <View style={styles.formContainer}>
