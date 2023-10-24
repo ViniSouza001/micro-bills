@@ -7,7 +7,7 @@ import setaDebito from '../../assets/images/seta_debito.png'
 import setaLucro from '../../assets/images/seta_lucro.png'
 import Modal from "../ModalTransacoes.js";
 
-export default function HomeScreen ({route}) {
+function Transacoes ({route}) {
     const {usuarioId} = route.params
     const [ errorReturned, setErrorReturned ] = useState('')
     const [ transacoes, setTransacoes ] = useState([])
@@ -15,13 +15,8 @@ export default function HomeScreen ({route}) {
     const [ lucro, setLucro ] = useState(null)
     const [ mesAtual, setMesAtual ] = useState(new Date().getMonth())
 
-    useEffect(() => {
-        fetchValores()
-        fetchTransacoes()
-    }, [ mesAtual ])
-
     const fetchTransacoes = async () => {
-        const response = await fetch('http://10.87.207.10:3000/listarTransacao', {
+        const response = await fetch('http://10.87.207.11:3000/listarTransacao', {
             "method": "POST",
             "body": JSON.stringify({usuarioId, "mes": mesAtual}),
             "headers": {
@@ -42,7 +37,7 @@ export default function HomeScreen ({route}) {
         setFaturamento(null)
         setLucro(null)
         try {
-            const responseLucro = await fetch('http://10.87.207.10:3000/lucroVendas', {
+            const responseLucro = await fetch('http://10.87.207.11:3000/lucroVendas', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"usuarioId": usuarioId, "mes": mesAtual})
@@ -50,7 +45,7 @@ export default function HomeScreen ({route}) {
             });
             const dataLucro = await responseLucro.json()
 
-            const responseFaturamento = await fetch('http://10.87.207.10:3000/faturamentoMensal', {
+            const responseFaturamento = await fetch('http://10.87.207.11:3000/faturamentoMensal', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"usuarioId": usuarioId, "mes": mesAtual})
@@ -64,6 +59,12 @@ export default function HomeScreen ({route}) {
             return 0
         }
     }
+
+    useEffect(() => {
+        console.log('entrou')
+         fetchValores()
+         fetchTransacoes()
+    }, [ mesAtual ])
 
     // armazenar o mês que está escolhido
 
@@ -131,3 +132,5 @@ export default function HomeScreen ({route}) {
         </View>
     )
 }
+
+export default Transacoes

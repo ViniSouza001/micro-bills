@@ -50,7 +50,7 @@ function LoginScreen ({navigation, route}) {
         const body = {email, senha};
         setUsuarioId(null)
         try {
-            const response = await fetch("http://10.87.207.10:3000/login", {
+            const response = await fetch("http://10.87.207.11:3000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

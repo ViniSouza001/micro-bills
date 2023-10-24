@@ -80,7 +80,7 @@ function Footer ({usuarioId}) {
             options={{
                tabBarIcon: ({color, size}) => (
                   <TouchableOpacity
-                     onPress={() => {navigation.navigate("Transacoes", {usuarioId})}}
+                     onPress={() => {console.log(usuarioId); navigation.navigate("Transacoes", {usuarioId})}}  
                      style={{alignItems: 'center', gap: 3}}
                   >
                      <Image source={require('../../../assets/images/transacoes.png')}

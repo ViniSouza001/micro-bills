@@ -33,7 +33,7 @@ function HomeScreen ({route}) {
             const fetchValores = async () => {
                 const body = {usuarioId};
                 try {
-                    const response = await fetch('http://10.87.207.10:3000/infoVendas', {
+                    const response = await fetch('http://10.87.207.11:3000/infoVendas', {
                         method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify(body)
