@@ -21,7 +21,7 @@ export default function Modal () {
                         items={[
                             {label: 'Pix', value: 'Pix'},
                             {label: 'Cartão', value: 'Cartao'},
-                            {label: 'Dinheiro', value: 'Dinheiro'},
+                            {label: 'Dinheiro', value: 'Dinheiro'}
                         ]}
                     />
                 </View>
