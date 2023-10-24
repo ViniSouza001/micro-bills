@@ -14,6 +14,7 @@ function Modal () {
                 </View>
                 <View style={styles.inputArea}>
                     <Text>Forma de Pagamento:</Text>
+                    <Text></Text>
                 </View>
             </View>
         </View>
