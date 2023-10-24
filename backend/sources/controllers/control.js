@@ -6,8 +6,12 @@ const Usuario = mongoose.model('usuarios')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
-const teste = (req, res) => {
-    res.json({ "message": "Uma mensagem para teste" })
+const teste = async (req, res) => {
+    const usuarios = await Usuario.find().lean()
+    if (!usuarios) {
+        return res.status(404).json({ "success": false, "message": "Não há usuários para serem listados" }).end()
+    }
+    return res.status(200).json({ "success": true, usuarios }).end()
 }
 
 const listarUsuarios = (req, res) => {
@@ -94,10 +98,21 @@ const logout = (req, res, next) => {
     })
 }
 
+const infoUsuarios = async (req, res) => {
+    const { usuarioId } = req.body;
+    const usuario = await Usuario.findById(usuarioId).lean()
+    if (!usuario) {
+        return res.status(404).json({ "success": false, "message": "Usuário não encontrado" }).end()
+    }
+    return res.status(200).json({ "success": true, usuario }).end()
+
+}
+
 module.exports = {
     teste,
     criarConta,
     listarUsuarios,
     login,
-    logout
+    logout,
+    infoUsuarios
 }

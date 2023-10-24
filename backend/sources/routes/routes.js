@@ -10,6 +10,7 @@ router.get("/usuarios", control.listarUsuarios)
 
 router.post("/login", control.login)
 router.get("/logout", control.logout)
+router.post("/infoUsuarios", control.infoUsuarios)
 
 router.post('/listarTransacao', transacaoControl.listarTransacao)
 router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
