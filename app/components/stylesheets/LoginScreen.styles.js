@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     divInput: {
         alignSelf: 'center',
         width: '75%',
+        gap: 10
     },
     row: {
         width: '100%',

@@ -1,9 +1,8 @@
 import React from 'react'
 import {View, Text, TouchableOpacity, TextInput} from 'react-native'
 import styles from './stylesheets/modal.styles'
-import RNPickerSelect from 'react-native-picker-select'
 
-export default function Modal () {
+function Modal () {
     return (
         <View style={styles.fundoPreto}>
             <View style={styles.modal}>
@@ -29,3 +28,5 @@ export default function Modal () {
         </View>
     )
 }
+
+export default Modal
