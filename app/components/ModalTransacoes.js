@@ -14,15 +14,6 @@ function Modal () {
                 </View>
                 <View style={styles.inputArea}>
                     <Text>Forma de Pagamento:</Text>
-                    <RNPickerSelect
-                        style={{color: "#000"}}
-                        onValueChange={(value) => console.log(value)}
-                        items={[
-                            {label: 'Pix', value: 'Pix'},
-                            {label: 'Cartão', value: 'Cartao'},
-                            {label: 'Dinheiro', value: 'Dinheiro'}
-                        ]}
-                    />
                 </View>
             </View>
         </View>
