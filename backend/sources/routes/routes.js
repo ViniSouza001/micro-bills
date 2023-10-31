@@ -17,6 +17,7 @@ router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
 router.post("/infoVendas", transacaoControl.infoVendas)
 router.post('/lucroVendas', transacaoControl.lucroVendas)
 router.post('/faturamentoMensal', transacaoControl.faturamentoMensal)
+router.post('/faturamentoSemanal', transacaoControl.faturamentoSemanal)
 
 
 // apenas para teste
