@@ -27,17 +27,9 @@ const transacao = new Schema({
         type: String,
         required: true
     },
-    dia: {
-        type: Number,
-        required: true
-    },
-    mes: {
-        type: Number,
-        required: true
-    },
-    ano: {
-        type: Number,
-        required: true
+    data: {
+        type: Date,
+        default: Date.now()
     }
 })
 

@@ -14,7 +14,7 @@ router.post("/infoUsuario", control.infoUsuarios)
 
 router.post('/listarTransacao', transacaoControl.listarTransacao)
 router.post('/cadastrarTransacao', transacaoControl.cadastrarTransacao)
-router.post("/infoVendas", transacaoControl.infoVendas)
+router.post("/faturamentoDiario", transacaoControl.faturamentoDiario)
 router.post('/lucroVendas', transacaoControl.lucroVendas)
 router.post('/faturamentoMensal', transacaoControl.faturamentoMensal)
 router.post('/faturamentoSemanal', transacaoControl.faturamentoSemanal)

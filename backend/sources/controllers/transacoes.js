@@ -6,7 +6,10 @@ const Transacao = mongoose.model('transacoes')
 const listarTransacao = async (req, res) => {
    try {
       const { usuarioId, mes } = req.body
-      const transacoes = await Transacao.find({ usuarioId: usuarioId, "mes": mes }).lean()
+      const transacoes = await Transacao.find({
+         usuarioId: usuarioId,
+         data: { $gt: `2023-${mes}-01T00:00:00.000Z`, $lt: `2023-${mes}-31T00:00:00.000Z` }
+      }).lean()
       if (!transacoes || transacoes.length == 0) {
          return res.status(404).json({ success: false, message: "Não há transações para serem listadas" }).end()
       }
@@ -55,10 +58,7 @@ const cadastrarTransacao = async (req, res) => {
          "item": item,
          "quantidade": quantidade,
          "formaPagto": formaPagto,
-         "tipo": tipo,
-         "dia": new Date().getDate(),
-         "mes": new Date().getMonth() + 1,
-         "ano": new Date().getFullYear()
+         "tipo": tipo
       })
       await novaTransacao.save()
 
@@ -95,7 +95,10 @@ const lucroVendas = async (req, res) => {
    try {
       const { usuarioId, mes } = req.body;
 
-      const transacoes = await Transacao.find({ usuarioId: usuarioId, "mes": mes }).lean()
+      const transacoes = await Transacao.find({
+         usuarioId: usuarioId,
+         data: { $gt: `2023-${mes}-01T00:00:00.000Z`, $lt: `2023-${mes}-31T00:00:00.000Z` }
+      }).lean()
       const lucro = separaMetodos(transacoes, false)
 
       return res.status(200).json({ success: true, lucro }).end()
@@ -106,13 +109,17 @@ const lucroVendas = async (req, res) => {
    }
 }
 
-const infoVendas = async (req, res) => {
+const faturamentoDiario = async (req, res) => {
    try {
       const { usuarioId } = req.body
+      const hoje = new Date()
       const transacoes = await Transacao.find({
          "usuarioId": usuarioId,
          "tipo": "Venda",
-         "dia": new Date().getDate()
+         "data": {
+            $gte: new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate(), 0, 0, 0),
+            $lte: new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate(), 23, 59, 59),
+         }
       })
 
       if (transacoes.length == 0) {
@@ -131,10 +138,15 @@ const faturamentoMensal = async (req, res) => {
    try {
       var faturamento = 0
       const { usuarioId, mes } = req.body
-      const vendas = await Transacao.find({ "usuarioId": usuarioId, "tipo": "Venda", "mes": mes }).lean()
+      const vendas = await Transacao.find({
+         "usuarioId": usuarioId,
+         "tipo": "Venda",
+         "data": { $gt: `2023-${mes}-01T00:00:00.000Z`, $lt: `2023-${mes}-31T00:00:00.000Z` }
+      }).lean()
       if (!vendas) {
          return res.status(404).json({ success: false, message: "Erro ao pesquisar faturamento" }).end()
       }
+
       vendas.forEach((venda) => {
          faturamento += venda.valor
       })
@@ -147,39 +159,37 @@ const faturamentoMensal = async (req, res) => {
 }
 
 const faturamentoSemanal = async (req, res) => {
-   const { usuarioId } = req.body
-   const hoje = new Date()
+   const { usuarioId } = req.body;
+   const hoje = new Date();
 
-   // primeiro dia da semana (domingo)
-   const primeiroDiaSemana = new Date(hoje)
-   primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay())
+   // Primeiro dia da semana (domingo)
+   const primeiroDiaSemana = new Date(hoje);
+   primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay());
 
-   // obter o último dia da semana (sábado)
-   const ultimoDiaSemana = new Date(hoje)
-   ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()))
-
-   // logs
-   console.log(hoje.getDate());
-   console.log(ultimoDiaSemana.getDate())
+   // Último dia da semana (sábado)
+   const ultimoDiaSemana = new Date(hoje);
+   ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()));
 
    Transacao.find({
-      "dia": { $gt: primeiroDiaSemana.getDate(), $lt: ultimoDiaSemana.getDate() },
-      "mes": hoje.getMonth() + 1,
-      "ano": hoje.getFullYear(),
-      "usuarioId": usuarioId
-   }).lean()
+      usuarioId: usuarioId,
+      data: {
+         $gte: primeiroDiaSemana,
+         $lte: ultimoDiaSemana,
+      },
+   })
       .then((transacoes) => {
-         return res.status(200).json({ success: true, transacoes }).end()
+         return res.status(200).json({ success: true, transacoes }).end();
       })
       .catch((error) => {
-         return res.status(404).json({ success: false, message: `Não foi possível pesquisar o faturamento semanal: ${error}` }).end()
-      })
-}
+         return res.status(404).json({ success: false, message: `Não foi possível pesquisar o faturamento semanal: ${error}` }).end();
+      });
+};
+
 
 module.exports = {
    cadastrarTransacao,
    listarTransacao,
-   infoVendas,
+   faturamentoDiario,
    lucroVendas,
    faturamentoMensal,
    faturamentoSemanal
