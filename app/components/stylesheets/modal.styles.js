@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     fundoPreto: {
@@ -16,7 +16,10 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '50%',
         borderRadius: 30,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     inputArea: {
         width: '70%',
@@ -33,7 +36,8 @@ const styles = StyleSheet.create({
     },
     textInput: {
         width: '100%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textAlign: 'center',
     }
 })
 
