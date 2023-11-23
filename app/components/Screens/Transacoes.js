@@ -16,7 +16,7 @@ function Transacoes ({route}) {
     const [ mesAtual, setMesAtual ] = useState(new Date().getMonth())
 
     const fetchTransacoes = async () => {
-        const response = await fetch('http://10.87.207.13:3000/listarTransacao', {
+        const response = await fetch('http://10.87.202.143:3000/listarTransacao', {
             "method": "POST",
             "body": JSON.stringify({usuarioId, "mes": mesAtual}),
             "headers": {
@@ -37,7 +37,7 @@ function Transacoes ({route}) {
         setFaturamento(null)
         setLucro(null)
         try {
-            const responseLucro = await fetch('http://10.87.207.13:3000/lucroVendas', {
+            const responseLucro = await fetch('http://10.87.202.143:3000/lucroVendas', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"usuarioId": usuarioId, "mes": mesAtual})
@@ -45,7 +45,7 @@ function Transacoes ({route}) {
             });
             const dataLucro = await responseLucro.json()
 
-            const responseFaturamento = await fetch('http://10.87.207.13:3000/faturamentoMensal', {
+            const responseFaturamento = await fetch('http://10.87.202.143:3000/faturamentoMensal', {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"usuarioId": usuarioId, "mes": mesAtual})
