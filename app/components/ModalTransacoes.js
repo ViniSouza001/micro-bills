@@ -89,12 +89,10 @@ function Modal ({modalVisible, setModalVisible, usuarioId}) {
                     <View style={styles.viewButton}>
                         <ButtonForm
                             text={"Adicionar"}
-                            key={"Adicionar"}
                         />
                         <ButtonForm
                             handleOnPress={() => setModalVisible(false)}
                             text={"Cancelar"}
-                            key={"Cancelar"}
                         />
                     </View>
                 </View>
