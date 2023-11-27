@@ -20,7 +20,7 @@ function Perfil({ route }) {
   }, []);
 
   const infoUsuarios = async () => {
-    const response = await fetch("http://10.87.202.143:3000/infoUsuario", {
+    const response = await fetch("http://10.87.202.131:3000/infoUsuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

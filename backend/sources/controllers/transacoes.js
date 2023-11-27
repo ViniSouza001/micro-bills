@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
-const express = require('express')
 require('../models/Transacoes')
 const Transacao = mongoose.model('transacoes')
 
 const listarTransacao = async (req, res) => {
    try {
-      const dataInicio = new Date(`2023-${ mes - 1 }-01T00:00:00.000Z`)
-      const dataFim = new Date(`2023-${ mes }-01T00:00:00.000Z`)
-      dataFim.setUTCMonth(dataFim.getUTCMonth() + 1);
+      const hoje = new Date()
       const {usuarioId, mes} = req.body
       const transacoes = await Transacao.find({
          usuarioId: usuarioId,
-         data: {$gt: `2023-${ mes }-01T00:00:00.000Z`, $lt: `2023-${ mes }-31T00:00:00.000Z`}
+         "data": {
+            $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
+            $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
+         }
       }).lean()
       if(!transacoes || transacoes.length == 0) {
          return res.status(404).json({success: false, message: "Não há transações para serem listadas"}).end()
