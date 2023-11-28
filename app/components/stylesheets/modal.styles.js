@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#FFF',
         width: '90%',
-        height: '50%',
+        height: '60%',
         borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'space-evenly',
@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     },
     inputArea: {
         width: '70%',
+    },
+    mt: {
+        marginTop: 20
     },
     bordas: {
         borderBottomColor: "#000",
@@ -34,10 +37,22 @@ const styles = StyleSheet.create({
         borderRightColor: "#000",
         borderRightWidth: 1,
     },
+    vwSelect: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     textInput: {
         width: '100%',
         alignSelf: 'center',
         textAlign: 'center',
+    },
+    viewButton: {
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: 'rgba(0, 0, 0, .5)',
+    },
+    button: {
+        width: '100%',
     }
 })
 
