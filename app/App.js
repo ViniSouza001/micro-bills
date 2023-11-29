@@ -8,7 +8,6 @@ import Home from './components/Screens/HomeScreen'
 import Perfil from './components/Screens/Perfil';
 import CriarConta from './components/Screens/CriarConta';
 import Calculadora from './components/Screens/Calculadora';
-import Resumo from './components/Screens/Resumo';
 import Transacoes from './components/Screens/Transacoes'
 
 import FlashMessage from 'react-native-flash-message';
@@ -42,11 +41,6 @@ export default function App () {
         <Stack.Screen
           name='Calculadora'
           component={Calculadora}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name='Resumo'
-          component={Resumo}
           options={{headerShown: false}}
         />
         <Stack.Screen

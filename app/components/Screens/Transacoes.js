@@ -17,7 +17,7 @@ function Transacoes({ route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const fetchTransacoes = async () => {
-    const response = await fetch("http://10.87.202.153:3000/listarTransacao", {
+    const response = await fetch("http://192.168.0.106:3000/listarTransacao", {
       method: "POST",
       body: JSON.stringify({ usuarioId, mes: mesAtual }),
       headers: {
@@ -39,7 +39,7 @@ function Transacoes({ route }) {
     setLucro(null);
     try {
       const responseLucro = await fetch(
-        "http://10.87.202.153:3000/lucroVendas",
+        "http://192.168.0.106:3000/lucroVendas",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,7 +49,7 @@ function Transacoes({ route }) {
       const dataLucro = await responseLucro.json();
 
       const responseFaturamento = await fetch(
-        "http://10.87.202.153:3000/faturamentoMensal",
+        "http://192.168.0.106:3000/faturamentoMensal",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -67,7 +67,6 @@ function Transacoes({ route }) {
   };
 
   useEffect(() => {
-    console.log("entrou");
     fetchValores();
     fetchTransacoes();
   }, [mesAtual]);
@@ -216,9 +215,9 @@ function Transacoes({ route }) {
       </View>
       {modalVisible && (
         <Modal
-          modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           usuarioId={usuarioId}
+          listarTransacoes={fetchTransacoes}
         />
       )}
     </View>

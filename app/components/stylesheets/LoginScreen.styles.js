@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
     },
     label: {
-        fontSize: 25,
+        fontSize: 22,
     },
     inputArea: {
         flexDirection: "row",
@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     button: {
-        padding: 15,
-        paddingLeft: 15,
-        paddingRight: 15,
+        padding: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
         backgroundColor: "#000000",
         alignItems: "center",
         borderRadius: 1000,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     txtButton: {
         color: "#FFFFFF",
-        fontSize: 19
+        fontSize: 16
     },
     divInput: {
         alignSelf: 'center',

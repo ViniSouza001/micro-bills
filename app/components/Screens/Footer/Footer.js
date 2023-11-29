@@ -7,7 +7,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Transacoes from '../Transacoes'
 import Calculadora from '../Calculadora'
 import Perfil from '../Perfil'
-import Resumo from '../Resumo'
 import TesteScreen from '../TesteScreen'
 
 const Tab = createBottomTabNavigator()
@@ -22,7 +21,7 @@ function Footer ({usuarioId, showPerfilButton}) {
    }, [])
 
    return (
-      <View style={styles.footer}>
+      <View style={styles.tabBar}>
          <TouchableOpacity
             style={styles.icon}
             onPress={() => {navigation.navigate('Perfil', {usuarioId})}}>
@@ -55,17 +54,14 @@ function Footer ({usuarioId, showPerfilButton}) {
 }
 
 const styles = StyleSheet.create({
-   footer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      backgroundColor: '#021422',
-      width: '100%',
-   },
    tabBar: {
       position: 'absolute',
       backgroundColor: '#021422',
-      height: '100%',
+      bottom: 0,
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingBottom: 10,
    },
    icon: {
       alignItems: 'center',
