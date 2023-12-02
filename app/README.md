@@ -14,16 +14,11 @@ npm install
 
 # Problemas a serem resolvidos
 ### Tela do gráfico (home)
-- Arrumar cabeçalho para conseguir alterar os meses;
-- Daí configurar o gráfico e as informações para mudar seu conteúdo de acordo com os meses;
+- Configurar o gráfico e as informações para mudar seu conteúdo de acordo com os meses;
 - Configurar a faixa superior para mudar em diário, semanal e mensal
 - Se o usuário selecionar outro mês, essa faixa irá sumir (não tem como selecionar o mês passado e pedir uma visualização semanal, não saberemos que semana será desejada);
 
 ### Tela de transações
-- Debbug de não mostrar o faturamento (valor nulo);
-- Debbug do app pegar o saldo do mês posterior;
-- Caso o lucro seja menor que 0, o número ficará em vermelho;
-- Quando uma nova transação for criada, a página refazer o fetch e listar as transações novamente
 - Seria interessante um pequeno botão para excluir alguma transação (se der tempo, talvez algo para alterar, mas sem planos);
 - Mensagem de flash de erro caso o usuário tente criar uma transação sem preencher todos os dados;
 
