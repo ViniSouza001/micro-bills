@@ -7,8 +7,8 @@ import { showMessage } from "react-native-flash-message";
 import styles from "./stylesheets/modal.styles";
 import ButtonForm from "./Screens/login/ButtonForm";
 
-function Modal({ setModalVisible, usuarioId, listarTransacoes }) {
-  const [formaPagto, setFormaPagto] = useState("Selecione");
+function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
+  const [formaPagto, setFormaPagto] = useState("Dinheiro");
   const [quantidade, setQuantidade] = useState(0);
   const [valorUnitario, setValorUnitario] = useState(0);
   const [inputMoeda, setInputMoeda] = useState("0");
@@ -38,7 +38,7 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes }) {
       },
       body: JSON.stringify(body),
     });
-    // console.log(body);
+
     const data = await info.json();
     console.log(data);
 
@@ -47,9 +47,15 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes }) {
       setTimeout(() => {
         setModalVisible(false);
         listarTransacoes;
+        fetchValores;
       }, 1000);
     } else {
-      showFlashMessage("data", "danger");
+      const { erros } = data;
+      console.log(erros);
+      erros.forEach((error) => {
+        showFlashMessage(error.texto, "danger");
+      });
+      // showFlashMessage("data", "danger");
     }
   };
 
@@ -104,16 +110,16 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes }) {
                 setFormaPagto(item);
               }}
             >
-              <Selector.Item key={0} value="Dinheiro" label="Dinheiro" />
+              <Selector.Item key={1} value="Dinheiro" label="Dinheiro" />
 
-              <Selector.Item key={1} value="Cartao" label="Cartão" />
+              <Selector.Item key={2} value="Cartao" label="Cartão" />
 
-              <Selector.Item key={2} value="Pix" label="Pix" />
+              <Selector.Item key={3} value="Pix" label="Pix" />
             </Selector>
           </View>
         </View>
         <View style={{ flexDirection: "column", width: "90%" }}>
-          <View style={{ width: "100%", paddingLeft: "10%" }}>
+          <View style={{ width: "100%", paddingLeft: "10%", marginTop: 10 }}>
             <View style={styles.option}>
               <RadioButton
                 value="Compra"

@@ -122,41 +122,35 @@ const lucroVendas = async (req, res) => {
   try {
     const { usuarioId, mes } = req.body;
 
+    const hoje = new Date();
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       data: {
-        $gt: `2023-${mes}-01T00:00:00.000Z`,
-        $lt: `2023-${mes}-31T00:00:00.000Z`,
+        $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
+        $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
       },
     }).lean();
     const lucro = separaMetodos(transacoes, false);
 
     return res.status(200).json({ success: true, lucro }).end();
   } catch (error) {
-    console.log("Houve um erro ao consultar os lucros ganhos");
+    console.log("Houve um erro ao consultar os lucros ganhos: " + error);
     return res.status(400).json({ success: false, message: error }).end();
   }
 };
 
 const faturamentoDiario = async (req, res) => {
   try {
-    const { usuarioId } = req.body;
+    const { usuarioId, mesAtual } = req.body;
     const hoje = new Date();
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(
-          hoje.getFullYear(),
-          hoje.getMonth(),
-          hoje.getDate(),
-          0,
-          0,
-          0
-        ),
+        $gte: new Date(hoje.getFullYear(), mesAtual, hoje.getDate(), 0, 0, 0),
         $lte: new Date(
           hoje.getFullYear(),
-          hoje.getMonth(),
+          mesAtual,
           hoje.getDate(),
           23,
           59,
@@ -188,27 +182,14 @@ const faturamentoDiario = async (req, res) => {
 const faturamentoMensal = async (req, res) => {
   try {
     var faturamento = 0;
+    const hoje = new Date();
     const { usuarioId, mes } = req.body;
     const vendas = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(
-          hoje.getFullYear(),
-          hoje.getMonth(),
-          hoje.getDate(),
-          0,
-          0,
-          0
-        ),
-        $lte: new Date(
-          hoje.getFullYear(),
-          hoje.getMonth(),
-          hoje.getDate(),
-          23,
-          59,
-          59
-        ),
+        $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
+        $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
       },
     }).lean();
     if (!vendas) {

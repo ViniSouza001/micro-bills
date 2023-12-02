@@ -12,14 +12,15 @@ function Transacoes({ route }) {
   const [errorReturned, setErrorReturned] = useState("");
   const [transacoes, setTransacoes] = useState([]);
   const [faturamento, setFaturamento] = useState(null);
+  const [fetchFeito, setFetchFeito] = useState(false);
   const [lucro, setLucro] = useState(null);
-  const [mesAtual, setMesAtual] = useState(new Date().getMonth());
+  const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
   const [modalVisible, setModalVisible] = useState(false);
 
   const fetchTransacoes = async () => {
     const response = await fetch("http://192.168.0.106:3000/listarTransacao", {
       method: "POST",
-      body: JSON.stringify({ usuarioId, mes: mesAtual }),
+      body: JSON.stringify({ usuarioId, mes: mesAtual - 1 }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,8 +31,8 @@ function Transacoes({ route }) {
     } else {
       setErrorReturned(null);
       setTransacoes(data.transacoes);
+      console.log(data.transacoes[0].data);
     }
-    console.log({ data });
   };
 
   const fetchValores = async () => {
@@ -43,7 +44,7 @@ function Transacoes({ route }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ usuarioId: usuarioId, mes: mesAtual }),
+          body: JSON.stringify({ usuarioId: usuarioId, mes: mesAtual - 1 }),
         }
       );
       const dataLucro = await responseLucro.json();
@@ -53,25 +54,26 @@ function Transacoes({ route }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ usuarioId: usuarioId, mes: mesAtual }),
+          body: JSON.stringify({ usuarioId: usuarioId, mes: mesAtual - 1 }),
         }
       );
       const dataFaturamento = await responseFaturamento.json();
-
+      console.log(dataFaturamento);
       // valores
       setLucro(dataLucro.lucro.valorTotal);
       setFaturamento(dataFaturamento.faturamento);
     } catch (error) {
-      return 0;
+      console.log(error);
+      return;
+    } finally {
+      setFetchFeito(true);
     }
   };
 
   useEffect(() => {
     fetchValores();
     fetchTransacoes();
-  }, [mesAtual]);
-
-  // armazenar o mês que está escolhido
+  }, [mesAtual, modalVisible]);
 
   return (
     <View style={global.escuro}>
@@ -92,12 +94,9 @@ function Transacoes({ route }) {
           <View
             style={{
               height: "10%",
-              borderBottomColor: "#fff",
-              borderBottomWidth: 1,
               margin: 5,
               flexDirection: "row",
               justifyContent: "space-around",
-              paddingBottom: 15,
             }}
           >
             <View
@@ -118,7 +117,7 @@ function Transacoes({ route }) {
                 />
                 <Text style={styles.txt}>Faturamento</Text>
               </View>
-              <Text style={styles.verde}>R${faturamento}</Text>
+              <Text style={styles.verde}>R$ {faturamento}</Text>
             </View>
             <View
               style={{
@@ -148,9 +147,21 @@ function Transacoes({ route }) {
                 />
                 <Text style={styles.txt}>Lucro</Text>
               </View>
-              <Text style={styles.verde}>R${lucro.toFixed(2)}</Text>
+              <Text style={lucro >= 0 ? styles.verde : styles.vermelho}>
+                R$ {lucro.toFixed(2)}
+              </Text>
             </View>
           </View>
+
+          {/* linha de baixo*/}
+
+          <View
+            style={{
+              width: "100%",
+              height: 1,
+              backgroundColor: "#FFFFFF",
+            }}
+          ></View>
           {errorReturned ? (
             <Text style={{ color: "#FFF" }}>{errorReturned}</Text>
           ) : (
@@ -199,7 +210,11 @@ function Transacoes({ route }) {
                       R$ {item.valor.toFixed(2)}
                     </Text>
                     <Text style={{ color: "#FFF" }}>
-                      {item.dia}/{item.mes}/{item.ano}
+                      {item.data.substr(0, 4)}
+                      {" / "}
+                      {item.data.substr(5, 2)}
+                      {" / "}
+                      {item.data.substr(8, 2)}
                     </Text>
                   </View>
                 </View>
@@ -215,6 +230,7 @@ function Transacoes({ route }) {
       </View>
       {modalVisible && (
         <Modal
+          fetchValores={fetchValores}
           setModalVisible={setModalVisible}
           usuarioId={usuarioId}
           listarTransacoes={fetchTransacoes}
