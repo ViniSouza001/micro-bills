@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "#021422",
     bottom: 0,
+    alignSelf: "center",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
@@ -71,7 +72,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignItems: "center",
+    justifyContent: "center",
     gap: 3,
+    width: 80,
   },
   img: {
     width: 24,

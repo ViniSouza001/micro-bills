@@ -31,7 +31,6 @@ function Transacoes({ route }) {
     } else {
       setErrorReturned(null);
       setTransacoes(data.transacoes);
-      console.log(data.transacoes[0].data);
     }
   };
 
@@ -58,7 +57,6 @@ function Transacoes({ route }) {
         }
       );
       const dataFaturamento = await responseFaturamento.json();
-      console.log(dataFaturamento);
       // valores
       setLucro(dataLucro.lucro.valorTotal);
       setFaturamento(dataFaturamento.faturamento);

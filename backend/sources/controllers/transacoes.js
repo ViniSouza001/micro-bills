@@ -103,7 +103,6 @@ function separaMetodos(transacoes, isLucro) {
   var valorTotal = 0;
 
   transacoes.forEach((transacao) => {
-    console.log(transacao);
     if (transacao.tipo == "Venda") valorTotal += transacao.valor;
     else valorTotal -= transacao.valor;
 
@@ -141,16 +140,23 @@ const lucroVendas = async (req, res) => {
 
 const faturamentoDiario = async (req, res) => {
   try {
-    const { usuarioId, mesAtual } = req.body;
     const hoje = new Date();
+    const { usuarioId, mesAtual } = req.body;
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(hoje.getFullYear(), mesAtual, hoje.getDate(), 0, 0, 0),
+        $gte: new Date(
+          hoje.getFullYear(),
+          mesAtual - 1,
+          hoje.getDate(),
+          0,
+          0,
+          0
+        ),
         $lte: new Date(
           hoje.getFullYear(),
-          mesAtual,
+          mesAtual - 1,
           hoje.getDate(),
           23,
           59,
@@ -158,7 +164,6 @@ const faturamentoDiario = async (req, res) => {
         ),
       },
     });
-
     if (transacoes.length == 0) {
       return res
         .status(404)

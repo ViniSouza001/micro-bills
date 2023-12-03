@@ -18,7 +18,7 @@ function HomeScreen({ route }) {
   const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
 
   // grafico
-  const widthAndHeight = 250;
+  const widthAndHeight = 230;
   const sliceColor = ["#00BDAE", "#0D7BDA", "#23C800"];
 
   // grafico vazio
@@ -28,6 +28,14 @@ function HomeScreen({ route }) {
   const { usuarioId } = route.params;
 
   const fetchValores = async () => {
+    // zerar valores
+    setTotalCartao(0);
+    setTotalDinheiro(0);
+    setTotalPix(0);
+    setTotalVendas(0);
+    setTotalValoresVendas(0);
+    setDataGrafico([]);
+
     const body = { usuarioId, mesAtual };
     try {
       const response = await fetch(
@@ -40,23 +48,33 @@ function HomeScreen({ route }) {
       );
 
       const data = await response.json();
-      const {
-        valorTotalCartao,
-        valorTotalDinheiro,
-        valorTotalPix,
-        valorTotal,
-      } = data.valores;
-      const valores = [valorTotalPix, valorTotalCartao, valorTotalDinheiro];
 
-      // inserção valores
-      setTotalCartao(valorTotalCartao);
-      setTotalDinheiro(valorTotalDinheiro);
-      setTotalPix(valorTotalPix);
-      setTotalVendas(data.transacoes.length);
-      setTotalValoresVendas(valorTotal);
-      setDataGrafico(valores);
+      if (data && data.valores) {
+        const {
+          valorTotalCartao,
+          valorTotalDinheiro,
+          valorTotalPix,
+          valorTotal,
+        } = data.valores;
+        const valores = [valorTotalPix, valorTotalCartao, valorTotalDinheiro];
+
+        // inserção valores
+        console.log(valorTotalCartao);
+        setTotalCartao(valorTotalCartao);
+        setTotalDinheiro(valorTotalDinheiro);
+        setTotalPix(valorTotalPix);
+        setTotalVendas(data.transacoes.length);
+        setTotalValoresVendas(valorTotal);
+        setDataGrafico(valores);
+      }
     } catch (error) {
-      console.log(error);
+      console.log(`Houve um erro: ${error}`);
+      setTotalCartao(0);
+      setTotalDinheiro(0);
+      setTotalPix(0);
+      setTotalVendas(0);
+      setTotalValoresVendas(0);
+      setDataGrafico([]);
       return;
     } finally {
       setFetchFeito(true);
@@ -67,8 +85,12 @@ function HomeScreen({ route }) {
     React.useCallback(() => {
       setFetchFeito(false);
       fetchValores();
-    }, [mesAtual])
+    }, [mesAtual, usuarioId])
   );
+
+  useEffect(() => {
+    fetchValores();
+  }, []);
 
   return (
     <View style={global.escuro}>
@@ -123,7 +145,7 @@ function HomeScreen({ route }) {
                   zIndex: 1,
                   alignItems: "center",
                   position: "absolute",
-                  marginTop: 65,
+                  marginTop: 75,
                 }}
               >
                 <Text style={styles.faturaTotal}>Faturamento</Text>
@@ -131,7 +153,6 @@ function HomeScreen({ route }) {
                 <Text style={styles.faturaTotal}>
                   R$ {totalValoresVendas.toFixed(2)}
                 </Text>
-                <Text style={styles.resumo}>Ver Resumo</Text>
               </View>
             </View>
             <View style={styles.cards}>
@@ -156,12 +177,6 @@ function HomeScreen({ route }) {
               <Text style={styles.txtVendas}>Total De Vendas</Text>
               <Text style={styles.txtNumberVendas}>{totalVendas}</Text>
             </View>
-            <Text
-              style={{ marginTop: 10, fontSize: 20, color: "white" }}
-              onPress={() => console.log(mesAtual)}
-            >
-              MES ATUAL
-            </Text>
             <Image />
           </View>
           <Footer usuarioId={usuarioId} showPerfilButton={true} />
