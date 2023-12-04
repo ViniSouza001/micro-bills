@@ -50,7 +50,7 @@ function HomeScreen({ route }) {
         url = "faturamentoMensal";
       }
 
-      const response = await fetch(`http://192.168.0.106:3000/${url}`, {
+      const response = await fetch(`http://192.168.1.11:3000/${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -75,8 +75,8 @@ function HomeScreen({ route }) {
         setTotalVendas(data.transacoes.length);
         setTotalValoresVendas(valorTotal);
         setDataGrafico(valores);
-      } else {
-        console.log("faturamento is not daily");
+      } else if (data.faturamento) {
+        setTotalValoresVendas(data.faturamento);
       }
     } catch (error) {
       console.log(`Houve um erro: ${error}`);
@@ -189,9 +189,7 @@ function HomeScreen({ route }) {
               >
                 <Text style={styles.faturaTotal}>Faturamento</Text>
                 <Text style={styles.total}>Total</Text>
-                <Text style={styles.faturaTotal}>
-                  R$ {totalValoresVendas.toFixed(2)}
-                </Text>
+                <Text style={styles.faturaTotal}>R$ {totalValoresVendas}</Text>
               </View>
             </View>
             <View style={styles.cards}>

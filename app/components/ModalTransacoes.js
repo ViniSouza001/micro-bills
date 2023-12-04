@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import { RadioButton } from "react-native-paper";
 import { TextInputMask } from "react-native-masked-text";
 import { Picker as Selector } from "@react-native-picker/picker";
@@ -31,7 +37,7 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
       tipo: tipo,
       formaPagto: formaPagto,
     };
-    const info = await fetch("http://192.168.0.106:3000/cadastrarTransacao", {
+    const info = await fetch("http://192.168.1.11:3000/cadastrarTransacao", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

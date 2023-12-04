@@ -13,6 +13,10 @@ const Tab = createBottomTabNavigator();
 function Footer({ usuarioId, showPerfilButton }) {
   const navigation = useNavigation();
 
+  useEffect(() => {
+    console.log(usuarioId);
+  }, [usuarioId]);
+
   return (
     <View style={styles.tabBar}>
       <TouchableOpacity

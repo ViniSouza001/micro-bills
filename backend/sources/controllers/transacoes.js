@@ -1,16 +1,39 @@
 const mongoose = require("mongoose");
 require("../models/Transacoes");
 const Transacao = mongoose.model("transacoes");
+const Moment = require("moment");
 
 const listarTransacao = async (req, res) => {
   try {
     const hoje = new Date();
     const { usuarioId, mes } = req.body;
+
+    // primeiro e ultimo dia do mes
+    const momentPrimeiroDia = new Date(
+      hoje.getFullYear(),
+      mes,
+      hoje.getDate() - hoje.getDate(),
+      0,
+      0,
+      0
+    );
+
+    const momentUltimoDia = new Date(
+      hoje.getFullYear(),
+      mes + 1,
+      hoje.getDate() - (hoje.getDate() + 1),
+      23,
+      59,
+      59
+    );
+
+    console.log({ momentPrimeiroDia, momentUltimoDia });
+
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       data: {
-        $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
-        $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
+        $gte: momentPrimeiroDia,
+        $lte: momentUltimoDia,
       },
     }).lean();
     if (!transacoes || transacoes.length == 0) {
@@ -122,11 +145,28 @@ const lucroVendas = async (req, res) => {
     const { usuarioId, mes } = req.body;
 
     const hoje = new Date();
+    const momentPrimeiroDia = new Date(
+      hoje.getFullYear(),
+      mes,
+      hoje.getDate() - hoje.getDate(),
+      0,
+      0,
+      0
+    );
+
+    const momentUltimoDia = new Date(
+      hoje.getFullYear(),
+      mes + 1,
+      hoje.getDate() - (hoje.getDate() + 1),
+      23,
+      59,
+      59
+    );
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       data: {
-        $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
-        $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
+        $gte: momentPrimeiroDia,
+        $lte: momentUltimoDia,
       },
     }).lean();
     const lucro = separaMetodos(transacoes, false);
@@ -186,7 +226,7 @@ const faturamentoDiario = async (req, res) => {
 
 const faturamentoSemanal = async (req, res) => {
   try {
-    const { usuarioId, mesAtual } = req.body;
+    const { usuarioId } = req.body;
     const hoje = new Date();
 
     // Primeiro dia da semana (domingo)
@@ -195,9 +235,7 @@ const faturamentoSemanal = async (req, res) => {
 
     // Último dia da semana (sábado)
     const ultimoDiaSemana = new Date(hoje);
-    ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()) - 1);
-
-    console.log({ primeiroDiaSemana, ultimoDiaSemana });
+    ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()));
 
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
@@ -216,6 +254,7 @@ const faturamentoSemanal = async (req, res) => {
         })
         .end();
     }
+    console.log({ primeiroDiaSemana, ultimoDiaSemana });
     const valores = separaMetodos(transacoes, true);
     return res.status(200).json({ success: true, transacoes, valores }).end();
   } catch (error) {
@@ -232,21 +271,35 @@ const faturamentoSemanal = async (req, res) => {
 const faturamentoMensal = async (req, res) => {
   try {
     var faturamento = 0;
+
     const hoje = new Date();
     const { usuarioId, mesAtual } = req.body;
+
+    // primeiro e ultimo dia do mes
+
+    const momentPrimeiroDia = new Date(
+      hoje.getFullYear(),
+      mesAtual,
+      hoje.getDate() - hoje.getDate(),
+      0,
+      0,
+      0
+    );
+
+    const momentUltimoDia = new Date(
+      hoje.getFullYear(),
+      mesAtual + 1,
+      hoje.getDate() - (hoje.getDate() + 1),
+      23,
+      59,
+      59
+    );
     const vendas = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(hoje.getFullYear(), mesAtual, hoje.getDate(), 0, 0, 0),
-        $lte: new Date(
-          hoje.getFullYear(),
-          mesAtual,
-          hoje.getDate(),
-          23,
-          59,
-          59
-        ),
+        $gte: momentPrimeiroDia,
+        $lte: momentUltimoDia,
       },
     }).lean();
     if (!vendas) {
@@ -259,9 +312,9 @@ const faturamentoMensal = async (req, res) => {
     vendas.forEach((venda) => {
       faturamento += venda.valor;
     });
-
+    const valores = separaMetodos(vendas, true);
     faturamento = faturamento.toFixed(2);
-    return res.status(200).json({ success: true, faturamento }).end();
+    return res.status(200).json({ success: true, faturamento, valores }).end();
   } catch (error) {
     return res
       .status(500)

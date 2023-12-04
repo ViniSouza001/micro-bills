@@ -42,7 +42,7 @@ function CriarConta({ navigation }) {
       confirmarSenha: confirmarSenha,
     };
 
-    fetch("http://192.168.0.106:3000/cadastro", {
+    fetch("http://192.168.1.11:3000/cadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
