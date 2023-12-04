@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: "80%",
   },
-  hoje: {
+  periodo: {
     color: "white",
     backgroundColor: "#000000",
     opacity: 0.8,

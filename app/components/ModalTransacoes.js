@@ -55,7 +55,6 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
       erros.forEach((error) => {
         showFlashMessage(error.texto, "danger");
       });
-      // showFlashMessage("data", "danger");
     }
   };
 

@@ -184,17 +184,69 @@ const faturamentoDiario = async (req, res) => {
   }
 };
 
+const faturamentoSemanal = async (req, res) => {
+  try {
+    const { usuarioId, mesAtual } = req.body;
+    const hoje = new Date();
+
+    // Primeiro dia da semana (domingo)
+    const primeiroDiaSemana = new Date(hoje);
+    primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay() - 1);
+
+    // Último dia da semana (sábado)
+    const ultimoDiaSemana = new Date(hoje);
+    ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()) - 1);
+
+    console.log({ primeiroDiaSemana, ultimoDiaSemana });
+
+    const transacoes = await Transacao.find({
+      usuarioId: usuarioId,
+      tipo: "Venda",
+      data: {
+        $gte: primeiroDiaSemana,
+        $lte: ultimoDiaSemana,
+      },
+    });
+    if (transacoes.length == 0) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "Não há transações para serem listadas",
+        })
+        .end();
+    }
+    const valores = separaMetodos(transacoes, true);
+    return res.status(200).json({ success: true, transacoes, valores }).end();
+  } catch (error) {
+    return res
+      .status(404)
+      .json({
+        success: false,
+        message: `Não foi possível pesquisar o faturamento semanal: ${error}`,
+      })
+      .end();
+  }
+};
+
 const faturamentoMensal = async (req, res) => {
   try {
     var faturamento = 0;
     const hoje = new Date();
-    const { usuarioId, mes } = req.body;
+    const { usuarioId, mesAtual } = req.body;
     const vendas = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 0, 0, 0),
-        $lte: new Date(hoje.getFullYear(), mes, hoje.getDate(), 23, 59, 59),
+        $gte: new Date(hoje.getFullYear(), mesAtual, hoje.getDate(), 0, 0, 0),
+        $lte: new Date(
+          hoje.getFullYear(),
+          mesAtual,
+          hoje.getDate(),
+          23,
+          59,
+          59
+        ),
       },
     }).lean();
     if (!vendas) {
@@ -219,39 +271,6 @@ const faturamentoMensal = async (req, res) => {
       })
       .end();
   }
-};
-
-const faturamentoSemanal = async (req, res) => {
-  const { usuarioId } = req.body;
-  const hoje = new Date();
-
-  // Primeiro dia da semana (domingo)
-  const primeiroDiaSemana = new Date(hoje);
-  primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay());
-
-  // Último dia da semana (sábado)
-  const ultimoDiaSemana = new Date(hoje);
-  ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()));
-
-  Transacao.find({
-    usuarioId: usuarioId,
-    data: {
-      $gte: primeiroDiaSemana,
-      $lte: ultimoDiaSemana,
-    },
-  })
-    .then((transacoes) => {
-      return res.status(200).json({ success: true, transacoes }).end();
-    })
-    .catch((error) => {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: `Não foi possível pesquisar o faturamento semanal: ${error}`,
-        })
-        .end();
-    });
 };
 
 module.exports = {

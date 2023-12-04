@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Screens/Header/Header.js";
 import Footer from "../Screens/Footer/Footer.js";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import global from "../stylesheets/global.styles.js";
 import styles from "../stylesheets/homeScreen.styles.js";
@@ -16,6 +16,9 @@ function HomeScreen({ route }) {
   const [dataGrafico, setDataGrafico] = useState([]);
   const [fetchFeito, setFetchFeito] = useState(false);
   const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
+  const periodo = ["Diario", "Semanal", "Mensal"];
+  const [indexPeriodo, setIndexPeriodo] = useState(0);
+  const [periodVisible, setPeriodVisible] = useState(true);
 
   // grafico
   const widthAndHeight = 230;
@@ -38,16 +41,23 @@ function HomeScreen({ route }) {
 
     const body = { usuarioId, mesAtual };
     try {
-      const response = await fetch(
-        "http://192.168.0.106:3000/faturamentoDiario",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      let url = "";
+      if (indexPeriodo == 0) {
+        url = "faturamentoDiario";
+      } else if (indexPeriodo == 1) {
+        url = "faturamentoSemanal";
+      } else {
+        url = "faturamentoMensal";
+      }
+
+      const response = await fetch(`http://192.168.0.106:3000/${url}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       const data = await response.json();
+      console.log(data);
 
       if (data && data.valores) {
         const {
@@ -59,13 +69,14 @@ function HomeScreen({ route }) {
         const valores = [valorTotalPix, valorTotalCartao, valorTotalDinheiro];
 
         // inserção valores
-        console.log(valorTotalCartao);
         setTotalCartao(valorTotalCartao);
         setTotalDinheiro(valorTotalDinheiro);
         setTotalPix(valorTotalPix);
         setTotalVendas(data.transacoes.length);
         setTotalValoresVendas(valorTotal);
         setDataGrafico(valores);
+      } else {
+        console.log("faturamento is not daily");
       }
     } catch (error) {
       console.log(`Houve um erro: ${error}`);
@@ -85,12 +96,26 @@ function HomeScreen({ route }) {
     React.useCallback(() => {
       setFetchFeito(false);
       fetchValores();
-    }, [mesAtual, usuarioId])
+
+      if (mesAtual != new Date().getMonth() + 1) {
+        setPeriodVisible(false);
+      } else {
+        setPeriodVisible(true);
+      }
+    }, [mesAtual, usuarioId, indexPeriodo])
   );
 
-  useEffect(() => {
-    fetchValores();
-  }, []);
+  const goToNextPeriod = () => {
+    if (indexPeriodo < periodo.length - 1) {
+      setIndexPeriodo(indexPeriodo + 1);
+    }
+  };
+
+  const goToPreviousPeriod = () => {
+    if (indexPeriodo > 0) {
+      setIndexPeriodo(indexPeriodo - 1);
+    }
+  };
 
   return (
     <View style={global.escuro}>
@@ -109,17 +134,31 @@ function HomeScreen({ route }) {
             setMesAtual={setMesAtual}
           />
           <View style={[styles.diario, global.main]}>
-            <View style={styles.hoje}>
-              <Image
-                style={styles.setaE}
-                source={require("../../assets/images/seta_esquerda.png")}
-              />
-              <Text style={styles.text}>Hoje</Text>
-              <Image
-                style={styles.setaD}
-                source={require("../../assets/images/seta_direita.png")}
-              />
-            </View>
+            {periodVisible && (
+              <View style={styles.periodo}>
+                <TouchableOpacity
+                  onPress={() => {
+                    goToPreviousPeriod();
+                  }}
+                >
+                  <Image
+                    style={styles.setaE}
+                    source={require("../../assets/images/seta_esquerda.png")}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.text}>{periodo[indexPeriodo]}</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    goToNextPeriod();
+                  }}
+                >
+                  <Image
+                    style={styles.setaD}
+                    source={require("../../assets/images/seta_direita.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
             <View style={styles.grafico}>
               {dataGrafico.length !== 0 ? (
                 <PieChart

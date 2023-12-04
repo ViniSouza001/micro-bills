@@ -53,7 +53,10 @@ function Transacoes({ route }) {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ usuarioId: usuarioId, mes: mesAtual - 1 }),
+          body: JSON.stringify({
+            usuarioId: usuarioId,
+            mesAtual: mesAtual - 1,
+          }),
         }
       );
       const dataFaturamento = await responseFaturamento.json();
