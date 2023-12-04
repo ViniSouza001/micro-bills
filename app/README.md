@@ -16,8 +16,7 @@ npm install
 
 ### Tela do gráfico (home)
 
-- Configurar a faixa superior para mudar em diário, semanal e mensal
-- Se o usuário selecionar outro mês, essa faixa irá sumir (não tem como selecionar o mês passado e pedir uma visualização semanal, não saberemos que semana será desejada);
+- Debbug 'total da soma dos valores é igual a zero' para colocar no grafico
 
 ### Tela de transações
 

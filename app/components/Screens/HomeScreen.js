@@ -16,9 +16,9 @@ function HomeScreen({ route }) {
   const [dataGrafico, setDataGrafico] = useState([]);
   const [fetchFeito, setFetchFeito] = useState(false);
   const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
-  const periodo = ["Diario", "Semanal", "Mensal"];
-  const [indexPeriodo, setIndexPeriodo] = useState(0);
   const [periodVisible, setPeriodVisible] = useState(true);
+  const [indexPeriodo, setIndexPeriodo] = useState(0);
+  const periodos = ["Diario", "Semanal", "Mensal"];
 
   // grafico
   const widthAndHeight = 230;
@@ -39,25 +39,30 @@ function HomeScreen({ route }) {
     setTotalValoresVendas(0);
     setDataGrafico([]);
 
-    const body = { usuarioId, mesAtual };
+    const body = { usuarioId, mesAtual: mesAtual - 1 };
     try {
       let url = "";
-      if (indexPeriodo == 0) {
-        url = "faturamentoDiario";
-      } else if (indexPeriodo == 1) {
-        url = "faturamentoSemanal";
+      if (mesAtual == new Date().getMonth() + 1) {
+        if (indexPeriodo == 0) {
+          url = "faturamentoDiario";
+        } else if (indexPeriodo == 1) {
+          url = "faturamentoSemanal";
+        } else {
+          url = "faturamentoMensal";
+        }
       } else {
         url = "faturamentoMensal";
       }
 
-      const response = await fetch(`http://192.168.1.11:3000/${url}`, {
+      const response = await fetch(`http://192.168.0.106:3000/${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
       const data = await response.json();
-      console.log(data);
+
+      console.log({ data, mesAtual });
 
       if (data && data.valores) {
         const {
@@ -75,8 +80,8 @@ function HomeScreen({ route }) {
         setTotalVendas(data.transacoes.length);
         setTotalValoresVendas(valorTotal);
         setDataGrafico(valores);
-      } else if (data.faturamento) {
-        setTotalValoresVendas(data.faturamento);
+      } else if (data.faturamento !== 0) {
+        setTotalValoresVendas();
       }
     } catch (error) {
       console.log(`Houve um erro: ${error}`);
@@ -106,7 +111,7 @@ function HomeScreen({ route }) {
   );
 
   const goToNextPeriod = () => {
-    if (indexPeriodo < periodo.length - 1) {
+    if (indexPeriodo < periodos.length - 1) {
       setIndexPeriodo(indexPeriodo + 1);
     }
   };
@@ -146,7 +151,7 @@ function HomeScreen({ route }) {
                     source={require("../../assets/images/seta_esquerda.png")}
                   />
                 </TouchableOpacity>
-                <Text style={styles.text}>{periodo[indexPeriodo]}</Text>
+                <Text style={styles.text}>{periodos[indexPeriodo]}</Text>
                 <TouchableOpacity
                   onPress={() => {
                     goToNextPeriod();
@@ -160,7 +165,7 @@ function HomeScreen({ route }) {
               </View>
             )}
             <View style={styles.grafico}>
-              {dataGrafico.length !== 0 ? (
+              {dataGrafico.length !== 0 || temValores ? (
                 <PieChart
                   style={{ zIndex: 0 }}
                   widthAndHeight={widthAndHeight}

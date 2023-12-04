@@ -37,7 +37,7 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
       tipo: tipo,
       formaPagto: formaPagto,
     };
-    const info = await fetch("http://192.168.1.11:3000/cadastrarTransacao", {
+    const info = await fetch("http://192.168.0.106:3000/cadastrarTransacao", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

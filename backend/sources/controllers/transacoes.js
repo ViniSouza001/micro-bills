@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 require("../models/Transacoes");
 const Transacao = mongoose.model("transacoes");
-const Moment = require("moment");
 
 const listarTransacao = async (req, res) => {
   try {
@@ -12,7 +11,7 @@ const listarTransacao = async (req, res) => {
     const momentPrimeiroDia = new Date(
       hoje.getFullYear(),
       mes,
-      hoje.getDate() - hoje.getDate(),
+      hoje.getDate() - hoje.getDate() + 1,
       0,
       0,
       0
@@ -186,17 +185,10 @@ const faturamentoDiario = async (req, res) => {
       usuarioId: usuarioId,
       tipo: "Venda",
       data: {
-        $gte: new Date(
-          hoje.getFullYear(),
-          mesAtual - 1,
-          hoje.getDate(),
-          0,
-          0,
-          0
-        ),
+        $gte: new Date(hoje.getFullYear(), mesAtual, hoje.getDate(), 0, 0, 0),
         $lte: new Date(
           hoje.getFullYear(),
-          mesAtual - 1,
+          mesAtual,
           hoje.getDate(),
           23,
           59,
@@ -275,6 +267,8 @@ const faturamentoMensal = async (req, res) => {
     const hoje = new Date();
     const { usuarioId, mesAtual } = req.body;
 
+    console.log({ mesAtual });
+
     // primeiro e ultimo dia do mes
 
     const momentPrimeiroDia = new Date(
@@ -314,7 +308,10 @@ const faturamentoMensal = async (req, res) => {
     });
     const valores = separaMetodos(vendas, true);
     faturamento = faturamento.toFixed(2);
-    return res.status(200).json({ success: true, faturamento, valores }).end();
+    return res
+      .status(200)
+      .json({ success: true, faturamento, valores, transacoes: vendas })
+      .end();
   } catch (error) {
     return res
       .status(500)
