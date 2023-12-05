@@ -4,20 +4,28 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   modal: {
     width: "90%",
-    height: "65%",
+    height: "60%",
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: 20,
+    flexDirection: "column",
+    overflow: "scroll",
   },
   img: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
   },
   label: {
-    fontSize: 25,
+    fontSize: 23,
+  },
+  form: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 10,
+    paddingBottom: 20,
   },
   inputArea: {
     width: "100%",

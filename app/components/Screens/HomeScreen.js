@@ -18,6 +18,7 @@ function HomeScreen({ route }) {
   const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
   const [periodVisible, setPeriodVisible] = useState(true);
   const [indexPeriodo, setIndexPeriodo] = useState(0);
+  const [colorGraphic, setColorGraphic] = useState([]);
   const periodos = ["Diario", "Semanal", "Mensal"];
 
   // grafico
@@ -38,6 +39,7 @@ function HomeScreen({ route }) {
     setTotalVendas(0);
     setTotalValoresVendas(0);
     setDataGrafico([]);
+    setColorGraphic(sliceGrayColor);
 
     const body = { usuarioId, mesAtual: mesAtual - 1 };
     try {
@@ -62,8 +64,6 @@ function HomeScreen({ route }) {
 
       const data = await response.json();
 
-      console.log({ data, mesAtual });
-
       if (data && data.valores) {
         const {
           valorTotalCartao,
@@ -73,15 +73,27 @@ function HomeScreen({ route }) {
         } = data.valores;
         const valores = [valorTotalPix, valorTotalCartao, valorTotalDinheiro];
 
+        // verificar se há valores
+        let contador = false;
+        valores.forEach((value) => {
+          if (value !== 0) {
+            contador = true;
+          }
+        });
+
         // inserção valores
         setTotalCartao(valorTotalCartao);
         setTotalDinheiro(valorTotalDinheiro);
         setTotalPix(valorTotalPix);
         setTotalVendas(data.transacoes.length);
         setTotalValoresVendas(valorTotal);
-        setDataGrafico(valores);
-      } else if (data.faturamento !== 0) {
-        setTotalValoresVendas();
+        if (contador) {
+          setDataGrafico(valores);
+          setColorGraphic(sliceColor);
+        } else {
+          setDataGrafico(infoVazio);
+          setColorGraphic(sliceGrayColor);
+        }
       }
     } catch (error) {
       console.log(`Houve um erro: ${error}`);
@@ -165,12 +177,12 @@ function HomeScreen({ route }) {
               </View>
             )}
             <View style={styles.grafico}>
-              {dataGrafico.length !== 0 || temValores ? (
+              {dataGrafico.length !== 0 ? (
                 <PieChart
                   style={{ zIndex: 0 }}
                   widthAndHeight={widthAndHeight}
                   series={dataGrafico}
-                  sliceColor={sliceColor}
+                  sliceColor={colorGraphic}
                   coverRadius={0.75}
                   coverFill={"transparent"}
                 />
@@ -179,7 +191,7 @@ function HomeScreen({ route }) {
                   style={{ zIndex: 0 }}
                   widthAndHeight={widthAndHeight}
                   series={infoVazio}
-                  sliceColor={sliceGrayColor}
+                  sliceColor={colorGraphic}
                   coverRadius={0.75}
                   coverFill={"transparent"}
                 />

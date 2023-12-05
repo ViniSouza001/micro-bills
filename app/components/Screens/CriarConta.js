@@ -21,7 +21,6 @@ function CriarConta({ navigation }) {
 
   const handleDateChange = (event, date) => {
     setSelectedDate(date);
-    console.log(selectedDate);
     setShowDatePicker(false);
     setDataEscolhida(selectedDate);
   };
@@ -109,7 +108,7 @@ function CriarConta({ navigation }) {
               )}
             </View>
             <Input
-              label="E-mail"
+              label="Nome de usuario"
               handleChangeText={setEmail}
               value={email}
               secureTextEntry={false}

@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import global from "../stylesheets/global.styles";
 import styles from "../stylesheets/perfil.styles.js";
 import Input from "./login/Input";
+import ButtonForm from "./login/ButtonForm.js";
+import { showMessage } from "react-native-flash-message";
 
 function Perfil({ route }) {
   const { usuarioId } = route.params;
@@ -10,12 +20,14 @@ function Perfil({ route }) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [revelar, setRevelar] = useState(false);
+  const [revelarC, setRevelarC] = useState(false);
   const [newPassword, setNewPassword] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dataEscolhida, setDataEscolhida] = useState(null);
 
   useEffect(() => {
-    console.log("Pagina de perfil");
     infoUsuarios();
   }, []);
 
@@ -29,9 +41,60 @@ function Perfil({ route }) {
     });
 
     const data = await response.json();
+    const { nascimento, email, nome, senha } = data.usuario;
     setUsuario(data.usuario);
-    setSelectedDate(data.usuario.nascimento);
-    console.log(data.usuario);
+    setSelectedDate(new Date(nascimento));
+    console.log(nascimento);
+    setEmail(email);
+    setUserName(nome);
+  };
+
+  const handleDateChange = (event, date) => {
+    setSelectedDate(date);
+    setDataEscolhida(selectedDate);
+    setShowDatePicker(false);
+  };
+
+  const openDatePicker = () => {
+    setShowDatePicker(true);
+  };
+
+  const showFlashMessage = (message, typeMessage) => {
+    return showMessage({
+      message: message || "A mensagem está vazia",
+      type: typeMessage || "default",
+    });
+  };
+
+  const update = async () => {
+    // console.log({ userName, email, password, newPassword });
+    const body = {
+      usuarioId,
+      nome: userName,
+      email: email,
+      nascimento: new Date(selectedDate),
+      senha: password,
+      novaSenha: newPassword,
+    };
+
+    const response = await fetch("http://192.168.0.106:3000/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.success == true) {
+      showFlashMessage("Dados atualizados com sucesso!", "success");
+    } else if (data.erros) {
+      data.erros.forEach((erro) => {
+        showFlashMessage(erro.texto, "danger");
+      });
+    } else {
+      showFlashMessage(data.message, "danger");
+    }
   };
 
   return (
@@ -41,42 +104,75 @@ function Perfil({ route }) {
         style={styles.img}
       />
       <View style={styles.modal}>
-        <Text style={{ fontSize: 25 }}>Perfil</Text>
-        <View style={styles.form}>
-          <View style={styles.inputArea}>
-            <Input
-              label={"Nome completo"}
-              value={usuario.nome}
-              key={usuario.nome}
-              handleChangeText={setUserName}
-            />
-          </View>
-          <View style={styles.nascimentoArea}>
-            <Text>Data de nascimento</Text>
-            <TouchableOpacity style={styles.btnNasc}>
-              <Text>
-                {usuario.nascimento
-                  ? usuario.nascimento.slice(0, 10)
-                  : "dd/mm/aaaa"}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.inputArea}>
-            <Input
-              isPassword={true}
-              label={"Email"}
-              value={usuario.email}
-              key={usuario.email}
-              handleChangeText={setEmail}
-            />
-            <View style={styles.inputArea}>
-              <Input label={"Senha"} value={""} key={"Password"} />
+        <ScrollView
+          style={{
+            width: "100%",
+          }}
+        >
+          <View style={styles.form}>
+            <Text style={{ fontSize: 25 }}>Perfil</Text>
+            <View style={{ gap: 5 }}>
+              <View style={styles.inputArea}>
+                <Input
+                  label={"Nome completo"}
+                  value={userName}
+                  handleChangeText={setUserName}
+                />
+              </View>
+              <View style={styles.nascimentoArea}>
+                <Text>Data de nascimento</Text>
+                <TouchableOpacity
+                  onPress={openDatePicker}
+                  style={styles.btnNasc}
+                >
+                  <Text>
+                    {selectedDate
+                      ? selectedDate.toLocaleDateString()
+                      : "dd/mm/aaaa"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={selectedDate}
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
+              <View style={styles.inputArea}>
+                <Input
+                  label={"Nome de usuário"}
+                  value={email}
+                  handleChangeText={setEmail}
+                />
+                <View style={styles.inputArea}>
+                  <Input
+                    label={"Senha"}
+                    value={password}
+                    isPassword={true}
+                    handleChangeText={setPassword}
+                    secureTextEntry={revelar ? false : true}
+                    revelar={revelar}
+                    setRevelar={setRevelar}
+                  />
+                </View>
+                <View style={styles.inputArea}>
+                  <Input
+                    label={"Nova senha"}
+                    value={newPassword}
+                    handleChangeText={setNewPassword}
+                    isPassword={true}
+                    revelar={revelarC}
+                    setRevelar={setRevelarC}
+                    secureTextEntry={revelarC ? false : true}
+                  />
+                </View>
+                <ButtonForm handleOnPress={update} text={"Alterar dados"} />
+              </View>
             </View>
-            <View style={styles.inputArea}>
-              <Input label={"Nova senha"} value={""} key={"New password"} />
-            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );

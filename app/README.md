@@ -14,14 +14,9 @@ npm install
 
 # Problemas a serem resolvidos
 
-### Tela do gráfico (home)
-
-- Debbug 'total da soma dos valores é igual a zero' para colocar no grafico
-
 ### Tela de transações
 
 - Seria interessante um pequeno botão para excluir alguma transação (se der tempo, talvez algo para alterar, mas sem planos);
-- Mensagem de flash de erro caso o usuário tente criar uma transação sem preencher todos os dados;
 
 ### Tela de perfil
 

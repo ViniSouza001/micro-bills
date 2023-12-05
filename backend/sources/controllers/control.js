@@ -97,12 +97,10 @@ const criarConta = async (req, res) => {
 const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
-      return res
-        .status(500)
-        .json({
-          success: false,
-          message: "Erro durante a autenticação: " + err,
-        });
+      return res.status(500).json({
+        success: false,
+        message: "Erro durante a autenticação: " + err,
+      });
     }
 
     if (!user) {
@@ -136,12 +134,10 @@ const infoUsuarios = async (req, res) => {
 
 const alterarDados = async (req, res) => {
   const { usuarioId } = req.body;
-
   Usuario.findById(usuarioId)
     .then(async (user) => {
       if (user) {
-        console.log(user);
-        const { nome, nascimento, senha, novaSenha } = req.body;
+        const { nome, nascimento, email, senha, novaSenha } = req.body;
 
         // errors
         const erros = [];
@@ -162,15 +158,48 @@ const alterarDados = async (req, res) => {
           erros.push({ texto: "Data de nascimento inválido" });
         }
 
+        if (
+          !email ||
+          typeof email == undefined ||
+          email == undefined ||
+          email.lenght <= 2
+        ) {
+          erros.push({ texto: "Nome inválido ou muito curto" });
+        }
+
+        var encontrado = false;
+
+        if (email == user.email) {
+          encontrado = false;
+        } else {
+          var usuarioExistente = [];
+          usuarioExistente = await Usuario.find({ email: email });
+          encontrado = true;
+          if (encontrado) {
+            erros.push({ texto: "Este nome já existe" });
+          }
+        }
+
         if (erros.length !== 0) {
           return res.status(400).json({ success: false, erros });
         }
 
         user.nome = nome;
+        user.email = email;
         user.nascimento = nascimento;
 
         if (senha && novaSenha) {
           const senhaCorreta = await bcrypt.compare(senha, user.senha);
+
+          if (novaSenha.length < 4) {
+            return res
+              .status(400)
+              .json({
+                success: false,
+                message: "A senha deve ter mais do que 4 dígitos",
+              })
+              .end();
+          }
 
           const salt = await bcrypt.genSalt(10);
           const hash = await bcrypt.hash(senha, salt);
@@ -182,7 +211,7 @@ const alterarDados = async (req, res) => {
               .status(400)
               .json({
                 success: false,
-                message: "A senha digitada está incorreta",
+                message: "A senha atual está incorreta",
               })
               .end();
           }

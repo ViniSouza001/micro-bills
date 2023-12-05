@@ -87,7 +87,7 @@ function LoginScreen({ navigation, route }) {
       <View style={styles.form}>
         <View style={styles.formContainer}>
           <Input
-            label="E-mail"
+            label="Usuario"
             handleChangeText={setEmail}
             value={email}
             secureTextEntry={false}
