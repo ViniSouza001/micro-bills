@@ -64,6 +64,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 5,
   },
+  columnButton: {
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
+  },
 });
 
 export default styles;

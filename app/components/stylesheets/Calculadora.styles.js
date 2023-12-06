@@ -8,10 +8,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 15,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   content: {
     marginTop: 20,
+    alignItems: "center",
   },
   img: {
     width: 100,
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
     marginBottom: 10,
   },
   input: {
@@ -40,7 +40,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     textAlign: "center",
     width: 200,
+    height: 30,
     alignSelf: "center",
+    margin: "auto",
+    marginTop: 5,
+    alignItems: "center",
+  },
+  resultado: {
+    fontSize: 15,
   },
 });
 

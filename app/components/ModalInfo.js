@@ -1,60 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput } from "react-native";
+import ButtonForm from "./Screens/login/ButtonForm";
+import styles from "./stylesheets/modal.styles";
+import { Picker as Selector } from "@react-native-picker/picker";
 import { RadioButton } from "react-native-paper";
 import { TextInputMask } from "react-native-masked-text";
-import { Picker as Selector } from "@react-native-picker/picker";
-import { showMessage } from "react-native-flash-message";
-import styles from "./stylesheets/modal.styles";
-import ButtonForm from "./Screens/login/ButtonForm";
+import ModalConfirmar from "./ModalConfirmar";
 
-function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
+const ModalInfo = ({ item, setModalInfo }) => {
   const [formaPagto, setFormaPagto] = useState("Dinheiro");
   const [quantidade, setQuantidade] = useState(0);
   const [valorUnitario, setValorUnitario] = useState(0);
   const [inputMoeda, setInputMoeda] = useState("0");
+  const [showConfirmar, setShowConfirmar] = useState(false);
   const [tipo, setTipo] = useState("");
-  const [item, setItem] = useState("");
+  const [nomeItem, setNomeItem] = useState("");
+  const [msg, setMsg] = useState("");
+  const [type, setType] = useState(0);
 
-  const showFlashMessage = (message, typeMessage) => {
-    return showMessage({
-      message: message || "A mensagem está vazia",
-      type: typeMessage || "default",
-    });
+  useEffect(() => {
+    setFormaPagto(item.formaPagto);
+    setNomeItem(item.item);
+    setQuantidade(item.quantidade);
+    setValorUnitario(item.valor);
+    setTipo(item.tipo);
+  }, []);
+
+  const openConfirmar = (msg, type) => {
+    setMsg(`${msg}`);
+    setType(type);
+    setShowConfirmar((state) => !state);
   };
 
-  const novaTransacao = async () => {
-    const body = {
-      usuarioId: usuarioId,
-      valorUnitario: valorUnitario,
-      item: item,
-      quantidade: quantidade,
-      tipo: tipo,
-      formaPagto: formaPagto,
-    };
-    const info = await fetch("http://192.168.1.11:3000/cadastrarTransacao", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+  const alterarDados = () => {
+    console.log("alterar");
+  };
 
-    const data = await info.json();
-    console.log(data);
+  const excluir = () => {
+    console.log("excluir");
+  };
 
-    if (data.success) {
-      showFlashMessage("Transação criada com sucesso", "success");
-      setTimeout(() => {
-        setModalVisible(false);
-        listarTransacoes;
-        fetchValores;
-      }, 1000);
-    } else {
-      const { erros } = data;
-      console.log(erros);
-      erros.forEach((error) => {
-        showFlashMessage(error.texto, "danger");
-      });
+  const confirmar = (value, type) => {
+    if (!value) {
+      setShowConfirmar(false);
+    }
+
+    if (value && type == 1) {
+      alterarDados();
+    } else if (value && type == 2) {
+      excluir();
     }
   };
 
@@ -65,6 +59,7 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
           <Text style={styles.label}>Item:</Text>
           <TextInput
             style={[styles.textInput, styles.bordas]}
+            value={nomeItem}
             onChangeText={(value) => {
               setItem(value);
             }}
@@ -76,6 +71,7 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
             <TextInput
               keyboardType="numeric"
               maxLength={2}
+              value={quantidade.toString()}
               onChangeText={(value) => {
                 setQuantidade(value);
               }}
@@ -140,26 +136,39 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
               <Text>Venda</Text>
             </View>
           </View>
-          <View style={styles.viewButton}>
-            <View style={styles.button}>
-              <ButtonForm
-                text={"Adicionar"}
-                key={"Adicionar"}
-                handleOnPress={novaTransacao}
-              />
-            </View>
-            <View style={styles.button}>
-              <ButtonForm
-                handleOnPress={() => setModalVisible(false)}
-                key={"Cancelar"}
-                text={"Cancelar"}
-              />
-            </View>
+        </View>
+
+        <View style={[styles.columnButton]}>
+          <View style={styles.button}>
+            <ButtonForm
+              text={"Alterar"}
+              key={"Alterar"}
+              handleOnPress={() => openConfirmar("ALTERAR", 1)}
+            />
+          </View>
+          <View style={styles.button}>
+            <ButtonForm
+              text={"Excluir"}
+              key={"Excluir"}
+              handleOnPress={() => openConfirmar("EXCLUIR", 2)}
+              isDelete={true}
+            />
+          </View>
+          <View style={styles.button}>
+            <ButtonForm
+              text={"Cancelar"}
+              handleOnPress={() => {
+                setModalInfo(false);
+              }}
+            />
           </View>
         </View>
       </View>
+      {showConfirmar && (
+        <ModalConfirmar msg={msg} type={type} confirmar={confirmar} />
+      )}
     </View>
   );
-}
+};
 
-export default Modal;
+export default ModalInfo;

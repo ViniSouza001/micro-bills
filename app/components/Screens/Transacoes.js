@@ -6,6 +6,8 @@ import styles from "../stylesheets/transacoesScreen.styles.js";
 import setaDebito from "../../assets/images/seta_debito.png";
 import setaLucro from "../../assets/images/seta_lucro.png";
 import Modal from "../ModalTransacoes.js";
+import ModalInfo from "../ModalInfo.js";
+import Confirmar from "../ModalConfirmar.js";
 
 function Transacoes({ route }) {
   const { usuarioId } = route.params;
@@ -16,9 +18,11 @@ function Transacoes({ route }) {
   const [lucro, setLucro] = useState(null);
   const [mesAtual, setMesAtual] = useState(new Date().getMonth() + 1);
   const [modalVisible, setModalVisible] = useState(false);
+  const [showModalInfo, setShowModalInfo] = useState(false);
+  const [info, setInfo] = useState(null);
 
   const fetchTransacoes = async () => {
-    const response = await fetch("http://192.168.0.106:3000/listarTransacao", {
+    const response = await fetch("http://192.168.1.11:3000/listarTransacao", {
       method: "POST",
       body: JSON.stringify({ usuarioId, mes: mesAtual - 1 }),
       headers: {
@@ -39,7 +43,7 @@ function Transacoes({ route }) {
     setLucro(null);
     try {
       const responseLucro = await fetch(
-        "http://192.168.0.106:3000/lucroVendas",
+        "http://192.168.1.11:3000/lucroVendas",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,7 +53,7 @@ function Transacoes({ route }) {
       const dataLucro = await responseLucro.json();
 
       const responseFaturamento = await fetch(
-        "http://192.168.0.106:3000/faturamentoMensal",
+        "http://192.168.1.11:3000/faturamentoMensal",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -75,6 +79,11 @@ function Transacoes({ route }) {
     fetchValores();
     fetchTransacoes();
   }, [mesAtual, modalVisible]);
+
+  const openModalInfo = (item) => {
+    setShowModalInfo(true);
+    setInfo(item);
+  };
 
   return (
     <View style={global.escuro}>
@@ -170,7 +179,12 @@ function Transacoes({ route }) {
               style={{ width: "100%", flexDirection: "column" }}
               data={transacoes}
               renderItem={({ item }) => (
-                <View style={styles.card}>
+                <TouchableOpacity
+                  style={styles.card}
+                  onPress={() => {
+                    openModalInfo(item);
+                  }}
+                >
                   <View style={styles.precoArea}>
                     {item.tipo == "Venda" ? (
                       <Image source={setaLucro} />
@@ -218,7 +232,7 @@ function Transacoes({ route }) {
                       {item.data.substr(8, 2)}
                     </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
               )}
             />
           )}
@@ -236,6 +250,12 @@ function Transacoes({ route }) {
           usuarioId={usuarioId}
           listarTransacoes={fetchTransacoes}
         />
+      )}
+      {showModalInfo && (
+        <ModalInfo setModalInfo={setShowModalInfo} item={info} />
+      )}
+      {showModalInfo && (
+        <ModalInfo setModalInfo={setShowModalInfo} item={info} />
       )}
     </View>
   );

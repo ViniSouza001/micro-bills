@@ -139,6 +139,8 @@ const alterarDados = async (req, res) => {
       if (user) {
         const { nome, nascimento, email, senha, novaSenha } = req.body;
 
+        console.log(novaSenha);
+
         // errors
         const erros = [];
         if (
@@ -167,15 +169,14 @@ const alterarDados = async (req, res) => {
           erros.push({ texto: "Nome inválido ou muito curto" });
         }
 
-        var encontrado = false;
-
         if (email == user.email) {
-          encontrado = false;
+          // pular este if
         } else {
           var usuarioExistente = [];
           usuarioExistente = await Usuario.find({ email: email });
-          encontrado = true;
-          if (encontrado) {
+          // encontrado = true;
+          if (usuarioExistente.length != 0) {
+            console.log(usuarioExistente);
             erros.push({ texto: "Este nome já existe" });
           }
         }

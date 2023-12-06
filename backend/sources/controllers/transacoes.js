@@ -223,11 +223,13 @@ const faturamentoSemanal = async (req, res) => {
 
     // Primeiro dia da semana (domingo)
     const primeiroDiaSemana = new Date(hoje);
-    primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay() - 1);
+    primeiroDiaSemana.setDate(hoje.getDate() - hoje.getDay());
 
     // Último dia da semana (sábado)
     const ultimoDiaSemana = new Date(hoje);
-    ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()));
+    ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay() + 1));
+
+    console.log({ primeiroDiaSemana, ultimoDiaSemana });
 
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
@@ -321,6 +323,10 @@ const faturamentoMensal = async (req, res) => {
       })
       .end();
   }
+};
+
+const excluir = async () => {
+  const { transacaoId } = req.body;
 };
 
 module.exports = {

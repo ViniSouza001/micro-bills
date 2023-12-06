@@ -55,15 +55,19 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
     backgroundColor: "#000000",
     alignItems: "center",
     borderRadius: 1000,
-    margin: 10,
+    margin: 5,
   },
   txtButton: {
     color: "#FFFFFF",
+    fontSize: 16,
+  },
+  deleteButton: {
+    color: "#FF0000",
     fontSize: 16,
   },
   divInput: {
