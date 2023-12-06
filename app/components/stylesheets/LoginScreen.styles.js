@@ -70,6 +70,11 @@ const styles = StyleSheet.create({
     color: "#FF0000",
     fontSize: 16,
   },
+  viewButton: {
+    width: "80%",
+    alignSelf: "center",
+    marginTop: 10,
+  },
   divInput: {
     alignSelf: "center",
     width: "75%",

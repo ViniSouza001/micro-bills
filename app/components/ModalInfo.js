@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput } from "react-native";
-import ButtonForm from "./Screens/login/ButtonForm";
-import styles from "./stylesheets/modal.styles";
 import { Picker as Selector } from "@react-native-picker/picker";
 import { RadioButton } from "react-native-paper";
 import { TextInputMask } from "react-native-masked-text";
+import { showMessage } from "react-native-flash-message";
+import ButtonForm from "./Screens/login/ButtonForm";
+import styles from "./stylesheets/modal.styles";
 import ModalConfirmar from "./ModalConfirmar";
 
 const ModalInfo = ({ item, setModalInfo }) => {
+  const [nomeItem, setNomeItem] = useState("");
+  const [tipo, setTipo] = useState("");
   const [formaPagto, setFormaPagto] = useState("Dinheiro");
   const [quantidade, setQuantidade] = useState(0);
   const [valorUnitario, setValorUnitario] = useState(0);
   const [inputMoeda, setInputMoeda] = useState("0");
   const [showConfirmar, setShowConfirmar] = useState(false);
-  const [tipo, setTipo] = useState("");
-  const [nomeItem, setNomeItem] = useState("");
   const [msg, setMsg] = useState("");
   const [type, setType] = useState(0);
 
@@ -26,25 +27,70 @@ const ModalInfo = ({ item, setModalInfo }) => {
     setTipo(item.tipo);
   }, []);
 
+  const showFlashMessage = (message, typeMessage) => {
+    return showMessage({
+      message: message || "A mensagem está vazia",
+      type: typeMessage || "default",
+    });
+  };
+
   const openConfirmar = (msg, type) => {
     setMsg(`${msg}`);
     setType(type);
     setShowConfirmar((state) => !state);
   };
 
-  const alterarDados = () => {
-    console.log("alterar");
+  const alterarDados = async () => {
+    const info = await fetch("http://192.168.0.106:3000/alterar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        transacaoId: item._id,
+        nomeItem,
+        tipo,
+        formaPagto,
+        quantidade,
+        valorUnitario,
+      }),
+    });
+    const data = await info.json();
+
+    if (data.success == true) {
+      showFlashMessage(data.message, "success");
+      setTimeout(() => {
+        setModalInfo(false);
+      }, 1000);
+    } else {
+      showFlashMessage(data.message, "danger");
+    }
   };
 
-  const excluir = () => {
-    console.log("excluir");
+  const excluir = async () => {
+    const info = await fetch("http://192.168.0.106:3000/excluir", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ transacaoId: item._id }),
+    });
+
+    const data = await info.json();
+    if (data.success == true) {
+      showFlashMessage(data.message, "success");
+      setTimeout(() => {
+        setModalInfo(false);
+      }, 1000);
+    } else {
+      showFlashMessage(data.message, "danger");
+    }
   };
 
   const confirmar = (value, type) => {
     if (!value) {
       setShowConfirmar(false);
     }
-
     if (value && type == 1) {
       alterarDados();
     } else if (value && type == 2) {

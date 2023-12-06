@@ -22,7 +22,7 @@ function Transacoes({ route }) {
   const [info, setInfo] = useState(null);
 
   const fetchTransacoes = async () => {
-    const response = await fetch("http://192.168.1.11:3000/listarTransacao", {
+    const response = await fetch("http://192.168.0.106:3000/listarTransacao", {
       method: "POST",
       body: JSON.stringify({ usuarioId, mes: mesAtual - 1 }),
       headers: {
@@ -43,7 +43,7 @@ function Transacoes({ route }) {
     setLucro(null);
     try {
       const responseLucro = await fetch(
-        "http://192.168.1.11:3000/lucroVendas",
+        "http://192.168.0.106:3000/lucroVendas",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ function Transacoes({ route }) {
       const dataLucro = await responseLucro.json();
 
       const responseFaturamento = await fetch(
-        "http://192.168.1.11:3000/faturamentoMensal",
+        "http://192.168.0.106:3000/faturamentoMensal",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -76,9 +76,11 @@ function Transacoes({ route }) {
   };
 
   useEffect(() => {
-    fetchValores();
-    fetchTransacoes();
-  }, [mesAtual, modalVisible]);
+    if (!showModalInfo) {
+      fetchValores();
+      fetchTransacoes();
+    }
+  }, [mesAtual, modalVisible, showModalInfo]);
 
   const openModalInfo = (item) => {
     setShowModalInfo(true);
@@ -226,9 +228,9 @@ function Transacoes({ route }) {
                     </Text>
                     <Text style={{ color: "#FFF" }}>
                       {item.data.substr(0, 4)}
-                      {" / "}
+                      {"-"}
                       {item.data.substr(5, 2)}
-                      {" / "}
+                      {"-"}
                       {item.data.substr(8, 2)}
                     </Text>
                   </View>

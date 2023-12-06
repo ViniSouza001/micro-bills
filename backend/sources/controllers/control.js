@@ -139,8 +139,6 @@ const alterarDados = async (req, res) => {
       if (user) {
         const { nome, nascimento, email, senha, novaSenha } = req.body;
 
-        console.log(novaSenha);
-
         // errors
         const erros = [];
         if (
@@ -176,7 +174,6 @@ const alterarDados = async (req, res) => {
           usuarioExistente = await Usuario.find({ email: email });
           // encontrado = true;
           if (usuarioExistente.length != 0) {
-            console.log(usuarioExistente);
             erros.push({ texto: "Este nome já existe" });
           }
         }

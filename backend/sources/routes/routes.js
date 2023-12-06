@@ -20,5 +20,7 @@ router.post("/lucroVendas", transacaoControl.lucroVendas);
 router.post("/faturamentoDiario", transacaoControl.faturamentoDiario);
 router.post("/faturamentoSemanal", transacaoControl.faturamentoSemanal);
 router.post("/faturamentoMensal", transacaoControl.faturamentoMensal);
+router.post("/excluir", transacaoControl.excluir);
+router.post("/alterar", transacaoControl.alterar);
 
 module.exports = router;

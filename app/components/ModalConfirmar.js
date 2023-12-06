@@ -10,8 +10,20 @@ const ModalConfirmar = ({ msg, confirmar, type }) => {
         <Text style={styles.label}>
           Tem certeza que você deseja {msg} o item?
         </Text>
-        <ButtonForm text={"Sim"} handleOnPress={() => confirmar(true, type)} />
-        <ButtonForm text={"Não"} handleOnPress={() => confirmar(false, type)} />
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ width: "30%" }}>
+            <ButtonForm
+              text={"Sim"}
+              handleOnPress={() => confirmar(true, type)}
+            />
+          </View>
+          <View style={{ width: "30%" }}>
+            <ButtonForm
+              text={"Não"}
+              handleOnPress={() => confirmar(false, type)}
+            />
+          </View>
+        </View>
       </View>
     </View>
   );

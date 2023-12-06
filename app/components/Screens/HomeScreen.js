@@ -56,7 +56,7 @@ function HomeScreen({ route }) {
         url = "faturamentoMensal";
       }
 
-      const response = await fetch(`http://192.168.1.11:3000/${url}`, {
+      const response = await fetch(`http://192.168.0.106:3000/${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

@@ -26,8 +26,6 @@ const listarTransacao = async (req, res) => {
       59
     );
 
-    console.log({ momentPrimeiroDia, momentUltimoDia });
-
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       data: {
@@ -229,7 +227,25 @@ const faturamentoSemanal = async (req, res) => {
     const ultimoDiaSemana = new Date(hoje);
     ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay() + 1));
 
-    console.log({ primeiroDiaSemana, ultimoDiaSemana });
+    // tentar arrumar
+    // const primeiroDia = new Date(
+    //   hoje.getFullYear(),
+    //   hoje.getMonth(),
+    //   6 - hoje.getDay(),
+    //   0,
+    //   0,
+    //   0
+    // );
+
+    // // Último dia da semana (sábado)
+    // const ultimoDia = new Date(
+    //   hoje.getFullYear(),
+    //   hoje.getMonth(),
+    //   hoje.getDate() + (6 - hoje.getDay()),
+    //   23,
+    //   59,
+    //   59
+    // );
 
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
@@ -248,7 +264,6 @@ const faturamentoSemanal = async (req, res) => {
         })
         .end();
     }
-    console.log({ primeiroDiaSemana, ultimoDiaSemana });
     const valores = separaMetodos(transacoes, true);
     return res.status(200).json({ success: true, transacoes, valores }).end();
   } catch (error) {
@@ -268,8 +283,6 @@ const faturamentoMensal = async (req, res) => {
 
     const hoje = new Date();
     const { usuarioId, mesAtual } = req.body;
-
-    console.log({ mesAtual });
 
     // primeiro e ultimo dia do mes
 
@@ -325,8 +338,115 @@ const faturamentoMensal = async (req, res) => {
   }
 };
 
-const excluir = async () => {
-  const { transacaoId } = req.body;
+const excluir = async (req, res) => {
+  try {
+    const { transacaoId } = req.body;
+
+    const transacao = await Transacao.deleteOne({ _id: transacaoId });
+
+    if (transacao.deletedCount == 1) {
+      return res
+        .status(200)
+        .json({ success: true, message: "Transação deletada com sucesso" })
+        .end();
+    } else {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Não foi possível excluir a transação",
+        })
+        .end();
+    }
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Houve um erro interno no servidor" })
+      .end();
+  }
+};
+
+const alterar = async (req, res) => {
+  try {
+    const { transacaoId } = req.body;
+    const transacao = await Transacao.findById(transacaoId);
+
+    if (!transacao) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Não foi possível encontrar a transação",
+        })
+        .end();
+    }
+
+    const { nomeItem, quantidade, formaPagto, tipo, valorUnitario } = req.body;
+
+    var erros = [];
+
+    if (
+      !valorUnitario ||
+      typeof valorUnitario === undefined ||
+      valorUnitario === null
+    ) {
+      erros.push({ texto: "Preço inválido" });
+    }
+
+    if (!nomeItem || typeof nomeItem === undefined || nomeItem === null) {
+      erros.push({ texto: "Você deve informar um nome ao item" });
+    }
+
+    if (
+      !quantidade ||
+      typeof quantidade === undefined ||
+      quantidade === null ||
+      quantidade == 0
+    ) {
+      erros.push({ texto: "A quantidade deve ser no mínimo 1" });
+    }
+
+    if (!formaPagto || typeof formaPagto === undefined || formaPagto === null) {
+      erros.push({ texto: "Você deve informar uma forma de pagamento" });
+    }
+
+    if (!tipo || typeof tipo === undefined || tipo === null) {
+      erros.push({ texto: "Você deve informar o tipo da transação" });
+    }
+
+    if (erros.length !== 0) {
+      return res.status(404).json({ success: false, erros }).end();
+    }
+
+    transacao.item = nomeItem;
+    transacao.quantidade = quantidade;
+    transacao.valor = valorUnitario;
+    transacao.formaPagto = formaPagto;
+    transacao.tipo = tipo;
+
+    transacao
+      .save()
+      .then(() => {
+        return res
+          .status(200)
+          .json({ success: true, message: "Dados atualizados com sucesso" })
+          .end();
+      })
+      .catch((error) => {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message: "Não foi possível alterar os dados: " + error,
+          })
+          .end();
+      });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, message: `Houve um erro interno: ${error}` })
+      .end();
+  }
 };
 
 module.exports = {
@@ -336,4 +456,6 @@ module.exports = {
   lucroVendas,
   faturamentoMensal,
   faturamentoSemanal,
+  excluir,
+  alterar,
 };

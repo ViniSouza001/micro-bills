@@ -46,7 +46,7 @@ function LoginScreen({ navigation, route }) {
     const body = { email, senha };
     setUsuarioId(null);
     try {
-      const response = await fetch("http://192.168.1.11:3000/login", {
+      const response = await fetch("http://192.168.0.106:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +105,9 @@ function LoginScreen({ navigation, route }) {
         <TouchableOpacity onPress={criarConta}>
           <Text style={styles.azul}>Criar conta</Text>
         </TouchableOpacity>
-        <ButtonForm text={"Entrar"} key={"Entrar"} handleOnPress={login} />
+        <View style={styles.viewButton}>
+          <ButtonForm text={"Entrar"} key={"Entrar"} handleOnPress={login} />
+        </View>
       </View>
     </View>
   );

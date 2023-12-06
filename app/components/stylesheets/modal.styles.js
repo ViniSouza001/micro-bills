@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     alignItems: "center",
+    marginTop: 10,
   },
 });
 

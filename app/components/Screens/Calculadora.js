@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import global from "../stylesheets/global.styles";
 import styles from "../stylesheets/Calculadora.styles";
 import ButtonForm from "./login/ButtonForm";
@@ -16,7 +17,7 @@ function CalculadoraScreen() {
 
   const calcular = () => {
     if (custoProduto == 0 || lucroDesejado == 0) {
-      showFlashMessage("Os campos devem estar com uma", "danger");
+      showFlashMessage("Preencha todos os campos", "danger");
     } else {
       const acrescimo = custoProduto * (lucroDesejado / 100);
       setValorSugerido(Number(acrescimo) + Number(custoProduto));
@@ -50,7 +51,7 @@ function CalculadoraScreen() {
               />
             </View>
             <View style={styles.inputContainer}>
-              <Text style={styles.texto}>% de lucro desejado</Text>
+              <Text style={styles.texto}>Lucro desejado (%)</Text>
               <TextInput
                 keyboardType="number-pad"
                 style={styles.input}
