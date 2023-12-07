@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Image, StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import Transacoes from "../Transacoes";
-import Calculadora from "../Calculadora";
-import Perfil from "../Perfil";
 
 const Tab = createBottomTabNavigator();
 
 function Footer({ usuarioId, showPerfilButton }) {
   const navigation = useNavigation();
-
-  useEffect(() => {
-    console.log(usuarioId);
-  }, [usuarioId]);
-
   return (
     <View style={styles.tabBar}>
       <TouchableOpacity
