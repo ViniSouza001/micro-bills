@@ -41,7 +41,7 @@ const ModalInfo = ({ item, setModalInfo }) => {
   };
 
   const alterarDados = async () => {
-    const info = await fetch("http://192.168.0.106:3000/alterar", {
+    const info = await fetch("https://api-microbills.onrender.com/alterar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const ModalInfo = ({ item, setModalInfo }) => {
   };
 
   const excluir = async () => {
-    const info = await fetch("http://192.168.0.106:3000/excluir", {
+    const info = await fetch("https://api-microbills.onrender.com/excluir", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

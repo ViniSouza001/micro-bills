@@ -31,16 +31,18 @@ function Modal({ setModalVisible, usuarioId, listarTransacoes, fetchValores }) {
       tipo: tipo,
       formaPagto: formaPagto,
     };
-    const info = await fetch("http://192.168.1.11:3000/cadastrarTransacao", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const info = await fetch(
+      "https://api-microbills.onrender.com/cadastrarTransacao",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
 
     const data = await info.json();
-    console.log(data);
 
     if (data.success) {
       showFlashMessage("Transação criada com sucesso", "success");

@@ -56,11 +56,14 @@ function HomeScreen({ route }) {
         url = "faturamentoMensal";
       }
 
-      const response = await fetch(`http://192.168.1.11:3000/${url}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `https://api-microbills.onrender.com/${url}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
 
       const data = await response.json();
 

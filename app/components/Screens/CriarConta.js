@@ -41,7 +41,7 @@ function CriarConta({ navigation }) {
       confirmarSenha: confirmarSenha,
     };
 
-    fetch("http://192.168.1.11:3000/cadastro", {
+    fetch("http://https://api-microbills.onrender.com/cadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,6 @@ function CriarConta({ navigation }) {
             navigation.navigate("Pagina login");
           }, 500);
         } else {
-          console.log(dados);
           if (dados.erros) {
             dados.erros.forEach((erro) => {
               showFlashMessage(erro.texto, "danger");

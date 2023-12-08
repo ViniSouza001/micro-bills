@@ -22,13 +22,16 @@ function Transacoes({ route }) {
   const [info, setInfo] = useState(null);
 
   const fetchTransacoes = async () => {
-    const response = await fetch("http://192.168.1.11:3000/listarTransacao", {
-      method: "POST",
-      body: JSON.stringify({ usuarioId, mes: mesAtual - 1 }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://api-microbills.onrender.com/listarTransacao",
+      {
+        method: "POST",
+        body: JSON.stringify({ usuarioId, mes: mesAtual - 1 }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await response.json();
     if (!data.success) {
       setErrorReturned(data.message);
@@ -43,7 +46,7 @@ function Transacoes({ route }) {
     setLucro(null);
     try {
       const responseLucro = await fetch(
-        "http://192.168.1.11:3000/lucroVendas",
+        "https://api-microbills.onrender.com/lucroVendas",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -53,7 +56,7 @@ function Transacoes({ route }) {
       const dataLucro = await responseLucro.json();
 
       const responseFaturamento = await fetch(
-        "http://192.168.1.11:3000/faturamentoMensal",
+        "https://api-microbills.onrender.com/faturamentoMensal",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
