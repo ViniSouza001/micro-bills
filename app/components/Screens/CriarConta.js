@@ -41,7 +41,7 @@ function CriarConta({ navigation }) {
       confirmarSenha: confirmarSenha,
     };
 
-    fetch("http://https://api-microbills.onrender.com/cadastro", {
+    fetch("http://192.168.1.182:3000/cadastro", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,9 @@ function CriarConta({ navigation }) {
               setRevelar={setRevelarC}
             />
           </View>
-          <ButtonForm text={"Criar conta"} handleOnPress={criarConta} />
+          <View style={{ width: "80%", alignSelf: "center" }}>
+            <ButtonForm text={"Criar conta"} handleOnPress={criarConta} />
+          </View>
         </ScrollView>
       </ScrollView>
     </View>

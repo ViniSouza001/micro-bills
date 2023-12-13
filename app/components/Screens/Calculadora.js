@@ -18,6 +18,8 @@ function CalculadoraScreen() {
   const calcular = () => {
     if (custoProduto == 0 || lucroDesejado == 0) {
       showFlashMessage("Preencha todos os campos", "danger");
+    } else if (isNaN(custoProduto) || isNaN(lucroDesejado)) {
+      showFlashMessage("Os campos devem ter somente números", "danger");
     } else {
       const acrescimo = custoProduto * (lucroDesejado / 100);
       setValorSugerido(Number(acrescimo) + Number(custoProduto));

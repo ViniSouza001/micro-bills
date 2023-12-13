@@ -46,16 +46,13 @@ function LoginScreen({ navigation, route }) {
     const body = { email, senha };
     setUsuarioId(null);
     try {
-      const response = await fetch(
-        "https://api-microbills.onrender.com/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch("http://192.168.1.182:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
       const data = await response.json();
       if (data.success) {

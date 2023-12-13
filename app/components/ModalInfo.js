@@ -41,7 +41,7 @@ const ModalInfo = ({ item, setModalInfo }) => {
   };
 
   const alterarDados = async () => {
-    const info = await fetch("https://api-microbills.onrender.com/alterar", {
+    const info = await fetch("http://192.168.1.182:3000/alterar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

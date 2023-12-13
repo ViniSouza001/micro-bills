@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const db = require("./sources/config/db");
+// const db = require("./sources/config/db");
+const db = "mongodb://0.0.0.0:/microbills";
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -50,11 +51,11 @@ app.use(bodyParser.json());
 // Mongoose
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(db.mongoURI, {
+  .connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log(db.msg))
+  .then(() => console.log("Banco conectado ao MongoDB"))
   .catch((error) =>
     console.log("Não foi possível conectar ao banco: " + error)
   );
@@ -62,8 +63,8 @@ mongoose
 // rotas
 app.use(router);
 app.get("/", (req, res) => {
-  res.send(db.msg);
+  res.send(db);
 });
 
-const PORT = process.env.PORT || 8089;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

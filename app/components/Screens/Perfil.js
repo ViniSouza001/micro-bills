@@ -32,16 +32,13 @@ function Perfil({ route }) {
   }, []);
 
   const infoUsuarios = async () => {
-    const response = await fetch(
-      "https://api-microbills.onrender.com/infoUsuario",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ usuarioId }),
-      }
-    );
+    const response = await fetch("http://192.168.1.182:3000/infoUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ usuarioId }),
+    });
 
     const data = await response.json();
     const { nascimento, email, nome } = data.usuario;
@@ -78,7 +75,7 @@ function Perfil({ route }) {
       novaSenha: newPassword,
     };
 
-    const response = await fetch("https://api-microbills.onrender.com/update", {
+    const response = await fetch("http://192.168.1.182:3000/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,11 +3,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 import styles from "../../stylesheets/LoginScreen.styles";
 function ButtonForm({ text, handleOnPress, isDelete }) {
   return (
-    <TouchableOpacity style={styles.button} onPress={handleOnPress}>
-      <Text style={isDelete ? styles.deleteButton : styles.txtButton}>
-        {text}
-      </Text>
-    </TouchableOpacity>
+    <View style={{ width: "80%", alignSelf: "center" }}>
+      <TouchableOpacity style={styles.button} onPress={handleOnPress}>
+        <Text style={isDelete ? styles.deleteButton : styles.txtButton}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
