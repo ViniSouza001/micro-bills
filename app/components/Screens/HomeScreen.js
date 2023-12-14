@@ -135,7 +135,7 @@ function HomeScreen({ route }) {
   };
 
   return (
-    <View style={global.escuro}>
+    <View style={temaClaro ? global.escuro : global.claro}>
       {!fetchFeito ? (
         <View style={global.loadingView}>
           <Image

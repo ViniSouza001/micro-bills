@@ -227,26 +227,6 @@ const faturamentoSemanal = async (req, res) => {
     const ultimoDiaSemana = new Date(hoje);
     ultimoDiaSemana.setDate(hoje.getDate() + (6 - hoje.getDay() + 1));
 
-    // tentar arrumar
-    // const primeiroDia = new Date(
-    //   hoje.getFullYear(),
-    //   hoje.getMonth(),
-    //   6 - hoje.getDay(),
-    //   0,
-    //   0,
-    //   0
-    // );
-
-    // // Último dia da semana (sábado)
-    // const ultimoDia = new Date(
-    //   hoje.getFullYear(),
-    //   hoje.getMonth(),
-    //   hoje.getDate() + (6 - hoje.getDay()),
-    //   23,
-    //   59,
-    //   59
-    // );
-
     const transacoes = await Transacao.find({
       usuarioId: usuarioId,
       tipo: "Venda",

@@ -76,11 +76,13 @@ function Transacoes({ route }) {
   };
 
   useEffect(() => {
-    if (!showModalInfo) {
+    if (showModalInfo) {
+      return;
+    } else {
       fetchValores();
       fetchTransacoes();
     }
-  }, [mesAtual, modalVisible, showModalInfo]);
+  }, [mesAtual, modalVisible, !showModalInfo]);
 
   const openModalInfo = (item) => {
     setShowModalInfo(true);
@@ -242,7 +244,10 @@ function Transacoes({ route }) {
       )}
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => setModalVisible((state) => !state)}>
-          <Image source={require("../../assets/images/add.png")} />
+          <Image
+            style={{ width: 55, height: 55 }}
+            source={require("../../assets/images/add.png")}
+          />
         </TouchableOpacity>
       </View>
       {modalVisible && (
