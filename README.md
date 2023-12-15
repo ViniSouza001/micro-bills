@@ -1,31 +1,79 @@
-# micro-bills
+# Micro Bills
 
-- Antes de realizar qualquer alteração:
+## Dependências básicas necessárias
 
-  ```shell
-  git pull
-  ```
+- Node.js (https://nodejs.org/en/);
+- Expo;
+- MongoDB
 
-- Depois de realizar alterações
-  ```shell
-  git add .
-  git commit -m "mensagemDeAlteracao"
-  git push
-  ```
+## Como instalar o MongoDB
 
-## Resumo
+- Baixar o instalador do MongoDB community server (https://www.mongodb.com/try/download/community);
+- Executar o instalador e finalizar o download;
+- Após instalado, abrir o explorer e seguir o caminho:
+- Este Computador > Windows (C:) > Arquivos de Programas > MongoDB > Server > 6.0 (ou o número da sua versão) > bin;
+- Copiar o caminho no topo do explorer, depois clicar com o botão direito em "Este computador" e escolher "Propriedades";
+- Nas configurações, clicar em "Configurações avançadas do sistema";
+- Ir janela aberta, escolher a aba "Avançado", e clicar em "Variáveis de Ambiente..."
+- Em "Variáveis do sistema", clicar na linha escrita "Path" e no botão "Editar..."
+- Clique em "Novo", após, cole o caminho copiado da pasta "bin" do MondoDB;
+- Estes passos são de extrema importância para o seu backend conseguir reconhecer o banco de dados local para testes;
 
-- O objetivo deste aplicativo seria abraçar todos os usuários nos quais tem micro (pequenas) empresas, e ele teria a função de auxiliar os usuários com seus gastos e calcularia o quanto o usuário teria que ganhar de lucro a partir da porcentagem que o mesmo digitaria no aplicativo.
-- O app poderia armazenar em um banco de dados todos os gastos anotados pelo usuário, dessa forma, podemos desenvolver uma função para realizar cálculos de média em períodos de tempo diário, semanal, mensal e anual (e talvez semestral), além do aplicativo poder criar gráficos (de setores por exemplo) para o usuário poder interagir com algo mais visual, limpo e fácil para comparar seus gastos e ganhos.
+## Rodar o back-end
 
-## Funções
+- Entrar na pasta backend com um terminal (sugerido cmd);
+- Rodar o seguinte comando:
 
-- <u>Login e cadastro de contas: </u>
-- <u>CRUD de gastos, contas e recebimentos: </u>
-- <u>Integração com backend e banco de dados: </u>
-
-## Link do Figma
-
+```shell
+npm install
 ```
-https://www.figma.com/file/6MudchddKZetkVHfQNTgXu/App-Controle?type=design&node-id=0%3A1&mode=design&t=GBk9xeM3aqukigMP-1
+
+- Após finalizar todo o processo de instalação, tente rodar o servidor digitando:
+
+```shell
+npm start
 ```
+
+<p>ou...</p>
+
+```shell
+nodemon
+```
+
+- Para instalar o nodemon:
+
+```shell
+npm install -g nodemon
+```
+
+- Após isso, fechar o prompt de comando e abrir novamente na pasta;
+
+- Caso apareça a mensagem "Servidor rodando na porta ${n° da porta}", o servidor está rodando
+- Caso apareça a mensagem "Banco conectado ao MongoDB", o banco está conectado com o servidor local;
+
+## Para rodar o Aplicativo
+
+- Entrar na pasta "app" com algum prompt;
+- Executar o comando:
+
+```shell
+npm install
+```
+
+- Para conseguir rodar, teremos que instalar o expo-CLI, então execute o comando:
+
+```shell
+npm install --global expo-CLI
+```
+
+- Após o processo de instalação, execute o comando:
+
+```shell
+npx expo start
+```
+
+- Caso não dê certo, tente fechar e abrir o prompt novamente;
+
+## OBS:
+
+- Sugerimos rodar o aplicativo em um emulador Android (como o Android Studio) ou instalar o aplicativo "Expo Go" no celular e realizar os testes por ele, pois a experiência será melhor, e eles possuem diversos recursos que os navegadores não terão;
